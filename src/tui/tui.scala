@@ -8,12 +8,7 @@ import scala.io.StdIn.readLine
 //These functions here are more related to printing, colors, clearing, etc
 //For reading user input, check out userinput.scala
 
-// def clear() = { //test windows support
-//   if File("C:").isDirectory == false then
-//     List[String]("clear").!
-//   else
-//     List[String]("cmd", "/c", "cls").!
-// }
+//Note: on Windows, the default terminal that is used with powershell does not support ANSI, so colors will not work, clearing, etc
 
 def spawnScreen(ui: String) =
   print(s"\u001B[3J\u001B[1J\u001B[H$ui")

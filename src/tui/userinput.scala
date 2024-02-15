@@ -70,3 +70,13 @@ def readLoop_dir(txt: String): String =
   else
     pressToContinue("That is not a real path in your system!")
     readLoop_dir(txt)
+
+def readLoop_file(txt: String): String =
+  val answer = spawnAndRead(txt)
+  if File(answer).isFile() then
+    answer
+  else if answer == "" then
+    "."
+  else
+    pressToContinue("That is not a real file in your system!")
+    readLoop_dir(txt)
