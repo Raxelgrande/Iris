@@ -36,7 +36,7 @@ def spawnAndRead(message: String): String = readUserInput(s"\u001B[3J\u001B[1J\u
 
 def pressToContinue(message: String = ""): String = readUserInput(message + "\n\nPress enter to continue")
 
-def getList(l: List[String], txt: String = s"Choose an entry\n\n${green}${0}:${default} Exit\n\n", i: Int = 0): String =
+def getList(l: List[String], txt: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n", i: Int = 0): String =
   if i >= l.length then
     txt
   else
@@ -50,7 +50,7 @@ def readLoop(txt: String, maxval: Int): Int =
   else
     readLoop(txt, maxval)
 
-def readLoop_list(l: List[String], title: String = s"Choose an entry\n\n${green}${0}:${default} Exit\n\n"): Int =
+def readLoop_list(l: List[String], title: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n"): Int =
   val txt_list = getList(l, title)
   readLoop(txt_list, l.length)
 
