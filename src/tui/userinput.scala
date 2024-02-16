@@ -13,7 +13,7 @@ def askPrompt(ui: String, clear: Boolean = true): Boolean =
   val default = foreground("default")
   val answer =
     if clear then
-      spawnAndRead(s"$ui ${yellow}(y/n)$default\n").toLowerCase
+      spawnAndRead(s"\u001B[3J\u001B[1J\u001B[H$ui ${yellow}(y/n)$default\n").toLowerCase
     else
       readUserInput(s"$ui ${yellow}(y/n)$default\n").toLowerCase
   if answer == "yes" || answer == "y" then
