@@ -6,7 +6,7 @@ def getPackageManager(): String =
   def findDistro(distro: String, l: Seq[String], i: Int = 0): Int = // l = list. i = iterator
     if i >= l.length then
       -1 //convenient way to tell its an "unknown" distro
-    else if l(i) == distro then
+    else if distro.contains(l(i)) then
       i
     else findDistro(distro, l, i+1)
 
