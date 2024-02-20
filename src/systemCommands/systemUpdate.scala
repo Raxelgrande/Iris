@@ -2,6 +2,7 @@ package iris.sysUpdate
 
 import iris.distroFinder.getPackageManager
 import scala.sys.process._
+import iris.tui.pressToContinue
 
 def sysUpdate() = 
   getPackageManager() match
