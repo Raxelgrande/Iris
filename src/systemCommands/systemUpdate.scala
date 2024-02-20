@@ -13,7 +13,8 @@ def sysUpdate() =
     case "nix" => nixUpdate()
     case _ => unknownSystem()
    
-    
+//maybe its better to run without sudo, and detect first if iris is being run as root
+
 def pacUpdate() = List("sudo", "pacman", "-Syu", "--noconfirm").run
     
 def aptUpdate() = 
@@ -30,4 +31,4 @@ def unknownSystem() = //remember to change the text based on what is supposed fo
   pressToContinue(
     "Iris could not recognise your system or the package manager it uses"
     + "\nPlease update your system before installing the required packages"
-    )
+  )
