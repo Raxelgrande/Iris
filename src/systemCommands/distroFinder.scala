@@ -3,6 +3,9 @@ package iris.distroFinder
 import scala.sys.process._
 import scala.io.Source
 import java.io.File
+import iris.tui._
+import iris.sysUpdate._
+
 
 def getPackageManager(): String =
   def findDistro(distro: String, l: Seq[String], i: Int = 0): Int = // l = list. i = iterator
@@ -29,3 +32,12 @@ def getPackageManager(): String =
     if i != -1 then pacmans(i) //returns the package manager of the user's distro finally
     else "" //error handling, this means "unknown" distro
   
+def aptWho() =
+  val ubCheck = askPrompt("Are you on Ubuntu or a derivative (like Pop!_OS)?")
+  if ubCheck == true then
+    pressToContinue("We will install the Papirus PPA to install a working version of Kvantum, a key component of Iris.\nYou can find the reason of this choice at IRIS-DOCS-LINK")
+    kvantumUbuntu()
+
+  else if ubCheck == false then
+    pressToContinue("We will install The Papirus Repository to install a working version of Kvantum, a key component of Iris.\nYou can find the reason of this choice at IRIS-DOCS-LINK")
+    kvantumDebian()
