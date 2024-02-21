@@ -37,7 +37,6 @@ def aptWho() =
   if ubCheck == true then
     pressToContinue("We will install the Papirus PPA to install a working version of Kvantum, a key component of Iris.\nYou can find the reason of this choice at IRIS-DOCS-LINK")
     kvantumUbuntu()
-
-  else if ubCheck == false then
+  else
     pressToContinue("We will install The Papirus Repository to install a working version of Kvantum, a key component of Iris.\nYou can find the reason of this choice at IRIS-DOCS-LINK")
     kvantumDebian()
