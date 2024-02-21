@@ -10,7 +10,7 @@ We use a simple to use and configure TUI interface that will set up everything f
 - Automatization and configuration files to save your settings (TODO)
 - Set and view list of available GTK3/4 Themes (TODO)
 - Set Libadwaita theme (TODO)
-- Set Desktop Environment theme (all mayor DEs supported) (TODO)
+- Set Desktop Environment theme (all major/mainstream DEs supported) (TODO)
 - Set Kvantum theme for QT programs (TODO)
 - Flatpak support for GTK3/4, Libadwaita and Kvantum (TODO)
 - Set Icon theme (TODO)
