@@ -20,7 +20,7 @@ We use a simple to use and configure TUI interface that will set up everything f
 Iris requires the following to work:
 - Scala 3 or Java 8
 - Linux-based system
-- systemD (for distro detection)
+- Systemd (optional, for distro detection)
 
 # Download
 TODO
