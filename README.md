@@ -15,19 +15,22 @@ We use a simple to use and configure TUI interface that will set up everything f
 - Flatpak support for GTK3/4, Libadwaita and Kvantum (TODO)
 - Set Icon theme (TODO)
 - Set Cursor theme (TODO)
+
 # Requirements & how to use
 Iris requires the following to work:
 - Scala 3 or Java 8
-- Linux OS
-- systemD
+- Linux-based system
+- systemD (for distro detection)
+
 # Download
 TODO
+
 # Compile from source
 You need Scala 3 to build Iris from source. You can use the scalac compiler or scala-cli.
 
 You can compile Iris directly with scalac this way:
 ```
-scalac src/*.scala src/*/*.scala src/*/*/*.scala -d iris.jar
+scalac src/*.scala src/*/*.scala -d iris.jar
 ```
 This JAR can be launched with scala or scala-cli
 
