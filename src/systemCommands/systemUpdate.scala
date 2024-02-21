@@ -3,6 +3,7 @@ package iris.sysUpdate
 import iris.distroFinder.getPackageManager
 import scala.sys.process._
 import iris.tui.pressToContinue
+import java.io.FileOutputStream
 
 def sysUpdate() = 
   getPackageManager() match
@@ -41,8 +42,17 @@ def kvantumUbuntu() =
 
 def kvantumDebian() =
   println("Currently not supported")
-  //"""sudo sh -c "echo 'deb http://ppa.launchpad.net/papirus/papirus/ubuntu jammy main' > /etc/apt/sources.list.d/papirus-ppa.list""".!<
-  //"""sudo wget -qO /etc/apt/trusted.gpg.d/papirus-ppa.asc 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9461999446FAF0DF770BFC9AE58A9D36647CAE7F'""".!<
+  writePapirusPPA()
+  """sudo wget -qO /etc/apt/trusted.gpg.d/papirus-ppa.asc 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9461999446FAF0DF770BFC9AE58A9D36647CAE7F'""".!<
   aptUpdate()
+  List("sudo", "apt", "install", "qt5ct", "qt6ct", "qt5-style-kvantum", "qt6-style-kvantum", "-y").!<
 
+
+def writePapirusPPA() =
+  val repo = "deb http://ppa.launchpad.net/papirus/papirus/ubuntu jammy main".getBytes()
+  //gives you an Array[Byte], needed for writing
+  val repolist = FileOutputStream("/etc/apt/sources.list.d/papirus-ppa.list", true)
+  repolist.write(repo)
+  repolist.close()
+  //true is important, it sets append to true so you dont overwrite the file
 
