@@ -41,7 +41,6 @@ def kvantumUbuntu() =
 
 
 def kvantumDebian() =
-  println("Currently not supported")
   writePapirusPPA()
   """wget -qO /etc/apt/trusted.gpg.d/papirus-ppa.asc 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9461999446FAF0DF770BFC9AE58A9D36647CAE7F'""".!<
   aptUpdate()
