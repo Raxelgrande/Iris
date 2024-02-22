@@ -121,7 +121,3 @@ def nixFlatpak() = //needs testing, finishing and improvements
   val newconf = addPkg(nixconf).getBytes()
   File(confpath).renameTo(File(s"$confpath.bak"))
   FileOutputStream(confpath).write(newconf)
-
-
-
-
