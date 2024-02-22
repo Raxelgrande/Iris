@@ -63,7 +63,7 @@ def kvantumDebian() =
 
 
 def writePapirusPPA() =
-  val repo = "deb http://ppa.launchpad.net/papirus/papirus/ubuntu jammy main".getBytes()
+  val repo = "\ndeb http://ppa.launchpad.net/papirus/papirus/ubuntu jammy main".getBytes()
   val repolist = FileOutputStream("/etc/apt/sources.list.d/papirus-ppa.list", true)
   repolist.write(repo)
   repolist.close()
