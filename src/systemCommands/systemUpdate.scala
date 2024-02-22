@@ -22,7 +22,7 @@ def installKvantumFlatpak() =
       case "dnf" => dnfFlatpak()
       case "zypper" => zypperFlatpak()
       case "nix" => nixFlatpak()
-      case _ => println("unknown system") //remember to add something here
+      case _ => unknownSystem("Flatpak")
     kvantumFlatpak() //now that flatpak is (probably) installed, run again
 
 def pacUpdate() = List("pacman", "-Syu", "--noconfirm").!<
@@ -37,11 +37,15 @@ def zypperUpdate() = List("zypper", "dup", "-y").!<
 
 def nixUpdate() = List("nixos-rebuild", "switch", "--upgrade").!<
 
-def unknownSystem() = //remember to change the text based on what is supposed for the person to do next
-  pressToContinue(
-    "Iris could not recognise your system or the package manager it uses"
-    + "\nPlease update your system before installing the required packages"
-  )
+def unknownSystem(pkg_name: String = "") =
+  val txt =
+    if pkg_name != "" then
+      "Iris could not recognise your system or the package manager it uses"
+      + s"\nPlease update your system before installing $pkg_name"
+    else
+      "Iris could not recognise your system or the package manager it uses"
+      + "\nPlease update your system before installing the required packages"
+  pressToContinue(txt)
 
 def kvantumUbuntu() =
   List("add-apt-repository", "ppa:papirus/papirus", "-y").!<
