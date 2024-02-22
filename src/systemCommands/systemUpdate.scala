@@ -23,7 +23,6 @@ def installKvantumFlatpak() =
       case "zypper" => zypperFlatpak()
       case "nix" => nixFlatpak()
       case _ => unknownSystem("Flatpak")
-    kvantumFlatpak() //now that flatpak is (probably) installed, run again
 
 def pacUpdate() = List("pacman", "-Syu", "--noconfirm").!<
     
