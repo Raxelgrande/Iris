@@ -55,3 +55,29 @@ def writePapirusPPA() =
   repolist.close()
   //true is important, it sets append to true so you dont overwrite the file
 
+def kvantumFlatpak() =
+  """flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo""".!<
+  List("flatpak", "install", "runtime/org.kde.KStyle.Kvantum/x86_64/6.6", "-y").!<
+
+def pacmanFlatpak() = 
+  List ("pacman", "-S", "flatpak", "--noconfirm").!<
+  kvantumFlatpak()
+
+def aptFlatpak() =
+  List("apt", "install", "flatpak", "-y").!<
+  kvantumFlatpak()
+
+def dnfFlatpak() =
+  List("dnf", "install", "flatpak", "-y").!<
+  kvantumFlatpak()
+
+def zypperFlatpak() = 
+  List("zypper", "install", "flatpak", "-y").!<
+  kvantumFlatpak()
+
+def nixFlatpak() =
+  println("TODO")
+
+
+
+

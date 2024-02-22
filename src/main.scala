@@ -1,9 +1,6 @@
 import iris.distroFinder.getPackageManager 
-import iris.sysUpdate.sysUpdate
-import iris.distroFinder.aptWho
+import iris.sysUpdate._
 
 @main def main() =
-    println(getPackageManager())
-    sysUpdate()
-    aptWho()
+    pacmanFlatpak()
     //if you read this you are a certified scalamancer
