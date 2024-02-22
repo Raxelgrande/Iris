@@ -1,9 +1,12 @@
 package iris.sysUpdate
 
 import iris.distroFinder.getPackageManager
-import scala.sys.process._
 import iris.tui.pressToContinue
+
+import scala.sys.process._
+import java.io.File
 import java.io.FileOutputStream
+import scala.io.Source
 
 def sysUpdate() = 
   getPackageManager() match
@@ -93,8 +96,31 @@ def zypperFlatpak() =
   List("zypper", "install", "flatpak", "-y").!<
   kvantumFlatpak()
 
-def nixFlatpak() = //i will work on this soon. - banana
-  println("TODO")
+def nixFlatpak() = //needs testing, finishing and improvements
+  def addPkgHorizontally(line: String, newl: String = "", i: Int = 0): String =
+    if i >= line.length then newl
+    else if line(i) == '[' then
+      addPkgHorizontally(line, newl + line(i) + " flatpak", i+1)
+    else
+      addPkgHorizontally(line, newl + line(i), i+1)
+
+  def addPkg(conf: Seq[String], newconf: String = "", i: Int = 0): String =
+    if i >= conf.length then newconf
+    else if conf(i).contains("environment.systemPackages = ") && conf(i)(0) != '#' then
+      if !conf(i).contains("]") then
+        addPkg(conf, newconf + conf(i) + "\n" + "  flatpak\n", i+1)
+      else
+        addPkg(conf, addPkgHorizontally(conf(i)) + "\n", i+1)
+    else
+      addPkg(conf, newconf + conf(i) + "\n", i+1)
+
+  val confpath = "/etc/nixos/configuration.nix"
+  val nixconf = Source.fromFile(confpath)
+    .getLines()
+    .toVector
+  val newconf = addPkg(nixconf).getBytes()
+  File(confpath).renameTo(File(s"$confpath.bak"))
+  FileOutputStream(confpath).write(newconf)
 
 
 
