@@ -24,6 +24,19 @@ def writePapirusPPA() =
   repolist.write(repo)
   repolist.close()
 
+def etcEnvironment = FileOutputStream("/etc/environment", true)
+
+def writeQtPlatform() =
+    val qtPlatform = "QT_QPA_PLATFORMTHEME=qt5ct".getBytes()
+    etcEnvironment.write(qtPlatform)
+    etcEnvironment.close()
+
+def writeQtForceX11() = //for advanced settings, in cases were wayland QT has issues
+    val qtX11 = "QT_QPA_PLATFORM=xcb".getBytes()
+    etcEnvironment.write(qtX11)
+    etcEnvironment.close()
+
+
 //if flatpak isnt installed, the program will crash
 //try catch prevents this and also lets us know if flatpak is installed in the system
 //if flatpak is installed, we dont need to go through the native package manager to get it
@@ -59,6 +72,9 @@ def nixFlatpak() = //needs testing, finishing and improvements
       addPkgHorizontally(line, newl + line(i) + " flatpak", i+1)
     else
       addPkgHorizontally(line, newl + line(i), i+1)
+
+def nixQtEnvironment() = 
+    println("TODO")
 
   def addPkg(conf: Seq[String], newconf: String = "", i: Int = 0): String =
     if i >= conf.length then newconf
