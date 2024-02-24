@@ -72,9 +72,7 @@ def nixFlatpak() = //needs testing, finishing and improvements
       addPkgHorizontally(line, newl + line(i) + " flatpak", i+1)
     else
       addPkgHorizontally(line, newl + line(i), i+1)
-
-def nixQtEnvironment() = 
-    println("TODO")
+      
 
   def addPkg(conf: Seq[String], newconf: String = "", i: Int = 0): String =
     if i >= conf.length then newconf
