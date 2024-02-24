@@ -2,6 +2,7 @@ package iris.sysUpdate
 
 import iris.distroFinder.getPackageManager
 import iris.tui.pressToContinue
+import iris.dependencyInstall._
 import scala.sys.process._
 
 
