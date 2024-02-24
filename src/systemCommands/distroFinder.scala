@@ -5,6 +5,7 @@ import scala.io.Source
 import java.io.File
 import iris.tui._
 import iris.sysUpdate._
+import iris.dependencyInstall._
 
 
 def getPackageManager(): String =
