@@ -8,7 +8,7 @@ import scala.io.StdIn.readLine
 //Some of these functions also clear the terminal, such as spawnAndRead()
 //The "loop" functions are good for when you only want to proceed once the user specifies a correct answer
 
-def askPrompt(ui: String, clear: Boolean = true): Boolean =
+def askPrompt(ui: String, clear: Boolean = true): Boolean = // User input for a Yes/No question
   val yellow = foreground("yellow")
   val default = foreground("default")
   val answer =
@@ -32,7 +32,7 @@ def readUserInput(message: String = ""): String =
     println(message)
   readLine()
 
-def spawnAndRead(message: String): String = readUserInput(s"\u001B[3J\u001B[1J\u001B[H$message")
+def spawnAndRead(message: String): String = readUserInput(s"\u001B[3J\u001B[1J\u001B[H$message") // Clears the screen and readUserInput
 
 def pressToContinue(message: String = ""): String = readUserInput(message + "\n\nPress enter to continue")
 

@@ -10,10 +10,10 @@ import scala.io.StdIn.readLine
 
 //Note: on Windows, the default terminal that is used with powershell does not support ANSI, so colors will not work, clearing, etc
 
-def spawnScreen(ui: String) =
+def spawnScreen(ui: String) = // Clears the screen and prints a text
   print(s"\u001B[3J\u001B[1J\u001B[H$ui")
 
-def clear() = print("\u001B[3J\u001B[1J\u001B[H")
+def clear() = print("\u001B[3J\u001B[1J\u001B[H") // Clears the screen
 
 def saveScreen() = print("\u001B[?47h")
 
@@ -27,7 +27,7 @@ def moveCursor(mode: String, lines: Int) =
 
 def clearBelowCursor(lines: Int) = print(s"\u001B[${lines}A\u001B[0K")
 
-def printStatus(msg: String, isError: Boolean = true) =
+def printStatus(msg: String, isError: Boolean = true) = // Error handling
   val default = foreground("default")
   if isError then
     val red = foreground("red")
