@@ -38,4 +38,15 @@ def xfceSetGtk() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", sel
 def xfceSetIcon() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", selIconTheme()).!!
 def xfceSetCursor() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", selCursorTheme()).!!
 
-// 
+// MATE theme checking
+def mateCheckGtk() = List("dconf", "read", "/org/mate/desktop/interface/gtk-theme").!!
+def mateCheckMarco() = List("dconf", "read", "/org/mate/marco/general/theme").!!
+def mateCheckIcon() = List("dconf", "read", "/org/mate/desktop/interface/icon-theme").!!
+def mateCheckCursor() = List("dconf", "read", "/org/mate/desktop/peripherals/mouse/cursor-theme").!!
+
+//MATE set a theme
+def mateSetGtk() = List("dconf", "write", "/org/mate/desktop/interface/gtk-theme", s"'${selGtkTheme()}'").!!
+def mateSetMarco() = List("dconf", "write", "/org/mate/marco/general/theme", s"'${selGtkTheme()}'").!!
+def mateSetIcon() = List("dconf", "write", "/org/mate/desktop/interface/icon-theme", s"'${selIconTheme()}'").!!
+def mateSetCursor() = List("dconf", "write", "/org/mate/desktop/peripherals/mouse/cursor-theme", s"'${selCursorTheme()}'").!!
+
