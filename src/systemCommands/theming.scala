@@ -28,3 +28,14 @@ def cinnamonSetIcon() = List("gsetitngs", "set", "org.cinnamon.desktop.interface
 def cinnamonSetCursor() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "cursor-theme", selCursorTheme()).!!
 def cinnamonSetShell() = List("gsetitngs", "set", "org.cinnamon.theme", "name", selCinnamonTheme()).!!
 
+// XFCE theme checking
+def xfceCheckGtk() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/ThemeName").!!
+def xfceCheckIcon() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/IconThemeName").!!
+def xfceCheckCursor() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Gtk/CursorThemeName").!!
+
+// XFCE set a theme 
+def xfceSetGtk() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", selGtkTheme()).!!
+def xfceSetIcon() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", selIconTheme()).!!
+def xfceSetCursor() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", selCursorTheme()).!!
+
+// 
