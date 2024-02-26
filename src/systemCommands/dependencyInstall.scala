@@ -49,6 +49,8 @@ def kvantumFlatpak(): Boolean =
     //if that happens, this command execution will return an int that is not equal to 0
   catch case e: Exception => false
 
+def kvantumOverride() = List("flatpak", "override", "--filesystem=xdg-config/Kvantum:ro").!<
+
 def pacmanFlatpak() = 
   List ("pacman", "-S", "flatpak", "--noconfirm").!<
   kvantumFlatpak()

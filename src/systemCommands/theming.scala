@@ -50,3 +50,6 @@ def mateSetMarco() = List("dconf", "write", "/org/mate/marco/general/theme", s"'
 def mateSetIcon() = List("dconf", "write", "/org/mate/desktop/interface/icon-theme", s"'${selIconTheme()}'").!!
 def mateSetCursor() = List("dconf", "write", "/org/mate/desktop/peripherals/mouse/cursor-theme", s"'${selCursorTheme()}'").!!
 
+// Kvantum theme checking
+def kvantumCheckTheme() = read ~/.config/Kvantum/kvantum.kvconfig
+def kvantumSetTheme() = List("kvantummanager", "--set", selKvantumTheme()).!!
