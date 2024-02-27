@@ -1,5 +1,8 @@
 package iris.theming
 import scala.sys.process._
+import scala.io.Source
+import java.io._
+import iris.distroFinder._
 
 // GNOME & Budgie theme checking
 def gnBgCheckGtk() = List("gsettings", "get", "org.gnome.desktop.interface", "gtk-theme").!!
@@ -9,11 +12,11 @@ def gnBgCheckCursor() = List("gsettings", "get", "org.gnome.desktop.interface", 
 def gnomeCheckShell() = List("dconf", "read", "/org/gnome/shell/extensions/user-theme/name").!!
 
 // GNOME & Budgie set a theme
-def gnBgSetGtk() = List("gsettings", "set", "org.gnome.desktop.interface", "gtk-theme", selGtkTheme()).!!
-def gnBgSetIcon() = List("gsettings", "set", "org.gnome.desktop.interface", "icon-theme", selIconTheme()).!!
-def gnBgSetCursor() = List("gsettings", "set", "org.gnome.desktop.interface", "cursor-theme", selCursorTheme()).!!
+def gnBgSetGtk() = List("gsettings", "set", "org.gnome.desktop.interface", "gtk-theme", pickGtkTheme()).!!
+def gnBgSetIcon() = List("gsettings", "set", "org.gnome.desktop.interface", "icon-theme", pickIconTheme()).!!
+def gnBgSetCursor() = List("gsettings", "set", "org.gnome.desktop.interface", "cursor-theme", pickCursorTheme()).!!
 // GNOME Shell set a theme 
-def gnomeSetShell() = List("dconf", "write", "/org/gnome/shell/extensions/user-theme/name", s"'${selGnomeTheme()}'").!!
+def gnomeSetShell() = List("dconf", "write", "/org/gnome/shell/extensions/user-theme/name", s"'${pickGnomeTheme()}'").!!
 
 
 // Cinnamon theme checking 
@@ -23,10 +26,10 @@ def cinnamonCheckCursor() = List("gsettings", "get", "org.cinnamon.desktop.inter
 def cinnamonCheckShell() = List("gsetitngs", "get", "org.cinnamon.theme", "name").!!
 
 // Cinnamon set a theme
-def cinnamonSetGtk() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "gtk-theme", selGtkTheme()).!! 
-def cinnamonSetIcon() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "icon-theme", selIconTheme()).!!
-def cinnamonSetCursor() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "cursor-theme", selCursorTheme()).!!
-def cinnamonSetShell() = List("gsetitngs", "set", "org.cinnamon.theme", "name", selCinnamonTheme()).!!
+def cinnamonSetGtk() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "gtk-theme", pickGtkTheme()).!! 
+def cinnamonSetIcon() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "icon-theme", pickIconTheme()).!!
+def cinnamonSetCursor() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "cursor-theme", pickCursorTheme()).!!
+def cinnamonSetShell() = List("gsetitngs", "set", "org.cinnamon.theme", "name", pickCinnamonTheme()).!!
 
 // XFCE theme checking
 def xfceCheckGtk() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/ThemeName").!!
@@ -34,9 +37,9 @@ def xfceCheckIcon() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/
 def xfceCheckCursor() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Gtk/CursorThemeName").!!
 
 // XFCE set a theme 
-def xfceSetGtk() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", selGtkTheme()).!!
-def xfceSetIcon() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", selIconTheme()).!!
-def xfceSetCursor() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", selCursorTheme()).!!
+def xfceSetGtk() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", pickGtkTheme()).!!
+def xfceSetIcon() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", pickIconTheme()).!!
+def xfceSetCursor() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", pickCursorTheme()).!!
 
 // MATE theme checking
 def mateCheckGtk() = List("dconf", "read", "/org/mate/desktop/interface/gtk-theme").!!
@@ -45,11 +48,11 @@ def mateCheckIcon() = List("dconf", "read", "/org/mate/desktop/interface/icon-th
 def mateCheckCursor() = List("dconf", "read", "/org/mate/desktop/peripherals/mouse/cursor-theme").!!
 
 //MATE set a theme
-def mateSetGtk() = List("dconf", "write", "/org/mate/desktop/interface/gtk-theme", s"'${selGtkTheme()}'").!!
-def mateSetMarco() = List("dconf", "write", "/org/mate/marco/general/theme", s"'${selGtkTheme()}'").!!
-def mateSetIcon() = List("dconf", "write", "/org/mate/desktop/interface/icon-theme", s"'${selIconTheme()}'").!!
-def mateSetCursor() = List("dconf", "write", "/org/mate/desktop/peripherals/mouse/cursor-theme", s"'${selCursorTheme()}'").!!
+def mateSetGtk() = List("dconf", "write", "/org/mate/desktop/interface/gtk-theme", s"'${pickGtkTheme()}'").!!
+def mateSetMarco() = List("dconf", "write", "/org/mate/marco/general/theme", s"'${pickGtkTheme()}'").!!
+def mateSetIcon() = List("dconf", "write", "/org/mate/desktop/interface/icon-theme", s"'${pickIconTheme()}'").!!
+def mateSetCursor() = List("dconf", "write", "/org/mate/desktop/peripherals/mouse/cursor-theme", s"'${pickCursorTheme()}'").!!
 
 // Kvantum theme checking
 def kvantumCheckTheme() = read ~/.config/Kvantum/kvantum.kvconfig
-def kvantumSetTheme() = List("kvantummanager", "--set", selKvantumTheme()).!!
+def kvantumSetTheme() = List("kvantummanager", "--set", pickKvantumTheme()).!!
