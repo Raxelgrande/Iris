@@ -5,16 +5,17 @@ import java.io._
 import iris.distroFinder._
 
 // Lists ./themes , /usr/share/themes and then joins them together
-def gtkList() = 
+def gtkList(): List[String] = 
   val homeThemeLoc = getHome()+"/.themes"
   
   val userList = File(homeThemeLoc).list()
-  .filter(x => File(s"$homeThemeLoc").isDirectory()).toVector
+  .filter(x => File(s"$homeThemeLoc").isDirectory()).toList
    
    val sudoList = File("/usr/share/themes").list()
-  .filter(x => File(s"/usr/share/themes").isDirectory()).toVector
+  .filter(x => File(s"/usr/share/themes").isDirectory()).toList
 
-  val gtkList = userList +: sudoList
+  val gtkList = userList ++ sudoList
+  gtkList 
 
 
 // List ./icons
@@ -22,10 +23,10 @@ def iconList() =
   val homeIconLoc = getHome()+"/.icons"
 
   val userList = File(homeIconLoc).list()
-  .filter(x => File(s"$homeIconLoc").isDirectory()).toVector
+  .filter(x => File(s"$homeIconLoc").isDirectory()).toList
 
   val sudoList = File("/usr/share/icons").list()
-  .filter(x => File(s"/usr/share/icons").isDirectory()).toVector
+  .filter(x => File(s"/usr/share/icons").isDirectory()).toList
 
   val iconList = userList +: sudoList
 
@@ -86,10 +87,10 @@ def kvantumListThemes() =
   val homeKvantumLoc = getHome()+"/.config/Kvantum"
     
   val userKvantum = File(homeKvantumLoc).list
-  .filter(x => File(s"$homeKvantumLoc").isDirectory()).toVector
+  .filter(x => File(s"$homeKvantumLoc").isDirectory()).toList
 
   val sudoKvantum = File("/usr/share/Kvantum").list
-  .filter(x => File(s"/usr/share/Kvantum").isDirectory()).toVector
+  .filter(x => File(s"/usr/share/Kvantum").isDirectory()).toList
 
   val kvantumList = userKvantum +: sudoKvantum
 
