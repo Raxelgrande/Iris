@@ -8,13 +8,13 @@ We use a simple to use and configure TUI interface that will set up everything f
 # Features/Roadmap
 - First run interactive configurator that intelligently installs dependencies and sets up your system for theming (WIP)
 - Automatization and configuration files to save your settings (TODO)
-- Set and view list of available GTK3/4 Themes (TODO)
+- Set and view list of available GTK3/4 Themes (WIP)
 - Set Libadwaita theme (TODO)
-- Set Desktop Environment theme (all major/mainstream DEs supported) (TODO)
-- Set Kvantum theme for QT programs (TODO)
-- Flatpak support for GTK3/4, Libadwaita and Kvantum (TODO)
-- Set Icon theme (TODO)
-- Set Cursor theme (TODO)
+- Set Desktop Environment theme (all major/mainstream DEs supported) (WIP)
+- Set Kvantum theme for QT programs (WIP)
+- Flatpak support for GTK3/4, Libadwaita and Kvantum (WIP)
+- Set Icon theme (WIP)
+- Set Cursor theme (WIP)
 
 # Requirements & how to use
 Iris requires the following to work:
