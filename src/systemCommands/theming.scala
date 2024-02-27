@@ -4,6 +4,33 @@ import scala.io.Source
 import java.io._
 import iris.distroFinder._
 
+// Lists ./themes , /usr/share/themes and then joins them together
+def gtkList() = 
+  val homeThemeLoc = getHome()+"/.themes"
+  
+  val userList = File(homeThemeLoc).list()
+  .filter(x => File(s"$homeThemeLoc").isDirectory()).toVector
+   
+   val sudoList = File("/usr/share/themes").list()
+  .filter(x => File(s"/usr/share/themes").isDirectory()).toVector
+
+  val gtkList = userList +: sudoList
+
+
+// List ./icons
+def iconList() =
+  val homeIconLoc = getHome()+"/.icons"
+
+  val userList = File(homeIconLoc).list()
+  .filter(x => File(s"$homeIconLoc").isDirectory()).toVector
+
+  val sudoList = File("/usr/share/icons").list()
+  .filter(x => File(s"/usr/share/icons").isDirectory()).toVector
+
+  val iconList = userList +: sudoList
+
+
+
 // GNOME & Budgie theme checking
 def gnBgCheckGtk() = List("gsettings", "get", "org.gnome.desktop.interface", "gtk-theme").!!
 def gnBgCheckIcon() = List("gsettings", "get", "org.gnome.desktop.interface", "icon-theme").!!
@@ -54,5 +81,17 @@ def mateSetIcon() = List("dconf", "write", "/org/mate/desktop/interface/icon-the
 def mateSetCursor() = List("dconf", "write", "/org/mate/desktop/peripherals/mouse/cursor-theme", s"'${pickCursorTheme()}'").!!
 
 // Kvantum theme checking
+
+def kvantumListThemes() = 
+  val homeKvantumLoc = getHome()+"/.config/Kvantum"
+    
+  val userKvantum = File(homeKvantumLoc).list
+  .filter(x => File(s"$homeKvantumLoc").isDirectory()).toVector
+
+  val sudoKvantum = File("/usr/share/Kvantum").list
+  .filter(x => File(s"/usr/share/Kvantum").isDirectory()).toVector
+
+  val kvantumList = userKvantum +: sudoKvantum
+
 def kvantumCheckTheme() = read ~/.config/Kvantum/kvantum.kvconfig
 def kvantumSetTheme() = List("kvantummanager", "--set", pickKvantumTheme()).!!
