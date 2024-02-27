@@ -9,10 +9,10 @@ def gtkList(): List[String] =
   val homeThemeLoc = getHome()+"/.themes"
   
   val userList = File(homeThemeLoc).list()
-  .filter(x => File(s"$homeThemeLoc").isDirectory()).toList
+  .filter(x => File(s"$homeThemeLoc/$x").isDirectory()).toList
    
    val sudoList = File("/usr/share/themes").list()
-  .filter(x => File(s"/usr/share/themes").isDirectory()).toList
+  .filter(x => File(s"/usr/share/themes/$x").isDirectory()).toList
 
   val gtkList = userList ++ sudoList
   gtkList 
