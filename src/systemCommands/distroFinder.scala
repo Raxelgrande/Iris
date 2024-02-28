@@ -7,7 +7,7 @@ import iris.tui._
 import iris.sysUpdate._
 import iris.dependencyInstall._
 
-def getHome() = System.getProperty("user.dir")
+def getHome() = System.getProperty("user.home")
 
 def getPackageManager(): String =
   def findDistro(distro: String, l: Seq[String], i: Int = 0): Int = // l = list. i = iterator

@@ -6,16 +6,27 @@ import iris.distroFinder._
 
 // Lists ./themes , /usr/share/themes and then joins them together
 def gtkList(): List[String] = 
-  val homeThemeLoc = getHome()+"/.themes"
+  val homeThemeLoc = s"${getHome()}/.themes"
   
   val userList = File(homeThemeLoc).list()
-  .filter(x => File(s"$homeThemeLoc/$x").isDirectory()).toList
-   
-   val sudoList = File("/usr/share/themes").list()
-  .filter(x => File(s"/usr/share/themes/$x").isDirectory()).toList
+  val sudoList = File("/usr/share/themes").list()
 
-  val gtkList = userList ++ sudoList
-  gtkList 
+  //you cant mutate lists, else you could write the solution in a cleaner procedural way
+  //instead im un nulling this bitch
+  val ul =
+    if userList != null then
+      userList
+      .filter(x => File(s"$homeThemeLoc/$x").isDirectory())
+      .toList //todo: make a readLoop_list alternative for arrays so you avoid this slow conversion
+    else List()
+  val sl =
+    if sudoList != null then
+      sudoList
+      .filter(x => File(s"/usr/share/themes/$x").isDirectory())
+      .toList
+    else List()
+  //the tolist and filter also crash this fucker if the bitch array is null so i moved it here
+  ul ++ sl 
 
 
 // List ./icons
