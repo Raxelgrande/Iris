@@ -54,6 +54,11 @@ def readLoop_list(l: List[String], title: String = s"Choose an entry\n\n${foregr
   val txt_list = getList(l, title)
   readLoop(txt_list, l.length)
 
+def readLoop_getString(l: List[String], title: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n"): String =
+  val i = readLoop_list(l, title)
+  if i == 0 then ""
+  else l(i-1)
+
 def readLoop_int(txt: String): Int =
   val answer = answerToNumber(spawnAndRead(txt))
   if answer != -1 then
