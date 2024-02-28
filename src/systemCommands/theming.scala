@@ -7,7 +7,7 @@ import iris.themeSelector._
 
 // Lists ./themes , /usr/share/themes and then joins them together
 def gtkList(): List[String] = 
-  val homeThemeLoc = s"${getHome()}/.themes"
+  val homeThemeLoc = getHome()+"/.themes"
   
   val userList = File(homeThemeLoc).list()
   val sudoList = File("/usr/share/themes").list()
@@ -105,16 +105,24 @@ def mateSetCursor(theme: String) = List("dconf", "write", "/org/mate/desktop/per
 
 // Kvantum theme checking
 
-def kvantumListThemes() = 
+def kvantumList() = 
   val homeKvantumLoc = getHome()+"/.config/Kvantum"
-    
-  val userKvantum = File(homeKvantumLoc).list
-  .filter(x => File(s"$homeKvantumLoc").isDirectory()).toList
+  val userKvantum = File(homeKvantumLoc).list()
+  val sudoKvantum = File("/usr/share/Kvantum").list()
 
-  val sudoKvantum = File("/usr/share/Kvantum").list
-  .filter(x => File(s"/usr/share/Kvantum").isDirectory()).toList
-
-  val kvantumList = userKvantum +: sudoKvantum
+  val ul = 
+    if userKvantum != null then 
+      userKvantum
+      .filter(x => File(s"$homeKvantumLoc/$x").isDirectory())
+      .toList
+    else List()
+  val sl =
+    if sudoKvantum != null then 
+      sudoKvantum
+      .filter(x => File(s"/usr/share/Kvantum").isDirectory())
+      .toList
+    else List()
+  ul ++ sl
 
 //def kvantumCheckTheme() = read ~/.config/Kvantum/kvantum.kvconfig
 //def kvantumSetTheme() = List("kvantummanager", "--set", pickKvantumTheme()).!!
