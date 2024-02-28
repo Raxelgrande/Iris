@@ -8,7 +8,7 @@ import iris.themeSelector._
 import iris.tui.*
 
 @main def main() =
-    val theme = pickGtkTheme()
-    if theme != "" then cinnamonSetGtk(theme)
+    val theme = pickIconTheme()
+    if theme != "" then cinnamonSetIcon(theme)
     else pressToContinue("No theme was selected!")
     //if you read this you are a certified scalamancer

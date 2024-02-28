@@ -33,14 +33,24 @@ def gtkList(): List[String] =
 // List ./icons
 def iconList() =
   val homeIconLoc = getHome()+"/.icons"
-
+  
   val userList = File(homeIconLoc).list()
-  .filter(x => File(s"$homeIconLoc").isDirectory()).toList
+  val sudoList = File("/usr/share/icons/").list()
 
-  val sudoList = File("/usr/share/icons").list()
-  .filter(x => File(s"/usr/share/icons").isDirectory()).toList
-
-  val iconList = userList +: sudoList
+// Same algorithm of gtkList 
+  val ul =
+    if userList != null then
+      userList
+      .filter(x => File(s"$homeIconLoc/$x").isDirectory())
+      .toList
+    else List()
+  val sl =
+    if sudoList != null then 
+      sudoList
+      .filter(x => File(s"/usr/share/icons/$x").isDirectory())
+      .toList
+    else List()
+  ul ++ sl
 
 
 
@@ -53,23 +63,23 @@ def gnomeCheckShell() = List("dconf", "read", "/org/gnome/shell/extensions/user-
 
 // GNOME & Budgie set a theme
 def gnBgSetGtk(theme: String) = List("gsettings", "set", "org.gnome.desktop.interface", "gtk-theme", theme).!!
-//def gnBgSetIcon() = List("gsettings", "set", "org.gnome.desktop.interface", "icon-theme", pickIconTheme()).!!
-//def gnBgSetCursor() = List("gsettings", "set", "org.gnome.desktop.interface", "cursor-theme", pickCursorTheme()).!!
+def gnBgSetIcon(theme: String) = List("gsettings", "set", "org.gnome.desktop.interface", "icon-theme", theme).!!
+def gnBgSetCursor(theme: String) = List("gsettings", "set", "org.gnome.desktop.interface", "cursor-theme", theme).!!
 // GNOME Shell set a theme 
-//def gnomeSetShell() = List("dconf", "write", "/org/gnome/shell/extensions/user-theme/name", s"'${pickGnomeTheme()}'").!!
+def gnomeSetShell(theme: String) = List("dconf", "write", "/org/gnome/shell/extensions/user-theme/name", s"'$theme'").!!
 
 
 // Cinnamon theme checking 
 def cinnamonCheckGtk() = List("gsettings", "get", "org.cinnamon.desktop.interface", "gtk-theme").!!
 def cinnamonCheckIcon() = List("gsettings", "get", "org.cinnamon.desktop.interface", "icon-theme").!!
 def cinnamonCheckCursor() = List("gsettings", "get", "org.cinnamon.desktop.interface", "cursor-theme").!!
-def cinnamonCheckShell() = List("gsetitngs", "get", "org.cinnamon.theme", "name").!!
+def cinnamonCheckShell() = List("gsettings", "get", "org.cinnamon.theme", "name").!!
 
 // Cinnamon set a theme
-def cinnamonSetGtk(theme: String) = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "gtk-theme", theme).!! 
-//def cinnamonSetIcon() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "icon-theme", pickIconTheme()).!!
-//def cinnamonSetCursor() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "cursor-theme", pickCursorTheme()).!!
-//def cinnamonSetShell() = List("gsetitngs", "set", "org.cinnamon.theme", "name", pickCinnamonTheme()).!!
+def cinnamonSetGtk(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "gtk-theme", theme).!! 
+def cinnamonSetIcon(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "icon-theme", theme).!!
+def cinnamonSetCursor(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "cursor-theme", theme).!!
+def cinnamonSetShell(theme: String) = List("gsettings", "set", "org.cinnamon.theme", "name", theme).!!
 
 // XFCE theme checking
 def xfceCheckGtk() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/ThemeName").!!
@@ -77,9 +87,9 @@ def xfceCheckIcon() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/
 def xfceCheckCursor() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Gtk/CursorThemeName").!!
 
 // XFCE set a theme 
-//def xfceSetGtk() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", pickGtkTheme()).!!
-//def xfceSetIcon() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", pickIconTheme()).!!
-//def xfceSetCursor() = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", pickCursorTheme()).!!
+def xfceSetGtk(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", theme).!!
+def xfceSetIcon(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", theme).!!
+def xfceSetCursor(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "-s", theme).!!
 
 // MATE theme checking
 def mateCheckGtk() = List("dconf", "read", "/org/mate/desktop/interface/gtk-theme").!!
@@ -88,10 +98,10 @@ def mateCheckIcon() = List("dconf", "read", "/org/mate/desktop/interface/icon-th
 def mateCheckCursor() = List("dconf", "read", "/org/mate/desktop/peripherals/mouse/cursor-theme").!!
 
 //MATE set a theme
-//def mateSetGtk() = List("dconf", "write", "/org/mate/desktop/interface/gtk-theme", s"'${pickGtkTheme()}'").!!
-//def mateSetMarco() = List("dconf", "write", "/org/mate/marco/general/theme", s"'${pickGtkTheme()}'").!!
-//def mateSetIcon() = List("dconf", "write", "/org/mate/desktop/interface/icon-theme", s"'${pickIconTheme()}'").!!
-//def mateSetCursor() = List("dconf", "write", "/org/mate/desktop/peripherals/mouse/cursor-theme", s"'${pickCursorTheme()}'").!!
+def mateSetGtk(theme: String) = List("dconf", "write", "/org/mate/desktop/interface/gtk-theme", s"'$theme'").!!
+def mateSetMarco(theme: String) = List("dconf", "write", "/org/mate/marco/general/theme", s"'$theme'").!!
+def mateSetIcon(theme: String) = List("dconf", "write", "/org/mate/desktop/interface/icon-theme", s"'$theme'").!!
+def mateSetCursor(theme: String) = List("dconf", "write", "/org/mate/desktop/peripherals/mouse/cursor-theme", s"'$theme'").!!
 
 // Kvantum theme checking
 
