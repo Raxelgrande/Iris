@@ -7,4 +7,5 @@ import iris.themeSelector._
 
 @main def main() =
     pickGtkTheme()
+    cinnamonSetGtk()
     //if you read this you are a certified scalamancer

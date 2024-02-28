@@ -3,6 +3,7 @@ import scala.sys.process._
 import scala.io.Source
 import java.io._
 import iris.distroFinder._
+import iris.themeSelector._
 
 // Lists ./themes , /usr/share/themes and then joins them together
 def gtkList(): List[String] = 
@@ -51,7 +52,7 @@ def gnBgCheckCursor() = List("gsettings", "get", "org.gnome.desktop.interface", 
 def gnomeCheckShell() = List("dconf", "read", "/org/gnome/shell/extensions/user-theme/name").!!
 
 // GNOME & Budgie set a theme
-//def gnBgSetGtk() = List("gsettings", "set", "org.gnome.desktop.interface", "gtk-theme", pickGtkTheme()).!!
+def gnBgSetGtk() = List("gsettings", "set", "org.gnome.desktop.interface", "gtk-theme", s"$pickGtkTheme()").!!
 //def gnBgSetIcon() = List("gsettings", "set", "org.gnome.desktop.interface", "icon-theme", pickIconTheme()).!!
 //def gnBgSetCursor() = List("gsettings", "set", "org.gnome.desktop.interface", "cursor-theme", pickCursorTheme()).!!
 // GNOME Shell set a theme 
@@ -65,7 +66,7 @@ def cinnamonCheckCursor() = List("gsettings", "get", "org.cinnamon.desktop.inter
 def cinnamonCheckShell() = List("gsetitngs", "get", "org.cinnamon.theme", "name").!!
 
 // Cinnamon set a theme
-//def cinnamonSetGtk() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "gtk-theme", pickGtkTheme()).!! 
+def cinnamonSetGtk() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "gtk-theme", s"$pickGtkTheme()").!! 
 //def cinnamonSetIcon() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "icon-theme", pickIconTheme()).!!
 //def cinnamonSetCursor() = List("gsetitngs", "set", "org.cinnamon.desktop.interface", "cursor-theme", pickCursorTheme()).!!
 //def cinnamonSetShell() = List("gsetitngs", "set", "org.cinnamon.theme", "name", pickCinnamonTheme()).!!

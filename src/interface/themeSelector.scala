@@ -3,4 +3,6 @@ import iris.theming._
 import iris.tui._
 
 def pickGtkTheme() = 
-    readLoop_list(gtkList())
+    val gtkPick = readLoop_getListString(gtkList())
+    if gtkPick != "" then 
+        println(gtkPick)
