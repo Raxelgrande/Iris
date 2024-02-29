@@ -8,7 +8,19 @@ import iris.themeSelector._
 import iris.tui.*
 
 @main def main() =
-    val theme = pickIconTheme()
-    if theme != "" then cinnamonSetIcon(theme)
+    val theme = pickGtkTheme()
+    if theme != "" then xfceSetGtk(theme)
     else pressToContinue("No theme was selected!")
+
+    val wm = pickGtkTheme()
+    if wm != "" then xfceSetXfwm(theme)
+    else pressToContinue("No theme was selected!")
+
+    val icons = pickIconTheme()
+    if icons != "" then xfceSetIcon(theme)
+    else pressToContinue("No theme was selected!")
+
+    val cursor = pickIconTheme()
+    if cursor != "" then xfceSetCursor(theme)
+    else pressToContinue("No theme was selected")
     //if you read this you are a certified scalamancer
