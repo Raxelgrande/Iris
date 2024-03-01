@@ -24,3 +24,4 @@ import iris.tui.*
     if cursor != "" then xfceSetCursor(theme)
     else pressToContinue("No theme was selected")
     //if you read this you are a certified scalamancer
+    
