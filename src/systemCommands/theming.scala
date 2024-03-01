@@ -53,7 +53,6 @@ def iconList() =
   ul ++ sl
 
 
-
 // GNOME & Budgie theme checking
 def gnBgCheckGtk() = List("gsettings", "get", "org.gnome.desktop.interface", "gtk-theme").!!
 def gnBgCheckIcon() = List("gsettings", "get", "org.gnome.desktop.interface", "icon-theme").!!
@@ -115,4 +114,4 @@ def kvantumList() =
   ul ++ sl
 
 //def kvantumCheckTheme() = read ~/.config/Kvantum/kvantum.kvconfig
-//def kvantumSetTheme() = List("kvantummanager", "--set", pickKvantumTheme()).!!
+def kvantumSetTheme(theme: String) = List("kvantummanager", "--set", theme).!!
