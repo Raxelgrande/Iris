@@ -13,15 +13,15 @@ import iris.tui.*
     else pressToContinue("No theme was selected!")
 
     val wm = pickGtkTheme()
-    if wm != "" then xfceSetXfwm(theme)
+    if wm != "" then xfceSetXfwm(wm)
     else pressToContinue("No theme was selected!")
 
     val icons = pickIconTheme()
-    if icons != "" then xfceSetIcon(theme)
+    if icons != "" then xfceSetIcon(icons)
     else pressToContinue("No theme was selected!")
 
     val cursor = pickIconTheme()
-    if cursor != "" then xfceSetCursor(theme)
+    if cursor != "" then xfceSetCursor(cursor)
     else pressToContinue("No theme was selected")
     //if you read this you are a certified scalamancer
     
