@@ -8,20 +8,16 @@ import iris.themeSelector._
 import iris.tui.*
 
 @main def main() =
-    val theme = pickGtkTheme()
-    if theme != "" then xfceSetGtk(theme)
+    val color = pickKdeColor()
+    if color != "" then kdeSetColorScheme(color)
     else pressToContinue("No theme was selected!")
 
-    val wm = pickGtkTheme()
-    if wm != "" then xfceSetXfwm(wm)
+    val cursor = pickKdeCursor()
+    if cursor != "" then kdeSetCursorTheme(cursor)
     else pressToContinue("No theme was selected!")
 
-    val icons = pickIconTheme()
-    if icons != "" then xfceSetIcon(icons)
+    val global = pickKdeGlobal()
+    if global != "" then kdeSetGlobalTheme(global)
     else pressToContinue("No theme was selected!")
-
-    val cursor = pickIconTheme()
-    if cursor != "" then xfceSetCursor(cursor)
-    else pressToContinue("No theme was selected")
     //if you read this you are a certified scalamancer
     

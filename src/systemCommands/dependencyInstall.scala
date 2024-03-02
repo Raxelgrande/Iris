@@ -52,7 +52,7 @@ def kvantumFlatpak(): Boolean =
 def kvantumOverride() = List("flatpak", "override", "--filesystem=xdg-config/Kvantum:ro").!<
 
 def pacmanFlatpak() = 
-  List ("pacman", "-S", "flatpak", "--noconfirm").!<
+  List("pacman", "-S", "flatpak", "--noconfirm").!<
   kvantumFlatpak()
 
 def aptFlatpak() =
