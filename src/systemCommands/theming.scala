@@ -105,15 +105,27 @@ def kdeListCursorTheme(): List[String] =
   kdeSplitCursorTheme
 
 def kdeListGlobalTheme(): List[String] =
-  val kdeGetGlobalTheme = List("plasma-apply-lookandfeel", "-l").!!
-  val kdeSplitGlobalTheme = kdeGetGlobalTheme.split(" ").toList
-  kdeSplitGlobalTheme
+  val globalHomeLoc = getHome()+"/.local/share/plasma/desktoptheme/"
 
-// KDE set a theme
+  val userList = File(globalHomeLoc).list()
+  val sudoList = File("/usr/share/plasma/desktoptheme/")
 
-def kdeSetColorScheme(theme: String) = List("plasma-apply-colorscheme", theme).run()
-def kdeSetCursorTheme(theme: String) = List("plasma-apply-cursortheme", theme).run()
-def kdeSetGlobalTheme(theme: String) = List("plasma-apply-lookandfeel", "-a", theme).run()
+  val ul =
+    if userList != null then
+      userList
+      .filter(x => File(s"$globalHomeLoc/$x").isDirectory())
+      .toList //todo: make a readLoop_list alternative for arrays so you avoid this slow conversion
+    else List()
+  val sl =
+    if sudoList != null then
+      sudoList
+      .filter(x => File(s"/usr/share/plasma/desktoptheme/$x").isDirectory())
+      .toList
+    else List()
+  //the tolist and filter also crash this fucker if the bitch array is null so i moved it here
+  ul ++ sl 
+
+
 
 
 
