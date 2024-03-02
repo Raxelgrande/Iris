@@ -42,3 +42,5 @@ def aptWho() =
   else
     pressToContinue("We will install The Papirus Repository to install a working version of Kvantum, a key component of Iris.\nYou can find the reason of this choice at IRIS-DOCS-LINK")
     kvantumDebian()
+
+def desktopList() = List("Budgie", "Cinnamon", "GNOME", "XFCE", "Other")

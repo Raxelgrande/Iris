@@ -113,6 +113,8 @@ def kdeListGlobalTheme(): List[String] =
 def kdeSetColorScheme(theme: String) = List("plasma-apply-colorscheme", theme).run()
 def kdeSetCursorTheme(theme: String) = List("plasma-apply-cursortheme", theme).run()
 def kdeSetGlobalTheme(theme: String) = List("plasma-apply-lookandfeel", "-a", theme).run()
+
+
 // Kvantum theme checking
 
 def kvantumList() = 

@@ -8,7 +8,6 @@ import iris.themeSelector._
 import iris.tui.*
 
 @main def main() =
-    val global = pickKdeGlobal()
-    if global != "" then kdeSetGlobalTheme(global)
-    else pressToContinue("No theme was selected!")
+    selectDesktop()
+    println(selectDesktop())
     //if you read this you are a certified scalamancer
