@@ -8,6 +8,6 @@ import iris.themeSelector._
 import iris.tui.*
 
 @main def main() =
-    selectDesktop()
-    println(selectDesktop())
+    val currentDesktop = selectDesktop()
+    println(currentDesktop)
     //if you read this you are a certified scalamancer
