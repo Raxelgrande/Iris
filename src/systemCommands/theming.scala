@@ -93,6 +93,7 @@ def xfceSetIcon(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "
 def xfceSetCursor(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Gtk/CursorThemeName", "-s", theme).run()
 
 // KDE theme list
+// TODO Algorithm that gets the list without fancy stupid KDE shit
 def kdeListColorScheme(): List[String] = 
   val kdeGetColorScheme = List("plasma-apply-colorscheme", "-l").!!
   val kdeSplitColorScheme = kdeGetColorScheme.split(" ").toList
@@ -105,31 +106,13 @@ def kdeListCursorTheme(): List[String] =
   kdeSplitCursorTheme
 
 def kdeListGlobalTheme(): List[String] =
-  val globalHomeLoc = getHome()+"/.local/share/plasma/desktoptheme/"
+  val kdeGetGlobalTheme = List("plasma-apply-lookandfeel", "-l").!!
+  val kdeSplitGlobalTheme = kdeGetGlobalTheme.split(" ").toList
+  kdeSplitGlobalTheme
 
-  val userList = File(globalHomeLoc).list()
-  val sudoList = File("/usr/share/plasma/desktoptheme/").list()
-
-  val ul =
-    if userList != null then
-      userList
-      .filter(x => File(s"$globalHomeLoc/$x").isDirectory())
-      .toList //todo: make a readLoop_list alternative for arrays so you avoid this slow conversion
-    else List()
-  val sl =
-    if sudoList != null then
-      sudoList
-      .filter(x => File(s"/usr/share/plasma/desktoptheme/$x").isDirectory())
-      .toList
-    else List()
-  //the tolist and filter also crash this fucker if the bitch array is null so i moved it here
-  ul ++ sl 
-
-
-
-
-
-
+def kdeSetColorScheme(theme: String) = List("plasma-apply-colorscheme", theme).run()
+def kdeSetCursorTheme(theme: String) = List("plasma-apply-cursortheme", theme).run()
+def kdeSetGlobalTheme(theme: String) = List("plasma-apply-lookandfeel", "-a", theme).run()
 // Kvantum theme checking
 
 def kvantumList() = 
