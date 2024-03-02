@@ -108,7 +108,7 @@ def kdeListGlobalTheme(): List[String] =
   val globalHomeLoc = getHome()+"/.local/share/plasma/desktoptheme/"
 
   val userList = File(globalHomeLoc).list()
-  val sudoList = File("/usr/share/plasma/desktoptheme/")
+  val sudoList = File("/usr/share/plasma/desktoptheme/").list()
 
   val ul =
     if userList != null then
