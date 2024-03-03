@@ -87,10 +87,10 @@ def xfceCheckIcon() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/
 def xfceCheckCursor() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Gtk/CursorThemeName").!!
 
 // XFCE set a theme 
-def xfceSetGtk(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Net/ThemeName", "-s", theme).run()
-def xfceSetXfwm(theme: String) = List("xfconf-query", "-n", "-c", "xfwm4", "-p", "/general/theme", "-s", theme).run()
-def xfceSetIcon(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Net/IconThemeName", "-s", theme).run()
-def xfceSetCursor(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Gtk/CursorThemeName", "-s", theme).run()
+def xfceSetGtk(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Net/ThemeName", "-s", theme).!!
+def xfceSetXfwm(theme: String) = List("xfconf-query", "-n", "-c", "xfwm4", "-p", "/general/theme", "-s", theme).!!
+def xfceSetIcon(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Net/IconThemeName", "-s", theme).!!
+def xfceSetCursor(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Gtk/CursorThemeName", "-s", theme).!!
 
 // KDE theme list
 // TODO Algorithm that gets the list without fancy stupid KDE shit
@@ -136,5 +136,6 @@ def kvantumList() =
     else List()
   ul ++ sl
 
-//def kvantumCheckTheme() = read ~/.config/Kvantum/kvantum.kvconfig
 def kvantumSetTheme(theme: String) = List("kvantummanager", "--set", theme).!!
+
+ 
