@@ -5,7 +5,7 @@ import scala.io.Source
 import iris.distroFinder._
 
 
-def listConfigs(): List[String] = 
+def listOfConfigs(): List[String] = 
   val irisConfLoc = getHome()+"/.config/Iris/"
   
   val irisConfList = File(irisConfLoc).list()
@@ -13,8 +13,15 @@ def listConfigs(): List[String] =
     irisConfList.toList
     else List()
 
-def searchFirstRun() = //TODO iterate using filenames to search for firstrun=true
-  for (filename <- listConfigs())
+def linesOfAllConfigs() = 
+  for (filename <- listOfConfigs()) do 
+    Source.fromFile(getHome()+"/.config/Iris/"+filename)
+    .getLines()
+    .toList
+  
+
+    
+
     
 
     
