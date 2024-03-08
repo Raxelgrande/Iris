@@ -1,5 +1,5 @@
 # Iris Scala
-Dropped project in favor of a Go rewrite, take this Scala code as an archive.
+Dropped project in favor of a SOMETHING rewrite, still searching the language, take this Scala code as an archive.
 
 Iris is a Linux themeing manager that facilitates OS customization, allowing a consistent look and feel of your desktop, without the hassle and experience usually needed just to change how things look.
 
