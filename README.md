@@ -1,6 +1,4 @@
-# Iris Scala
-Dropped project in favor of a SOMETHING rewrite, still searching the language, take this Scala code as an archive.
-
+# Iris
 Iris is a Linux themeing manager that facilitates OS customization, allowing a consistent look and feel of your desktop, without the hassle and experience usually needed just to change how things look.
 
 We use a simple to use and configure TUI interface that will set up everything for you, so your only worry is getting some nice themes to use.
