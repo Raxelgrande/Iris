@@ -18,7 +18,6 @@ def linesOfAllConfigs() =
     Source.fromFile(getHome()+"/.config/Iris/"+filename)
     .getLines()
     .toList
-  
 
     
 
