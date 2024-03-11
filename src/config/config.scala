@@ -26,8 +26,14 @@ def linesOfAllConfigs(): String = //temporary code to show how its working
     allLines += lines //procedural solution, alternative could be a recursive function
   allLines
 
-def selectConfiguration() = //maybe let the user select what config to read?
-  var config = readLoop_getListString(listOfConfigs())
+def selectConfiguration(config: String): String = //maybe let the user select what config to read?
+  if config != "" then
+    config
+    else 
+      var config = readLoop_getListString(listOfConfigs())
+      return config //idk why calling this on main doesn't return the value...?
+
+  
 
     
 
