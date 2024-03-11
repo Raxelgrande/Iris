@@ -20,7 +20,7 @@ def linesOfAllConfigs(): String = //temporary code to show how its working
       Source.fromFile(getHome()+"/.config/Iris/"+filename)
         .getLines()
         .toVector //fuck it
-        .map(x => s"$x\n")
+        .map(x => x + '\n')
         .mkString //without parentheses works???? looks like its a different method
     allLines += lines //procedural solution, alternative could be a recursive function
   allLines
