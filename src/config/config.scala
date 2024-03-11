@@ -13,11 +13,14 @@ def listOfConfigs(): List[String] =
     irisConfList.toList
   else List()
 
-def linesOfAllConfigs() = 
-  for (filename <- listOfConfigs()) do 
-    Source.fromFile(getHome()+"/.config/Iris/"+filename)
-    .getLines()
-    .toList
+def linesOfAllConfigs(): Unit =
+  var allLines = ""
+  for (filename <- listOfConfigs()) do
+    allLines +=
+      Source.fromFile(getHome()+"/.config/Iris/"+filename)
+        .getLines()
+        .map(x => x + "\n")
+        .mkString()
 
     
 
