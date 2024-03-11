@@ -47,7 +47,7 @@ def kvantumFlatpak(): Boolean =
     true
     //note for later: even if flatpak is installed, the command can fail
     //if that happens, this command execution will return an int that is not equal to 0
-  catch case e: Exception => false
+    catch case e: Exception => false
 
 def kvantumOverride() = List("flatpak", "override", "--filesystem=xdg-config/Kvantum:ro").!<
 
