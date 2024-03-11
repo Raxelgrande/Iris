@@ -13,14 +13,17 @@ def listOfConfigs(): List[String] =
     irisConfList.toList
   else List()
 
-def linesOfAllConfigs(): Unit =
+def linesOfAllConfigs(): String = //temporary code to show how its working
   var allLines = ""
-  for (filename <- listOfConfigs()) do
-    allLines +=
+  for filename <- listOfConfigs() do
+    val lines = 
       Source.fromFile(getHome()+"/.config/Iris/"+filename)
         .getLines()
-        .map(x => x + "\n")
-        .mkString()
+        .toVector //fuck it
+        .map(x => s"$x\n")
+        .mkString //without parentheses works???? looks like its a different method
+    allLines += lines //procedural solution, alternative could be a recursive function
+  allLines
 
     
 
