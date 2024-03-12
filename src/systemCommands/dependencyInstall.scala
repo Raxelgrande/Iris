@@ -5,9 +5,17 @@ import scala.sys.process._
 import java.io.File
 import java.io.FileOutputStream
 
+def pacDependency() = List("sudo", "pacman", "-Sy", "qt5ct", "qt6ct", "kvantum", "kvantum-qt5", "--noconfirm").!< 
+
+
+def fedDependency() = List()
+
+def zypDependency() = List("sudo", "zypper", "install", "qt5ct", "qt6ct", "kvantum-manager", "kvantum-qt5", "kvantum-qt6").!< 
+
+
 def kvantumUbuntu() =
-  List("add-apt-repository", "ppa:papirus/papirus", "-y").!<
-  List("apt", "install", "qt5ct", "qt6ct", "qt5-style-kvantum", "qt6-style-kvantum", "-y").!<
+  List("sudo", "add-apt-repository", "ppa:papirus/papirus", "-y").!<
+  List("sudo", "apt", "install", "qt5ct", "qt6ct", "qt5-style-kvantum", "qt6-style-kvantum", "-y").!<
   aptUpdate()
 
 
@@ -15,7 +23,7 @@ def kvantumDebian() =
   writePapirusPPA()
   List("wget", "-qO", "/etc/apt/trusted.gpg.d/papirus-ppa.asc", "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x9461999446FAF0DF770BFC9AE58A9D36647CAE7F").!<
   aptUpdate()
-  List("apt", "install", "qt5ct", "qt6ct", "qt5-style-kvantum", "qt6-style-kvantum", "-y").!<
+  List("sudo", "apt", "install", "qt5ct", "qt6ct", "qt5-style-kvantum", "qt6-style-kvantum", "-y").!<
 
 
 def writePapirusPPA() =
