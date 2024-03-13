@@ -14,12 +14,6 @@ def listOfConfigs(): Array[String] = //I changed to array to remove the list con
     irisConfList
   else Array()
 
-def linesOfAllConfigs(): String =
-  var allLines = ""
-  for filename <- listOfConfigs() do
-    allLines += readConfig_string(filename)
-  allLines
-
 def readConfig(filename: String): Iterator[String] =
   Source.fromFile(getHome()+"/.config/Iris/"+filename).getLines()
 

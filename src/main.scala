@@ -9,5 +9,5 @@ import iris.config._
 import iris.tui.*
 
 @main def main() =
-    firstRun()
+    println(readAllConfigs())
     //if you read this you are a certified scalamancer
