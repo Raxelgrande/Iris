@@ -50,15 +50,3 @@ def readAllConfigs(): Vector[String] = //1 whole string per config to avoid matr
 //     config
 //   else 
 //     readLoop_getListString(listOfConfigs())
-
-  
-
-    
-
-    
-    
-
-
-
-
-
