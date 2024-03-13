@@ -36,12 +36,19 @@ def spawnAndRead(message: String): String = readUserInput(s"\u001B[3J\u001B[1J\u
 
 def pressToContinue(message: String = ""): String = readUserInput(message + "\n\nPress enter to continue")
 
-def getList(l: List[String], txt: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n", i: Int = 0): String =
+def formList(l: Seq[String], txt: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n", i: Int = 0): String =
   if i >= l.length then
     txt
   else
     val line = s"${foreground("green")}${i+1}:${foreground("default")} ${l(i)}\n"
-    getList(l, txt + line, i+1)
+    formList(l, txt + line, i+1)
+
+def formList_array(l: Array[String], txt: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n", i: Int = 0): String =
+  if i >= l.length then
+    txt
+  else
+    val line = s"${foreground("green")}${i+1}:${foreground("default")} ${l(i)}\n"
+    formList_array(l, txt + line, i+1)
 
 def readLoop(txt: String, maxval: Int): Int =
   val answer = answerToNumber(spawnAndRead(txt))
@@ -50,23 +57,27 @@ def readLoop(txt: String, maxval: Int): Int =
   else
     readLoop(txt, maxval)
 
-def readLoop_list(l: List[String], title: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n"): Int =
-  val txt_list = getList(l, title)
+def chooseOption(l: Seq[String], title: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n"): Int =
+  val txt_list = formList(l, title)
   readLoop(txt_list, l.length)
 
-def readLoop_getListString(l: List[String], title: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n"): String =
-  val i = readLoop_list(l, title)
+def chooseOption_array(l: Array[String], title: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n"): Int =
+  val txt_list = formList_array(l, title)
+  readLoop(txt_list, l.length)
+
+def chooseOption_string(l: Seq[String], title: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n"): String =
+  val i = chooseOption(l, title)
   if i == 0 then ""
   else l(i-1)
 
-def readLoop_int(txt: String): Int =
+def readInt(txt: String): Int =
   val answer = answerToNumber(spawnAndRead(txt))
   if answer != -1 then
     answer
   else
-    readLoop_int(txt)
+    readInt(txt)
 
-def readLoop_dir(txt: String): String =
+def chooseOption_dir(txt: String): String =
   val answer = spawnAndRead(txt)
   if File(answer).isDirectory() then
     answer
@@ -74,9 +85,9 @@ def readLoop_dir(txt: String): String =
     "."
   else
     pressToContinue("That is not a real path in your system!")
-    readLoop_dir(txt)
+    chooseOption_dir(txt)
 
-def readLoop_file(txt: String): String =
+def chooseOption_file(txt: String): String =
   val answer = spawnAndRead(txt)
   if File(answer).isFile() then
     answer
@@ -84,4 +95,4 @@ def readLoop_file(txt: String): String =
     "."
   else
     pressToContinue("That is not a real file in your system!")
-    readLoop_dir(txt)
+    chooseOption_dir(txt)
