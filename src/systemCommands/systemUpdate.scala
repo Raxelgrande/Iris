@@ -25,17 +25,17 @@ def installKvantumFlatpak() =
       case "nix" => nixFlatpak()
       case _ => unknownSystem("Flatpak")
 
-def pacUpdate() = List("sudo", "pacman", "-Syu", "--noconfirm").!<
+def pacUpdate() = List("pacman", "-Syu", "--noconfirm").!<
     
 def aptUpdate() = 
-  List("sudo", "apt", "update", "-y").!<
-  List("sudo", "apt", "upgrade", "-y").!<
+  List("apt", "update", "-y").!<
+  List("apt", "upgrade", "-y").!<
 
-def dnfUpdate() = List("sudo", "dnf", "upgrade", "-y").!<
+def dnfUpdate() = List("dnf", "upgrade", "-y").!<
 
-def zypperUpdate() = List("sudo", "zypper", "dup", "-y").!<
+def zypperUpdate() = List("zypper", "dup", "-y").!<
 
-def nixUpdate() = List("sudo", "nixos-rebuild", "switch", "--upgrade").!<
+def nixUpdate() = List("nixos-rebuild", "switch", "--upgrade").!<
 
 def unknownSystem(pkg_name: String = "") =
   val txt =
