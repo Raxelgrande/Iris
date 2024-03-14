@@ -3,6 +3,7 @@ package iris.sysUpdate
 import iris.distroFinder.getPackageManager
 import iris.tui.pressToContinue
 import iris.dependencyInstall._
+import iris.tui._
 import scala.sys.process._
 
 
@@ -25,17 +26,26 @@ def installKvantumFlatpak() =
       case "nix" => nixFlatpak()
       case _ => unknownSystem("Flatpak")
 
-def pacUpdate() = List("pacman", "-Syu", "--noconfirm").!<
+def pacUpdate() = 
+  clearsScreen()
+  List("pacman", "-Syu", "--noconfirm").!<
     
 def aptUpdate() = 
+  clearsScreen()
   List("apt", "update", "-y").!<
   List("apt", "upgrade", "-y").!<
 
-def dnfUpdate() = List("dnf", "upgrade", "-y").!<
+def dnfUpdate() = 
+  clearsScreen()
+  List("dnf", "upgrade", "-y").!<
 
-def zypperUpdate() = List("zypper", "dup", "-y").!<
+def zypperUpdate() = 
+  clearsScreen()
+  List("zypper", "dup", "-y").!<
 
-def nixUpdate() = List("nixos-rebuild", "switch", "--upgrade").!<
+def nixUpdate() = 
+  clearsScreen()
+  List("nixos-rebuild", "switch", "--upgrade").!<
 
 def unknownSystem(pkg_name: String = "") =
   val txt =

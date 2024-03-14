@@ -12,6 +12,7 @@ def firstRun() =
   "\nPress y to continue normally." +
   "\nPress n to continue without updating.") == true then
     sysUpdate()
+    askDesktop()
   else askDesktop()
 
   
