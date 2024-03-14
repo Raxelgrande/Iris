@@ -29,6 +29,8 @@ def gtkList(): List[String] =
   //the tolist and filter also crash this fucker if the bitch array is null so i moved it here
   ul ++ sl 
 
+def libadwaitaSymlink() = 
+  println("TODO")
 
 // List ./icons
 def iconList() =
