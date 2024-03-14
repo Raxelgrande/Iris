@@ -3,6 +3,7 @@ import iris.tui._
 import iris.config._
 import iris.distroFinder._
 import iris.sysUpdate.sysUpdate
+import iris.theming._
 
 def firstRun() =
   getPackageManager()
@@ -10,8 +11,8 @@ def firstRun() =
   "\nYou can still continue setting Iris up without updating, but you risk doing a partial update that can break your system" +
   "\nPress y to continue normally." +
   "\nPress n to continue without updating.") == true then
-    sysUpdate() 
-  else println("Placeholder")
+    sysUpdate()
+  else askDesktop()
 
   
   

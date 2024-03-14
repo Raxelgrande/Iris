@@ -4,7 +4,11 @@ import scala.io.Source
 import java.io._
 import iris.distroFinder._
 import iris.themeSelector._
+import iris.tui._
 
+def askDesktop() =
+  val select = chooseOption_string(Seq("Budgie", "Cinnamon", "GNOME", "Xfce"), "What is your desktop?")
+  println(select)
 // Lists ./themes , /usr/share/themes and then joins them together
 def gtkList(): List[String] = 
   val homeThemeLoc = getHome()+"/.themes"

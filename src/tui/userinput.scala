@@ -34,6 +34,9 @@ def readUserInput(message: String = ""): String =
 
 def spawnAndRead(message: String): String = readUserInput(s"\u001B[3J\u001B[1J\u001B[H$message") // Clears the screen and readUserInput
 
+def clearsScreen()= println(s"\u001B[3J\u001B[1J\u001B[H") // Clears the screen
+
+
 def pressToContinue(message: String = ""): String = readUserInput(message + "\n\nPress enter to continue")
 
 def formList(l: Seq[String], txt: String = s"Choose an entry\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n", i: Int = 0): String =
