@@ -66,8 +66,13 @@ def gtkSudoList(): List[String] =
 
 //TEMPORARY!!! Not perfect, works only on normal user, Iris runs on SUDO.
 def libadwaitaSymlink() = //for applying a theme, not for enabling the configuration
-  def createSymlink(link: String, target: String) =
-    Files.createSymbolicLink(Path.of(link), Path.of(target))
+  def createSymlink(link: String, target: String) = //link is the symlink it creates, not target
+    val fullPath = s"$link/${File(target).getName()}"
+    val output = Path.of(fullPath)
+
+    if File(fullPath).exists() then Files.delete(output)
+    Files.createSymbolicLink(output, Path.of(target))
+
   def copyFile(in: String, out: String) =
     Files.copy(Path.of(in), Path.of(out))
 
@@ -84,11 +89,11 @@ def libadwaitaSymlink() = //for applying a theme, not for enabling the configura
   if !File(gtk4Folder).exists() then File(gtk4Folder).mkdirs()
 
   if gtkUserList().contains(activeTheme) then
-    createSymlink(userGtkAssets, gtk4Folder)
+    createSymlink(gtk4Folder, userGtkAssets)
     //List("ln", "-sf", userGtkAssets, gtk4Folder).!<
-    createSymlink(userCss, gtk4Folder)
+    createSymlink(gtk4Folder, userCss)
     //List("ln", "-sf", userCss, gtk4Folder).!<
-    createSymlink(userCssDark, gtk4Folder)
+    createSymlink(gtk4Folder, userCssDark)
     //List("ln", "-sf", userCssDark, gtk4Folder).!<
   else if File(sudoTheme).exists() then
     File(userTheme).mkdirs()
