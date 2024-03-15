@@ -12,7 +12,8 @@ def askDesktop() =
   if select == "" then println("The user cancelled!")
   else println(select)
 
-// Lists ./themes , /usr/share/themes and then joins them together
+
+// Returns every location of gtk folders as one
 def gtkList(): List[String] = 
   val homeThemeLoc = getHome()+"/.themes"
   
@@ -36,8 +37,57 @@ def gtkList(): List[String] =
   //the tolist and filter also crash this fucker if the bitch array is null so i moved it here
   ul ++ sl 
 
-def libadwaitaSymlink() = 
-  println("TODO")
+def gtkUserList(): List[String] =
+  val homeThemeLoc = getHome()+"/.themes"
+  
+  val userList = File(homeThemeLoc).list()
+
+  val ul =
+    if userList != null then
+      userList
+      .filter(x => File(s"$homeThemeLoc/$x").isDirectory())
+      .toList //todo: make a readLoop_list alternative for arrays so you avoid this slow conversion
+    else List()
+  ul
+
+def gtkSudoList(): List[String] =
+  val sudoList = File("/usr/share/themes").list()
+
+  val sl =
+    if sudoList != null then
+      sudoList
+      .filter(x => File(s"/usr/share/themes/$x").isDirectory())
+      .toList
+    else List()
+  sl
+
+//TEMPORARY!!! Not perfect, works only on normal user, Iris runs on SUDO.
+def libadwaitaSymlink() = //for applying a theme, not for enabling the configuration
+  val activeTheme = "vimix-dark-jade" //needs to get the value from reading the selected configuration file
+  val checkGtk4Folder = getHome()+"/.config/gtk-4.0/"
+  val sudoTheme = "/usr/share/themes/"+activeTheme
+  val userTheme = getHome()+"/.themes/"+activeTheme
+
+
+  val userGtkAssets = getHome()+"/.themes/"+activeTheme+"/gtk-4.0/assets/"
+  val userCss = getHome()+"/.themes/"+activeTheme+"/gtk-4.0/gtk.css"
+  val userCssDark = getHome()+"/.themes/"+activeTheme+"/gtk-4.0/gtk-dark.css"
+  
+  if checkGtk4Folder == null then
+    File(checkGtk4Folder).mkdirs()
+  else if gtkUserList().contains(activeTheme) then
+    List("ln", "-sf", userGtkAssets, checkGtk4Folder).!<
+    List("ln", "-sf", userCss, checkGtk4Folder).!<
+    List("ln", "-sf", userCssDark, checkGtk4Folder).!<
+  else if File(sudoTheme).exists() == true then
+    File(userTheme).mkdirs()
+    List("cp", "-rT", sudoTheme, userTheme).!<
+    List("ln", "-sf", userGtkAssets, checkGtk4Folder).!<
+    List("ln", "-sf", userCss, checkGtk4Folder).!<
+    List("ln", "-sf", userCssDark, checkGtk4Folder).!<
+  else 
+    println("Your selected theme is not installed in the system.")
+    System.exit(0)
 
 // List ./icons
 def iconList() =

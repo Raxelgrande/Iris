@@ -9,5 +9,5 @@ import iris.config._
 import iris.tui.*
 
 @main def main() =
-  firstRun()
+  libadwaitaSymlink()
   //if you read this you are a certified scalamancer
