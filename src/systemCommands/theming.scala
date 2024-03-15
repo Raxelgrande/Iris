@@ -1,8 +1,10 @@
 package iris.theming
+
 import scala.sys.process._
 import scala.io.Source
-import java.io._
-import java.nio.file._
+//import java.io._
+import java.nio.file.{Files, Path}, java.io.File
+
 import iris.distroFinder._
 import iris.themeSelector._
 import iris.tui._
@@ -64,8 +66,13 @@ def gtkSudoList(): List[String] =
 
 //TEMPORARY!!! Not perfect, works only on normal user, Iris runs on SUDO.
 def libadwaitaSymlink() = //for applying a theme, not for enabling the configuration
+  def createSymlink(link: String, target: String) =
+    Files.createSymbolicLink(Path.of(link), Path.of(target))
+  def copyFile(in: String, out: String) =
+    Files.copy(Path.of(in), Path.of(out))
+
   val activeTheme = "vimix-dark-jade" //needs to get the value from reading the selected configuration file
-  val checkGtk4Folder = getHome()+"/.config/gtk-4.0/"
+  val gtk4Folder = getHome()+"/.config/gtk-4.0/"
   val sudoTheme = "/usr/share/themes/"+activeTheme
   val userTheme = getHome()+"/.themes/"+activeTheme
 
@@ -74,25 +81,25 @@ def libadwaitaSymlink() = //for applying a theme, not for enabling the configura
   val userCss = getHome()+"/.themes/"+activeTheme+"/gtk-4.0/gtk.css"
   val userCssDark = getHome()+"/.themes/"+activeTheme+"/gtk-4.0/gtk-dark.css"
   
-  if checkGtk4Folder == null then
-    File(checkGtk4Folder).mkdirs()
-  else if gtkUserList().contains(activeTheme) then
-    Files.createSymbolicLink(userGtkAssets, checkGtk4Folder)
-    //List("ln", "-sf", userGtkAssets, checkGtk4Folder).!<
-    Files.createSymbolicLink(userCss, checkGtk4Folder)
-    //List("ln", "-sf", userCss, checkGtk4Folder).!<
-    Files.createSymbolicLink(userCssDark, checkGtk4Folder)
-    //List("ln", "-sf", userCssDark, checkGtk4Folder).!<
-  else if File(sudoTheme).exists() == true then
+  if !File(gtk4Folder).exists() then File(gtk4Folder).mkdirs()
+
+  if gtkUserList().contains(activeTheme) then
+    createSymlink(userGtkAssets, gtk4Folder)
+    //List("ln", "-sf", userGtkAssets, gtk4Folder).!<
+    createSymlink(userCss, gtk4Folder)
+    //List("ln", "-sf", userCss, gtk4Folder).!<
+    createSymlink(userCssDark, gtk4Folder)
+    //List("ln", "-sf", userCssDark, gtk4Folder).!<
+  else if File(sudoTheme).exists() then
     File(userTheme).mkdirs()
-    Files.copy(sudoTheme, userTheme)
+    copyFile(sudoTheme, userTheme)
     //List("cp", "-rT", sudoTheme, userTheme).!<
-    Files.copy(userGtkAssets, checkGtk4Folder)
-    //List("ln", "-sf", userGtkAssets, checkGtk4Folder).!<
-    Files.copy(userCss, checkGtk4Folder)
-    //List("ln", "-sf", userCss, checkGtk4Folder).!<
-    Files.copy(userCssDark, checkGtk4Folder)
-    //List("ln", "-sf", userCssDark, checkGtk4Folder).!<
+    copyFile(userGtkAssets, gtk4Folder)
+    //List("ln", "-sf", userGtkAssets, gtk4Folder).!<
+    copyFile(userCss, gtk4Folder)
+    //List("ln", "-sf", userCss, gtk4Folder).!<
+    copyFile(userCssDark, gtk4Folder)
+    //List("ln", "-sf", userCssDark, gtk4Folder).!<
   else 
     println("Your selected theme is not installed in the system.")
     System.exit(0)
