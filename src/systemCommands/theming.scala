@@ -2,6 +2,7 @@ package iris.theming
 import scala.sys.process._
 import scala.io.Source
 import java.io._
+import java.nio.file._
 import iris.distroFinder._
 import iris.themeSelector._
 import iris.tui._
@@ -76,15 +77,22 @@ def libadwaitaSymlink() = //for applying a theme, not for enabling the configura
   if checkGtk4Folder == null then
     File(checkGtk4Folder).mkdirs()
   else if gtkUserList().contains(activeTheme) then
-    List("ln", "-sf", userGtkAssets, checkGtk4Folder).!<
-    List("ln", "-sf", userCss, checkGtk4Folder).!<
-    List("ln", "-sf", userCssDark, checkGtk4Folder).!<
+    Files.createSymbolicLink(userGtkAssets, checkGtk4Folder)
+    //List("ln", "-sf", userGtkAssets, checkGtk4Folder).!<
+    Files.createSymbolicLink(userCss, checkGtk4Folder)
+    //List("ln", "-sf", userCss, checkGtk4Folder).!<
+    Files.createSymbolicLink(userCssDark, checkGtk4Folder)
+    //List("ln", "-sf", userCssDark, checkGtk4Folder).!<
   else if File(sudoTheme).exists() == true then
     File(userTheme).mkdirs()
-    List("cp", "-rT", sudoTheme, userTheme).!<
-    List("ln", "-sf", userGtkAssets, checkGtk4Folder).!<
-    List("ln", "-sf", userCss, checkGtk4Folder).!<
-    List("ln", "-sf", userCssDark, checkGtk4Folder).!<
+    Files.copy(sudoTheme, userTheme)
+    //List("cp", "-rT", sudoTheme, userTheme).!<
+    Files.copy(userGtkAssets, checkGtk4Folder)
+    //List("ln", "-sf", userGtkAssets, checkGtk4Folder).!<
+    Files.copy(userCss, checkGtk4Folder)
+    //List("ln", "-sf", userCss, checkGtk4Folder).!<
+    Files.copy(userCssDark, checkGtk4Folder)
+    //List("ln", "-sf", userCssDark, checkGtk4Folder).!<
   else 
     println("Your selected theme is not installed in the system.")
     System.exit(0)
