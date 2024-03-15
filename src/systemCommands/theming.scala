@@ -67,14 +67,31 @@ def gtkSudoList(): List[String] =
 //TEMPORARY!!! Not perfect, works only on normal user, Iris runs on SUDO.
 def libadwaitaSymlink() = //for applying a theme, not for enabling the configuration
   def createSymlink(link: String, target: String) = //link is the symlink it creates, not target
-    val fullPath = s"$link/${File(target).getName()}"
-    val output = Path.of(fullPath)
-
-    if File(fullPath).exists() then Files.delete(output)
+    val output = Path.of(s"$link/${File(target).getName()}")
+    Files.deleteIfExists(output)
     Files.createSymbolicLink(output, Path.of(target))
 
+  def copyDir(in: String, out: String, replace: Boolean = false): Unit =
+    val newout =
+      if replace then out
+      else s"$out/${File(in).getName()}"
+    val output = Path.of(newout)
+
+    if !File(out).isDirectory() then File(out).mkdirs()
+    Files.deleteIfExists(output)
+
+    Files.copy(Path.of(in), output)
+    if File(in).isDirectory() then
+      val copyfiles = File(in).list()
+      for f <- copyfiles do copyDir(s"$in/$f", newout, false)
+
+  def replaceDir(in: String, out: String) = copyDir(in, out, true)
+  //copyDir creates a new dir inside out, replaceDir replaces out
+
   def copyFile(in: String, out: String) =
-    Files.copy(Path.of(in), Path.of(out))
+    val output = Path.of(s"$out/${File(in).getName()}")
+    Files.deleteIfExists(output)
+    Files.copy(Path.of(in), output)
 
   val activeTheme = "vimix-dark-jade" //needs to get the value from reading the selected configuration file
   val gtk4Folder = getHome()+"/.config/gtk-4.0/"
@@ -97,9 +114,9 @@ def libadwaitaSymlink() = //for applying a theme, not for enabling the configura
     //List("ln", "-sf", userCssDark, gtk4Folder).!<
   else if File(sudoTheme).exists() then
     File(userTheme).mkdirs()
-    copyFile(sudoTheme, userTheme)
+    replaceDir(sudoTheme, userTheme)
     //List("cp", "-rT", sudoTheme, userTheme).!<
-    copyFile(userGtkAssets, gtk4Folder)
+    copyDir(userGtkAssets, gtk4Folder)
     //List("ln", "-sf", userGtkAssets, gtk4Folder).!<
     copyFile(userCss, gtk4Folder)
     //List("ln", "-sf", userCss, gtk4Folder).!<
