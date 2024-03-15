@@ -22,14 +22,14 @@ Clears the terminal screen and history.
 ---
 
 ```scala
-def saveScreen() = print("\u001B[?47h")
+def saveScreen()
 ```
 Saves the current terminal screen.
 
 ---
 
 ```scala
-def restoreScreen() = print("\u001B[?47l")
+def restoreScreen()
 ```
 Restores the terminal screen that was previously saved.
 
