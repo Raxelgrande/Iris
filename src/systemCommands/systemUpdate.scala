@@ -27,24 +27,24 @@ def installKvantumFlatpak() =
       case _ => unknownSystem("Flatpak")
 
 def pacUpdate() = 
-  clearsScreen()
+  clear()
   List("pacman", "-Syu", "--noconfirm").!<
     
 def aptUpdate() = 
-  clearsScreen()
+  clear()
   List("apt", "update", "-y").!<
   List("apt", "upgrade", "-y").!<
 
 def dnfUpdate() = 
-  clearsScreen()
+  clear()
   List("dnf", "upgrade", "-y").!<
 
 def zypperUpdate() = 
-  clearsScreen()
+  clear()
   List("zypper", "dup", "-y").!<
 
 def nixUpdate() = 
-  clearsScreen()
+  clear()
   List("nixos-rebuild", "switch", "--upgrade").!<
 
 def unknownSystem(pkg_name: String = "") =

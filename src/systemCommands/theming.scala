@@ -7,11 +7,11 @@ import iris.themeSelector._
 import iris.tui._
 
 def askDesktop() =
-  val title = s"What is your desktop?\n\n${foreground("green")}${0}:${foreground("default")} Exit\n\n"
+  val title = "What is your desktop?"
   val select = chooseOption_string(Seq("Budgie", "Cinnamon", "GNOME", "Xfce"), title)
   if select == "" then println("The user cancelled!")
   else println(select)
-  
+
 // Lists ./themes , /usr/share/themes and then joins them together
 def gtkList(): List[String] = 
   val homeThemeLoc = getHome()+"/.themes"
