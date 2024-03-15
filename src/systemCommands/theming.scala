@@ -1,13 +1,8 @@
 package iris.theming
 
-import scala.sys.process._
-import scala.io.Source
-//import java.io._
+import scala.sys.process._, scala.io.Source
 import java.nio.file.{Files, Path}, java.io.File
-
-import iris.distroFinder._
-import iris.themeSelector._
-import iris.tui._
+import iris.distroFinder._, iris.themeSelector._, iris.tui._
 
 def askDesktop() =
   val title = "What is your desktop?"
@@ -105,17 +100,14 @@ def libadwaitaSymlink() = //for applying a theme, not for enabling the configura
   
   if !File(gtk4Folder).exists() then File(gtk4Folder).mkdirs()
 
-  if gtkUserList().contains(activeTheme) then
-    createSymlink(gtk4Folder, userGtkAssets)
-    //List("ln", "-sf", userGtkAssets, gtk4Folder).!<
-    createSymlink(gtk4Folder, userCss)
-    //List("ln", "-sf", userCss, gtk4Folder).!<
-    createSymlink(gtk4Folder, userCssDark)
-    //List("ln", "-sf", userCssDark, gtk4Folder).!<
-  else if File(sudoTheme).exists() then
+  val themeExists = gtkUserList().contains(activeTheme)
+  val rootThemeExists = File(sudoTheme).exists()
+
+  if !themeExists && rootThemeExists then
     File(userTheme).mkdirs()
     replaceDir(sudoTheme, userTheme)
-    //List("cp", "-rT", sudoTheme, userTheme).!<
+
+  if themeExists || rootThemeExists then
     createSymlink(gtk4Folder, userGtkAssets)
     //List("ln", "-sf", userGtkAssets, gtk4Folder).!<
     createSymlink(gtk4Folder, userCss)
