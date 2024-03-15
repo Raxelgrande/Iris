@@ -116,11 +116,11 @@ def libadwaitaSymlink() = //for applying a theme, not for enabling the configura
     File(userTheme).mkdirs()
     replaceDir(sudoTheme, userTheme)
     //List("cp", "-rT", sudoTheme, userTheme).!<
-    copyDir(userGtkAssets, gtk4Folder)
+    createSymlink(gtk4Folder, userGtkAssets)
     //List("ln", "-sf", userGtkAssets, gtk4Folder).!<
-    copyFile(userCss, gtk4Folder)
+    createSymlink(gtk4Folder, userCss)
     //List("ln", "-sf", userCss, gtk4Folder).!<
-    copyFile(userCssDark, gtk4Folder)
+    createSymlink(gtk4Folder, userCssDark)
     //List("ln", "-sf", userCssDark, gtk4Folder).!<
   else 
     println("Your selected theme is not installed in the system.")
