@@ -2,6 +2,7 @@ package iris.config
 import java.io.File
 import java.io.FileOutputStream
 import scala.io.Source
+import scala.util.matching.Regex
 import iris.distroFinder._
 import iris.tui._
 
@@ -38,7 +39,12 @@ def getAllConfigs(): Vector[String] = //1 whole string per config to avoid matri
   val files = listOfConfigs()
   groupConfigs(files)
   
-
+def readConfig(filename: String, line: String) = //work in progress
+  val value = new Regex (line + "[a-zA-Z0-9\\-\\_]+")
+  
+  val config = getConfig_string(filename)
+  println(value findFirstIn config)
+  
 
 //outdated, will have to rewrite some tui functions first
 // def selectConfiguration(config: String): String =

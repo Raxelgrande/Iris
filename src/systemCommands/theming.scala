@@ -59,7 +59,6 @@ def gtkSudoList(): List[String] =
     else List()
   sl
 
-//TEMPORARY!!! Not perfect, works only on normal user, Iris runs on SUDO.
 def libadwaitaSymlink() = //for applying a theme, not for enabling the configuration
   def createSymlink(link: String, target: String) = //link is the symlink it creates, not target
     val output = Path.of(s"$link/${File(target).getName()}")
