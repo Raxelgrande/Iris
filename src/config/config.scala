@@ -14,30 +14,32 @@ def listOfConfigs(): Array[String] = //I changed to array to remove the list con
     irisConfList
   else Array()
 
-def readConfig(filename: String): Iterator[String] =
+def getConfig(filename: String): Iterator[String] =
   Source.fromFile(getHome()+"/.config/Iris/"+filename).getLines()
 
-def readConfig_vector(filename: String): Vector[String] = readConfig(filename).toVector
+def getConfig_vector(filename: String): Vector[String] = getConfig(filename).toVector
 
-def readConfig_list(filename: String): List[String] = readConfig(filename).toList
+def getConfig_list(filename: String): List[String] = getConfig(filename).toList
 
-def readConfig_array(filename: String): Array[String] = readConfig(filename).toArray
+def getConfig_array(filename: String): Array[String] = getConfig(filename).toArray
 
-def readConfig_string(filename: String): String =
-  readConfig(filename)
+def getConfig_string(filename: String): String =
+  getConfig(filename)
     .map(x => x + '\n')
     .mkString
 
-def readAllConfigs(): Vector[String] = //1 whole string per config to avoid matrices
+def getAllConfigs(): Vector[String] = //1 whole string per config to avoid matrices
   def groupConfigs(files: Array[String], cfgList: Vector[String] = Vector(), i: Int = 0): Vector[String] =
     if i >= files.length then
       cfgList
     else
-      groupConfigs(files, cfgList :+ readConfig_string(files(i)), i+1)
+      groupConfigs(files, cfgList :+ getConfig_string(files(i)), i+1)
 
   val files = listOfConfigs()
   groupConfigs(files)
   
+
+
 //outdated, will have to rewrite some tui functions first
 // def selectConfiguration(config: String): String =
 //   if config != "" then
