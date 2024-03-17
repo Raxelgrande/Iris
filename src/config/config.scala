@@ -42,14 +42,14 @@ def getAllConfigs(): Vector[String] = //1 whole string per config to avoid matri
   val files = listOfConfigs()
   groupConfigs(files)
   
-def readConfig(filename: String, line: String) = //work in progress
+def readConfig(filename: String, line: String) = 
   val value = new Regex (line + "[a-zA-Z0-9\\-\\_]+")
   
   val config = getConfig_string(filename)
   value findFirstIn config
   
 def createConfig(confname: String) =
-  val settings = String("themename=\ndesktop_environment=\ngtktheme\nlibadwaita=\nicontheme=\ncursortheme=\n" +
+  val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme\nlibadwaita=\nicontheme=\ncursortheme=\n" +
   "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpakgtk=\ncron=")
   val configLocation = getHome()+"/.config/Iris/"
   
