@@ -2,11 +2,12 @@ package iris.config
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
+import java.io.FileWriter
 import scala.io.Source
 import scala.util.matching.Regex
 import iris.distroFinder._
 import iris.tui._
-import java.io.FileWriter
+
 
 
 
@@ -47,9 +48,13 @@ def readConfig(filename: String, line: String) =
   
   val config = getConfig_string(filename)
   value findFirstIn config
+
+def replaceLine(filename: String, line: String, newvalue: String) = 
+  println("todo")
   
+
 def createConfig(confname: String) =
-  val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme\nlibadwaita=\nicontheme=\ncursortheme=\n" +
+  val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
   "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpakgtk=\ncron=")
   val configLocation = getHome()+"/.config/Iris/"
   
@@ -65,6 +70,7 @@ def createConfig(confname: String) =
     val makeconf = new FileWriter(new File(configLocation+confname))
     makeconf.write(settings)
     makeconf.close()
+
 
 
 //outdated, will have to rewrite some tui functions first
