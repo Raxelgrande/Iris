@@ -1,10 +1,13 @@
 package iris.config
 import java.io.File
 import java.io.FileOutputStream
+import java.io.OutputStreamWriter
 import scala.io.Source
 import scala.util.matching.Regex
 import iris.distroFinder._
 import iris.tui._
+import java.io.FileWriter
+
 
 
 def listOfConfigs(): Array[String] = //I changed to array to remove the list conversion overhead
@@ -43,8 +46,26 @@ def readConfig(filename: String, line: String) = //work in progress
   val value = new Regex (line + "[a-zA-Z0-9\\-\\_]+")
   
   val config = getConfig_string(filename)
-  println(value findFirstIn config)
+  value findFirstIn config
   
+def createConfig(confname: String) =
+  val settings = String("themename=\ndesktop_environment=\ngtktheme\nlibadwaita=\nicontheme=\ncursortheme=\n" +
+  "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpakgtk=\ncron=")
+  val configLocation = getHome()+"/.config/Iris/"
+  
+
+  if File(configLocation).exists() == false then //creates config location
+    File(configLocation).mkdirs()
+    val makeconf = new FileWriter(new File(configLocation+confname))
+    makeconf.write(settings)
+    makeconf.close()
+  else if File(configLocation+confname).exists() == true then
+    println("TODO, TUI error message config already exists, reasks question")
+  else 
+    val makeconf = new FileWriter(new File(configLocation+confname))
+    makeconf.write(settings)
+    makeconf.close()
+
 
 //outdated, will have to rewrite some tui functions first
 // def selectConfiguration(config: String): String =
