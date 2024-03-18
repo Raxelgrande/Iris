@@ -44,7 +44,7 @@ def getAllConfigs(): Vector[String] = //1 whole string per config to avoid matri
   groupConfigs(files)
   
 def readConfig(filename: String, line: String) = 
-  val value = new Regex (line + "[a-zA-Z0-9\\-\\_]+")
+  val value = Regex (line + "[a-zA-Z0-9\\-\\_]+")
   
   val config = getConfig_string(filename)
   value findFirstIn config
@@ -58,13 +58,13 @@ def createConfig(confname: String) =
 
   if File(configLocation).exists() == false then //creates config location
     File(configLocation).mkdirs()
-    val makeconf = new FileWriter(new File(configLocation+confname))
+    val makeconf = FileWriter(File(configLocation+confname))
     makeconf.write(settings)
     makeconf.close()
   else if File(configLocation+confname).exists() == true then
     println("TODO, TUI error message config already exists, reasks question")
   else 
-    val makeconf = new FileWriter(new File(configLocation+confname))
+    val makeconf = FileWriter(File(configLocation+confname))
     makeconf.write(settings)
     makeconf.close()
 
@@ -72,7 +72,7 @@ def replaceLine(confname: String, line: String, newvalue: String) = //newvalue i
   val configLocation = getHome()+"/.config/Iris/"
   val currentconf = getConfig_string(confname)
   val replace = currentconf.replaceAll(line, newvalue)
-  val writer = new FileWriter(new File(configLocation+confname))
+  val writer = FileWriter( File(configLocation+confname))
   writer.write(replace)
   writer.close()
   
