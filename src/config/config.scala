@@ -49,9 +49,6 @@ def readConfig(filename: String, line: String) =
   val config = getConfig_string(filename)
   value findFirstIn config
 
-def replaceLine(filename: String, line: String, newvalue: String) = 
-  println("todo")
-  
 
 def createConfig(confname: String) =
   val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
@@ -71,7 +68,14 @@ def createConfig(confname: String) =
     makeconf.write(settings)
     makeconf.close()
 
-
+def replaceLine(confname: String, line: String, newvalue: String) = //newvalue is the line like "gtktheme=" + the value you want
+  val configLocation = getHome()+"/.config/Iris/"
+  val currentconf = getConfig_string(confname)
+  val replace = currentconf.replaceAll(line, newvalue)
+  val writer = new FileWriter(new File(configLocation+confname))
+  writer.write(replace)
+  writer.close()
+  
 
 //outdated, will have to rewrite some tui functions first
 // def selectConfiguration(config: String): String =

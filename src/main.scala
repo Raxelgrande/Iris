@@ -9,6 +9,6 @@ import iris.config._
 import iris.tui.*
 
 @main def main() =
-  createConfig("testing")
+  replaceLine("testing", "gtktheme=", "gtktheme=vimix-dark-ruby")
   //replaceLine("testing", "gtktheme=", "vimix-dark-ruby")
   //if you read this you are a certified scalamancer
