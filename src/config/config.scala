@@ -9,8 +9,6 @@ import iris.distroFinder._
 import iris.tui._
 
 
-
-
 def listOfConfigs(): Array[String] = //I changed to array to remove the list conversion overhead
   val irisConfLoc = getHome()+"/.config/Iris/"
   val irisConfList = File(irisConfLoc).list()
@@ -75,8 +73,6 @@ def replaceLine(confname: String, line: String, newvalue: String) = //newvalue i
   val writer = FileWriter( File(configLocation+confname))
   writer.write(replace)
   writer.close()
-  
-
 //outdated, will have to rewrite some tui functions first
 // def selectConfiguration(config: String): String =
 //   if config != "" then

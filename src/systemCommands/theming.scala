@@ -3,12 +3,13 @@ package iris.theming
 import scala.sys.process._, scala.io.Source
 import java.nio.file.{Files, Path}, java.io.File
 import iris.distroFinder._, iris.themeSelector._, iris.tui._
+import java.io.FileWriter
 
 def askDesktop() =
   val title = "What is your desktop?"
   val select = chooseOption_string(Seq("Budgie", "Cinnamon", "GNOME", "Xfce"), title)
   if select == "" then println("The user cancelled!")
-  else println(select)
+  else select
 
 
 // Returns every location of gtk folders as one
@@ -225,4 +226,21 @@ def kvantumList() =
 
 def kvantumSetTheme(theme: String) = List("kvantummanager", "--set", theme).!!
 
- 
+//work in progress
+def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct once
+// style syntax to use = "style=value"
+// icon_theme syntax to use = "icon_theme=value"
+// play with qtXct first before changing the args
+  val location = getHome()+"/.config/qt5ct/"
+  
+  val conflines = Source.fromFile(getHome()+"/.config/qt5ct/qt5ct.conf").getLines()
+  val confstring = conflines.map(x => x + '\n').mkString
+  
+  val replace = confstring.replaceAll("style=", style).replaceAll("icon_theme=", icon_theme)
+  
+  val writeconf = FileWriter(File(location+"qt5ct.conf"))
+  writeconf.write(replace)
+  writeconf.close()
+  //gets the lines for working with the files
+  //println(confstring)
+  
