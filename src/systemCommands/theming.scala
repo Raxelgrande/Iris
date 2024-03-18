@@ -236,7 +236,7 @@ def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct
   val conflines = Source.fromFile(getHome()+"/.config/qt5ct/qt5ct.conf").getLines()
   val confstring = conflines.map(x => x + '\n').mkString
   
-  val replace = confstring.replaceAll("style=", style).replaceAll("icon_theme=", icon_theme)
+  val replace = confstring.replaceAll("style="+"[a-zA-Z0-9\\-\\_]+", style).replaceAll("icon_theme="+"[a-zA-Z0-9\\-\\_]+", icon_theme)
   
   val writeconf = FileWriter(File(location+"qt5ct.conf"))
   writeconf.write(replace)
