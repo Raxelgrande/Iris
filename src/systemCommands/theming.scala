@@ -226,8 +226,8 @@ def kvantumList() =
 
 def kvantumSetTheme(theme: String) = List("kvantummanager", "--set", theme).!!
 
-//work in progress
-def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct once
+
+def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct once to generate a working config
 // style syntax to use = "style=value"
 // icon_theme syntax to use = "icon_theme=value"
 // play with qtXct first before changing the args
@@ -241,6 +241,18 @@ def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct
   val writeconf = FileWriter(File(location+"qt5ct.conf"))
   writeconf.write(replace)
   writeconf.close()
-  //gets the lines for working with the files
-  //println(confstring)
+
+
+def qt6writeConf(style: String, icon_theme: String) = //requires to launch qt6ct once to generate a working config
+  val location = getHome()+"/.config/qt6ct/"
+  
+  val conflines = Source.fromFile(getHome()+"/.config/qt6ct/qt6ct.conf").getLines()
+  val confstring = conflines.map(x => x + '\n').mkString
+  
+  val replace = confstring.replaceAll("style="+"[a-zA-Z0-9\\-\\_]+", style).replaceAll("icon_theme="+"[a-zA-Z0-9\\-\\_]+", icon_theme)
+  
+  val writeconf = FileWriter(File(location+"qt6ct.conf"))
+  writeconf.write(replace)
+  writeconf.close()
+ 
   
