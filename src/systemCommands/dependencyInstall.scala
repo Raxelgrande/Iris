@@ -1,5 +1,6 @@
 package iris.dependencyInstall
 import iris.sysUpdate._
+import iris.distroFinder.getHome
 import scala.io.Source
 import scala.sys.process._
 import java.io.File
@@ -43,6 +44,8 @@ def writeQtForceX11() = //for advanced settings, in cases were wayland QT has is
     etcEnvironment.write(qtX11)
     etcEnvironment.close()
 
+def flatpakGtkOverride() = List("flatpak", "override", "--filesystem="+getHome()+"/.themes").!<
+def flatpakIconOverride() = List("flatpak", "override", "--filesystem="+getHome()+"/.icons").!<
 
 //if flatpak isnt installed, the program will crash
 //try catch prevents this and also lets us know if flatpak is installed in the system

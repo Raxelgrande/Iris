@@ -254,5 +254,6 @@ def qt6writeConf(style: String, icon_theme: String) = //requires to launch qt6ct
   val writeconf = FileWriter(File(location+"qt6ct.conf"))
   writeconf.write(replace)
   writeconf.close()
- 
-  
+
+def flatpakSetGtk(gtktheme: String) = List("flatpak", "override", "--env=GTK_THEME="+gtktheme).!<
+def flatpakSetIcons(icontheme: String) = List("flatpak", "override", "--env=ICON_THEME="+icontheme).!<
