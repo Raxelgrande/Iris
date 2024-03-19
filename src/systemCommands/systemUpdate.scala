@@ -5,6 +5,7 @@ import iris.tui.pressToContinue
 import iris.dependencyInstall._
 import iris.tui._
 import scala.sys.process._
+import iris.distroFinder.aptWho
 
 
 def sysUpdate() = 
@@ -16,8 +17,18 @@ def sysUpdate() =
     case "nix" => nixUpdate()
     case _ => unknownSystem()
 
+def sysDependencies() =
+  getPackageManager() match
+    case "pacman" => pacDependency()
+    case "apt" => aptWho()
+    case "dnf" => dnfDependency()
+    case "zypper" => zypDependency()
+    case "nix" => println("TODO")
+    case _ => unknownSystem("Dependencies. Check documentation at TODO DOC SITE")
+  
+
 def installKvantumFlatpak() =
-  if !kvantumFlatpak() then //trying to run flatpak first, in case its already installed
+  if kvantumFlatpak() == false then //trying to run flatpak first, in case its already installed
     getPackageManager() match
       case "pacman" => pacmanFlatpak()
       case "apt" => aptFlatpak()

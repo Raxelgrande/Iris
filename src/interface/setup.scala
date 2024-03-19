@@ -2,8 +2,9 @@ package iris.setup
 import iris.tui._
 import iris.config._
 import iris.distroFinder._
-import iris.sysUpdate.sysUpdate
+import iris.sysUpdate._
 import iris.theming._
+import iris.dependencyInstall._
 
 def setup() =
   getPackageManager()
@@ -12,8 +13,17 @@ def setup() =
   "\nPress y to continue normally." +
   "\nPress n to continue without updating.") == true then
     sysUpdate()
-    askDesktop()
-  else askDesktop()
+    sysDependencies()
+  else 
+    sysDependencies()
+  if askPrompt("Would you like to enable the setup to theme flatpaks?" ) == true then 
+    installKvantumFlatpak()
+    kvantumOverride()
+    flatpakGtkOverride()
+    flatpakIconOverride()
+    writeQtPlatform()
+  else 
+    writeQtPlatform()
 
   
   

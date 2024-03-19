@@ -9,7 +9,7 @@ import java.io.FileOutputStream
 
 def pacDependency() = List("pacman", "-Sy", "qt5ct", "qt6ct", "kvantum", "kvantum-qt5", "--noconfirm").!< 
 
-def fedDependency() = List("dnf", "install", "qt5ct", "qt6ct", "kvantum", "kvantum-qt6", "-y").!<
+def dnfDependency() = List("dnf", "install", "qt5ct", "qt6ct", "kvantum", "kvantum-qt6", "-y").!<
 
 def zypDependency() = List("zypper", "install", "qt5ct", "qt6ct", "kvantum-manager", "kvantum-qt5", "kvantum-qt6").!< 
 
