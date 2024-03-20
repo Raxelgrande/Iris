@@ -18,6 +18,5 @@ testing2.scala
 testing3.scala
 testing4.scala
 testing5.scala
-
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
