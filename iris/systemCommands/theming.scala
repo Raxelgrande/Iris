@@ -2,7 +2,7 @@ package iris.theming
 
 import scala.sys.process._, scala.io.Source
 import java.nio.file.{Files, Path}, java.io.File
-import iris.distroFinder._, iris.themeSelector._, iris.tui._, iris.config._
+import iris.themeSelector._, iris.tui._, iris.config._
 import java.io.FileWriter
 
 // Returns every location of gtk folders as one
@@ -250,3 +250,4 @@ def qt6writeConf(style: String, icon_theme: String) = //requires to launch qt6ct
 
 def flatpakSetGtk(gtktheme: String) = List("flatpak", "override", "--env=GTK_THEME="+gtktheme).!<
 def flatpakSetIcons(icontheme: String) = List("flatpak", "override", "--env=ICON_THEME="+icontheme).!<
+def crontab() = List("crontab", "-e").run()

@@ -5,7 +5,6 @@ import java.io.OutputStreamWriter
 import java.io.FileWriter
 import scala.io.Source
 import scala.util.matching.Regex
-import iris.distroFinder._
 import iris.tui._
 
 
@@ -45,7 +44,7 @@ def readConfig(filename: String, line: String) =
   val value = Regex (line + "[a-zA-Z0-9\\-\\_]+")
   
   val config = getConfig_string(filename)
-  value findFirstIn config
+  value.findFirstIn(config)
 
 
 def createConfig(confname: String) =
