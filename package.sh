@@ -1,4 +1,4 @@
 echo "Building lightweight JAR"
 scalac src/*.scala src/*/*.scala -d iris.jar
 echo "Building Fat JAR"
-scala-cli --power package src --assembly --preamble=false --jvm 8 -o iris-java.jar
+scala-cli --power package src --assembly --preamble=false --jvm 11 -o iris-java.jar
