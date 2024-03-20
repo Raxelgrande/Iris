@@ -1,2 +1,2 @@
 echo "Building Iris"
-scalac src/*.scala src/*/*.scala -d iris.jar
+scalac iris/*.scala iris/*/*.scala -d iris.jar
