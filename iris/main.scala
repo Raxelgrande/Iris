@@ -7,7 +7,6 @@ import iris.tui.*
 
 
 @main def main() =
-  println(getHome())
-  crontab()
+  libadwaitaSymlink("vimix-dark-ruby")
 
   //if you read this you are a certified scalamancer

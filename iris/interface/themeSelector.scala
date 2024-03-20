@@ -12,7 +12,3 @@ def askDesktop() =
   if select == "" then println("The user cancelled!")
   else select
 
-// DO NOT USE
-def pickKdeColor(): String = chooseOption_string(kdeListColorScheme())
-def pickKdeCursor(): String = chooseOption_string(kdeListCursorTheme())
-def pickKdeGlobal(): String = chooseOption_string(kdeListGlobalTheme())

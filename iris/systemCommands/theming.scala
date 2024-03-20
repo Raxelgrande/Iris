@@ -53,7 +53,7 @@ def gtkSudoList(): List[String] =
     else List()
   sl
 
-def libadwaitaSymlink() = //for applying a theme, not for enabling the configuration
+def libadwaitaSymlink(activeTheme: String) = //for applying a theme, not for enabling the configuration
   def createSymlink(link: String, target: String) = //link is the symlink it creates, not target
     val output = Path.of(s"$link/${File(target).getName()}")
     Files.deleteIfExists(output)
@@ -81,7 +81,6 @@ def libadwaitaSymlink() = //for applying a theme, not for enabling the configura
     Files.deleteIfExists(output)
     Files.copy(Path.of(in), output)
 
-  val activeTheme = "vimix-dark-jade" //needs to get the value from reading the selected configuration file
   val gtk4Folder = getHome()+"/.config/gtk-4.0/"
   val sudoTheme = "/usr/share/themes/"+activeTheme
   val userTheme = getHome()+"/.themes/"+activeTheme
@@ -250,4 +249,4 @@ def qt6writeConf(style: String, icon_theme: String) = //requires to launch qt6ct
 
 def flatpakSetGtk(gtktheme: String) = List("flatpak", "override", "--env=GTK_THEME="+gtktheme).!<
 def flatpakSetIcons(icontheme: String) = List("flatpak", "override", "--env=ICON_THEME="+icontheme).!<
-def crontab() = List("crontab", "-e").run()
+
