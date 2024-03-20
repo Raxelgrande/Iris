@@ -52,7 +52,7 @@ private def formList_array(l: Array[String], title: String = "Choose an entry", 
 
 def readLoop(txt: String, maxval: Int): Int =
   val answer = answerToNumber(spawnAndRead(txt))
-  if answer == 0 || answer <= maxval then
+  if answer == 0 || (answer > 0 && answer <= maxval) then
     answer
   else
     readLoop(txt, maxval)
