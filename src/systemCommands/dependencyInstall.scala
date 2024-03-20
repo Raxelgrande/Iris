@@ -1,6 +1,6 @@
 package iris.dependencyInstall
 import iris.sysUpdate._
-import iris.distroFinder.getHome
+import iris.distroFinder.{getHome, getPackageManager}
 import scala.io.Source
 import scala.sys.process._
 import java.io.File
@@ -12,6 +12,11 @@ def pacDependency() = List("pacman", "-Sy", "qt5ct", "qt6ct", "kvantum", "kvantu
 def dnfDependency() = List("dnf", "install", "qt5ct", "qt6ct", "kvantum", "kvantum-qt6", "-y").!<
 
 def zypDependency() = List("zypper", "install", "qt5ct", "qt6ct", "kvantum-manager", "kvantum-qt5", "kvantum-qt6").!< 
+
+def nixDependency() = nix_addPkgs(Vector(
+  "libsForQt5.qtstyleplugin-kvantum", "qt6Packages.qtstyleplugin-kvantum",
+  "libsForQt5.qt5ct", "qt6Packages.qt6ct"
+  ))
 
 def kvantumUbuntu() =
   List("add-apt-repository", "ppa:papirus/papirus", "-y").!<
@@ -35,14 +40,17 @@ def writePapirusPPA() =
 def etcEnvironment = FileOutputStream("/etc/environment", true)
 
 def writeQtPlatform() =
+  if getPackageManager() != "nix" then
     val qtPlatform = "QT_QPA_PLATFORMTHEME=qt5ct".getBytes()
     etcEnvironment.write(qtPlatform)
     etcEnvironment.close()
+  else
+    nix_setupQtPlatform()
 
 def writeQtForceX11() = //for advanced settings, in cases were wayland QT has issues
-    val qtX11 = "QT_QPA_PLATFORM=xcb".getBytes()
-    etcEnvironment.write(qtX11)
-    etcEnvironment.close()
+  val qtX11 = "QT_QPA_PLATFORM=xcb".getBytes()
+  etcEnvironment.write(qtX11)
+  etcEnvironment.close()
 
 def flatpakGtkOverride() = List("flatpak", "override", "--filesystem="+getHome()+"/.themes").!<
 def flatpakIconOverride() = List("flatpak", "override", "--filesystem="+getHome()+"/.icons").!<
@@ -77,30 +85,57 @@ def zypperFlatpak() =
   List("zypper", "install", "flatpak", "-y").!<
   kvantumFlatpak()
 
-def nixFlatpak() = //needs testing, finishing and improvements
+def nixFlatpak() = nix_addPkg("flatpak")
+
+def nix_addPkg(pkg: String) = nix_addPkgs(Vector(pkg))
+
+def nix_addPkgs(pkgs: Seq[String]) =
+  def getPkgsString(str: String = "", i: Int = 0): String =
+    if i >= pkgs.length then
+      str
+    else if i == pkgs.length - 1 then
+      getPkgsString(str + s"${pkgs(i)} ", i+1)
+    else
+      getPkgsString(str + s"${pkgs(i)}", i+1)
+    
   def addPkgHorizontally(line: String, newl: String = "", i: Int = 0): String =
-    if i >= line.length then newl
+    if i >= line.length || line(i) == ']' then newl
     else if line(i) == '[' then
-      addPkgHorizontally(line, newl + line(i) + " flatpak", i+1)
+      addPkgHorizontally(line, newl + line(i) + s" ${getPkgsString()}", i+1)
     else
       addPkgHorizontally(line, newl + line(i), i+1)
       
-
-  def addPkg(conf: Seq[String], newconf: String = "", i: Int = 0): String =
+  def addPkgs(conf: Seq[String], newconf: String = "", i: Int = 0): String =
     if i >= conf.length then newconf
-    else if conf(i).contains("environment.systemPackages = ") && conf(i)(0) != '#' then
+    else if conf(i).contains("environment.systemPackages") then
       if !conf(i).contains("]") then
-        addPkg(conf, newconf + conf(i) + "\n" + "  flatpak\n", i+1)
+        addPkgs(conf, newconf + conf(i) + "\n" + s"  ${getPkgsString()}\n", i+1)
       else
-        addPkg(conf, addPkgHorizontally(conf(i)) + "\n", i+1)
+        addPkgs(conf, addPkgHorizontally(conf(i)) + "\n", i+1)
     else
-      addPkg(conf, newconf + conf(i) + "\n", i+1)
+      addPkgs(conf, newconf + conf(i) + "\n", i+1)
 
-  val confpath = "/etc/nixos/configuration.nix"
-  val nixconf = Source.fromFile(confpath)
+  val nixconf = nix_readConf()
+  val newconf = addPkgs(nixconf)
+  nix_writeConf(newconf)
+  List("nixos-rebuild", "switch").!<
+
+def nix_setupQtPlatform() =
+  def addEnv(conf: Seq[String], env: String, newconf: String = "", i: Int = 0): String =
+    if i >= conf.length then newconf
+    else if conf(i).contains("environment.systemPackages") then
+      addEnv(conf, env, newconf + s"$env\n" + conf(i) + "\n")
+    else
+      addEnv(conf, env, newconf + conf(i) + "\n")
+
+  val conf = nix_readConf()
+  val newconf = addEnv(conf, "environment.variables.QT_QPA_PLATFORMTHEME = \"qt5ct\";")
+
+private def nix_readConf(): Vector[String] =
+  Source.fromFile("/etc/nixos/configuration.nix")
     .getLines()
     .toVector
-  val newconf = addPkg(nixconf).getBytes()
-  File(confpath).renameTo(File(s"$confpath.bak"))
-  FileOutputStream(confpath).write(newconf)
-  List("nixos-rebuild", "switch").!<
+
+private def nix_writeConf(newconf: String) =
+  File("/etc/nixos/configuration.nix").renameTo(File("/etc/nixos/configuration.nix.bak"))
+  FileOutputStream("/etc/nixos/configuration.nix").write(newconf.getBytes())

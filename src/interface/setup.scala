@@ -7,7 +7,6 @@ import iris.theming._
 import iris.dependencyInstall._
 
 def setup() =
-  getPackageManager()
   if askPrompt("We need to update your system to install all of the required dependencies that Iris needs to work properly." +
   "\nYou can still continue setting Iris up without updating, but you risk doing a partial update that can break your system" +
   "\nPress y to continue normally." +

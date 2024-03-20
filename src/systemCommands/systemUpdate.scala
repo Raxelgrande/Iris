@@ -23,7 +23,7 @@ def sysDependencies() =
     case "apt" => aptWho()
     case "dnf" => dnfDependency()
     case "zypper" => zypDependency()
-    case "nix" => println("TODO")
+    case "nix" => nixDependency()
     case _ => unknownSystem("Dependencies. Check documentation at TODO DOC SITE")
   
 
