@@ -73,6 +73,8 @@ def replaceLine(confname: String, line: String, newvalue: String) = //newvalue i
   val writer = FileWriter( File(configLocation+confname))
   writer.write(replace)
   writer.close()
+
+def getHome() = System.getProperty("user.home")
 //outdated, will have to rewrite some tui functions first
 // def selectConfiguration(config: String): String =
 //   if config != "" then

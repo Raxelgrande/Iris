@@ -2,15 +2,8 @@ package iris.theming
 
 import scala.sys.process._, scala.io.Source
 import java.nio.file.{Files, Path}, java.io.File
-import iris.distroFinder._, iris.themeSelector._, iris.tui._
+import iris.distroFinder._, iris.themeSelector._, iris.tui._, iris.config._
 import java.io.FileWriter
-
-def askDesktop() =
-  val title = "What is your desktop?"
-  val select = chooseOption_string(Seq("Budgie", "Cinnamon", "GNOME", "Xfce"), title)
-  if select == "" then println("The user cancelled!")
-  else select
-
 
 // Returns every location of gtk folders as one
 def gtkList(): List[String] = 
