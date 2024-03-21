@@ -178,7 +178,7 @@ The function returns the value the user chose.
 def chooseOption_string(l: Seq[String], title: String = "Choose an entry", first: String = "Exit"): String
 ```
 ```scala
-def chooseOption_string(l: Array[String], title: String = "Choose an entry", first: String = "Exit"): String
+def chooseOption_astring(l: Array[String], title: String = "Choose an entry", first: String = "Exit"): String
 ```
 Just like ```chooseOption()```, but it's nicer to use and you get the list element directly.
 

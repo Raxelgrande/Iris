@@ -70,8 +70,8 @@ def chooseOption_string(l: Seq[String], title: String = "Choose an entry", first
   if i == 0 then ""
   else l(i-1)
 
-def chooseOption_string(l: Array[String], title: String = "Choose an entry", first: String = "Exit"): String =
-  val i = chooseOption(l, title, first)
+def chooseOption_astring(l: Array[String], title: String = "Choose an entry", first: String = "Exit"): String =
+  val i = chooseOption_array(l, title, first)
   if i == 0 then ""
   else l(i-1)
 
