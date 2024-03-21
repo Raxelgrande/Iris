@@ -12,11 +12,13 @@ def mainMenu() =
     else
       confname
 
+
+
   val home = chooseOption_string(Seq("Create a Configuration", "Load a Configuration", "Modify Configurations"), "Welcome to Iris!\nPlease select an option:")
 
   home match
     case "Create a Configuration" =>
-      create(listOfConfigs())
+      createConfig(create(listOfConfigs()))
     case "Load a Configuration" =>
       val conflist = chooseOption_array(listOfConfigs(), "Select one of your configurations to load:")
     case "Modify Configurations" =>
