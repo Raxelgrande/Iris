@@ -8,5 +8,4 @@ import iris.tui.*
 
 @main def main() =
   mainMenu()
-
   //if you read this you are a certified scalamancer

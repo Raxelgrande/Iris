@@ -172,28 +172,6 @@ def xfceSetXfwm(theme: String) = List("xfconf-query", "-n", "-c", "xfwm4", "-p",
 def xfceSetIcon(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Net/IconThemeName", "-s", theme).!!
 def xfceSetCursor(theme: String) = List("xfconf-query", "-n", "-c", "xsettings", "-p", "/Gtk/CursorThemeName", "-s", theme).!!
 
-// KDE theme list
-// TODO Algorithm that gets the list without fancy stupid KDE shit
-def kdeListColorScheme(): List[String] = 
-  val kdeGetColorScheme = List("plasma-apply-colorscheme", "-l").!!
-  val kdeSplitColorScheme = kdeGetColorScheme.split(" ").toList
-  kdeSplitColorScheme
-  
-
-def kdeListCursorTheme(): List[String] =
-  val kdeGetCursorTheme = List("plasma-apply-cursortheme", "--list-themes").!!
-  val kdeSplitCursorTheme = kdeGetCursorTheme.split(" ").toList
-  kdeSplitCursorTheme
-
-def kdeListGlobalTheme(): List[String] =
-  val kdeGetGlobalTheme = List("plasma-apply-lookandfeel", "-l").!!
-  val kdeSplitGlobalTheme = kdeGetGlobalTheme.split(" ").toList
-  kdeSplitGlobalTheme
-
-def kdeSetColorScheme(theme: String) = List("plasma-apply-colorscheme", theme).run()
-def kdeSetCursorTheme(theme: String) = List("plasma-apply-cursortheme", theme).run()
-def kdeSetGlobalTheme(theme: String) = List("plasma-apply-lookandfeel", "-a", theme).run()
-
 
 // Kvantum theme checking
 
