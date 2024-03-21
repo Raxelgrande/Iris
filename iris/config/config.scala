@@ -46,11 +46,6 @@ def readConfig(filename: String, line: String) =
   val config = getConfig_string(filename)
   value.findFirstIn(config)
 
-def emptyConfig(confname: String) = // for comparison in interface.scala
-  val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
-  "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpakgtk=")
-  settings
-
 def createConfig(confname: String) =
   val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
   "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpakgtk=")
