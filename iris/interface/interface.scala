@@ -50,8 +50,13 @@ def mainMenu() =
 
       val themeAction = themeList match
         case "Cursor Theme" => 
-          
-          replaceLine(confchange, themeLine, themeLine+"value")
+          val cursorlist = chooseOption_string(iconList(), "Select a cursor theme to save in your config:" +
+            "\nWarning! We can't separate cursors from icons, make sure you pick the right option!")
+          replaceLine(confchange, themeLine, themeLine+cursorlist)
+        case "Desktop Environment" =>
+          val desktoplist = chooseOption_string(List("Budgie", "Cinnamon", "GNOME", "Xfce"), "Select a desktop environment to save in your config")
+          replaceLine(confchange, themeLine, desktoplist)
+        case "Desktop Theme" =>
       
 
       

@@ -40,11 +40,12 @@ def getAllConfigs(): Vector[String] = //1 whole string per config to avoid matri
   val files = listOfConfigs()
   groupConfigs(files)
   
-def readConfig(filename: String, line: String) = 
+def readConfig(filename: String, line: String): String = 
   val value = Regex (line + "[a-zA-Z0-9\\-\\_]+")
   
   val config = getConfig_string(filename)
-  value.findFirstIn(config)
+  val search = value.findFirstIn(config).mkString
+  search
 
 def createConfig(confname: String) =
   val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
@@ -67,7 +68,7 @@ def createConfig(confname: String) =
 def replaceLine(confname: String, line: String, newvalue: String) = //newvalue is the line like "gtktheme=" + the value you want
   val configLocation = getHome()+"/.config/Iris/"
   val currentconf = getConfig_string(confname)
-  val replace = currentconf.replaceAll(line, newvalue)
+  val replace = currentconf.replaceAll(line+"[a-zA-Z0-9\\-\\_]+", newvalue)
   val writer = FileWriter( File(configLocation+confname))
   writer.write(replace)
   writer.close()
