@@ -20,6 +20,6 @@ def mainMenu() =
     case "Create a Configuration" =>
       createConfig(create(listOfConfigs()))
     case "Load a Configuration" =>
-      val conflist = chooseOption_array(listOfConfigs(), "Select one of your configurations to load:")
+      val conflist = chooseOption_string(listOfConfigs().toIndexedSeq, "Select one of your configurations to load:")
     case "Modify Configurations" =>
-      val confchange = chooseOption_array(listOfConfigs(), "Select one of your configurations to modify:")
+      val confchange = chooseOption_string(listOfConfigs().toIndexedSeq, "Select one of your configurations to modify:")
