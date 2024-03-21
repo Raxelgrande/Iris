@@ -177,6 +177,9 @@ The function returns the value the user chose.
 ```scala
 def chooseOption_string(l: Seq[String], title: String = "Choose an entry", first: String = "Exit"): String
 ```
+```scala
+def chooseOption_string(l: Array[String], title: String = "Choose an entry", first: String = "Exit"): String
+```
 Just like ```chooseOption()```, but it's nicer to use and you get the list element directly.
 
 Groups all elements of ```l``` together nicely, with a ```title``` above, and the first option of name ```first```. The user has to select the value of an option.

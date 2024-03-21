@@ -70,6 +70,11 @@ def chooseOption_string(l: Seq[String], title: String = "Choose an entry", first
   if i == 0 then ""
   else l(i-1)
 
+def chooseOption_string(l: Array[String], title: String = "Choose an entry", first: String = "Exit"): String =
+  val i = chooseOption(l, title, first)
+  if i == 0 then ""
+  else l(i-1)
+
 def readInt(txt: String): Int =
   val answer = answerToNumber(spawnAndRead(txt))
   if answer != -1 then
