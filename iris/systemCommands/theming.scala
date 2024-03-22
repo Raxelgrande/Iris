@@ -175,7 +175,7 @@ def xfceSetCursor(theme: String) = List("xfconf-query", "-n", "-c", "xsettings",
 
 // Kvantum theme checking
 
-def kvantumList() = 
+def kvantumList() = //needs to check inside the folders for some themes, they are splitten up inside.
   val homeKvantumLoc = getHome()+"/.config/Kvantum"
   val userKvantum = File(homeKvantumLoc).list()
   val sudoKvantum = File("/usr/share/Kvantum").list()

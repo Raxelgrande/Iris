@@ -32,8 +32,8 @@ def mainMenu() =
 
       
       val themeList = chooseOption_string(List("Cursor Theme", "Desktop Environment", "Desktop Theme", "Flatpak GTK Theme", 
-      "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme"), s"Your currently selected configuration is $confchangeColor"+
-      "\nSelect a value to modify:")
+      "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme"), "Select a value to modify:"+
+      s"\nYour currently selected configuration is $confchangeColor")
       
       val themeLine = themeList match 
         case "Cursor Theme" => "cursortheme="
@@ -51,12 +51,39 @@ def mainMenu() =
       val themeAction = themeList match
         case "Cursor Theme" => 
           val cursorlist = chooseOption_string(iconList(), "Select a cursor theme to save in your config:" +
-            "\nWarning! We can't separate cursors from icons, make sure you pick the right option!")
+            "\nWarning! We can't separate Cursors from Icons, make sure you pick the right option, check in your Desktop's GUI first!")
           replaceLine(confchange, themeLine, themeLine+cursorlist)
         case "Desktop Environment" =>
-          val desktoplist = chooseOption_string(List("Budgie", "Cinnamon", "GNOME", "Xfce"), "Select a desktop environment to save in your config")
-          replaceLine(confchange, themeLine, desktoplist)
+          val desktoplist = chooseOption_string(List("Budgie", "Cinnamon", "GNOME", "Xfce"), "Select a Desktop Environment to save in your config:")
+          replaceLine(confchange, themeLine, themeLine+desktoplist)
         case "Desktop Theme" =>
+          val desktoptheme = chooseOption_string(gtkList(), "Select a Desktop Theme to save in your config:")
+          replaceLine(confchange, themeLine, themeLine+desktoptheme)
+        case "Flatpak GTK Theme" =>
+          val flatpakgtk = chooseOption_string(gtkList(), "Select a GTK theme to apply in Flatpaks:")
+          replaceLine(confchange, themeLine, themeLine+flatpakgtk)
+        case "Full QT Theming" =>
+          val qtbool = askPrompt("Would you like to enable Full QT Theming?" +
+            "\nThis means that your selected Icon Theme & Kvantum Theme will get applied to every QT program, including Flatpaks.")
+            if qtbool == true then 
+              replaceLine(confchange, themeLine, themeLine+"true")
+            else 
+              replaceLine(confchange, themeLine, themeLine+"false")
+        case "GTK Theme" =>
+          val gtktheme = chooseOption_string(gtkList(), "Select a GTK Theme to save in your config:")
+          replaceLine(confchange, themeLine, themeLine+gtktheme)
+        case "Icon Theme" =>
+          val icontheme = chooseOption_string(iconList(), "Select an Icon Theme to save in your config." +
+            "\nWarning! We can't separate Icons from Cursors, make sure you pick the right option, check in your desktop's GUI first!")
+          replaceLine(confchange, themeLine, themeLine+icontheme)
+        case "Kvantum Theme" =>
+          val kvantumtheme = chooseOption_string(kvantumList(), "Select a Kvantum Theme to save in your config. " +
+            "\nWarning! For this to be effective outside Kvantum, please say yes in Full QT Theming.")
+          replaceLine(confchange, themeLine, themeLine+kvantumtheme)
+        case "Libadwaita/GTK4 Theme" =>
+          val libadwaitatheme = chooseOption_string(gtkList(), "Select a GTK Theme to apply in Libadwaita/GTK4 programs." +
+            "\nWe recommend that you use the same Theme you selected in GTK Theme for optimal results.")
+          replaceLine(confchange, themeLine, themeLine+libadwaitatheme)
       
 
       

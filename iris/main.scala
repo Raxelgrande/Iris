@@ -7,5 +7,5 @@ import iris.tui.*
 
 
 @main def main() =
-  setDesktopTheme("test", "vimix-dark-ruby")
+  mainMenu()
   //if you read this you are a certified scalamancer

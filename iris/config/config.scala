@@ -67,11 +67,21 @@ def createConfig(confname: String) =
 
 def replaceLine(confname: String, line: String, newvalue: String) = //newvalue is the line like "gtktheme=" + the value you want
   val configLocation = getHome()+"/.config/Iris/"
+  
   val currentconf = getConfig_string(confname)
+  val currentconfList = getConfig_list(confname)
+  
+  val emptyreplace = currentconf.replaceAll(line, newvalue)
   val replace = currentconf.replaceAll(line+"[a-zA-Z0-9\\-\\_]+", newvalue)
-  val writer = FileWriter( File(configLocation+confname))
-  writer.write(replace)
-  writer.close()
+  
+  if currentconfList.contains(line) then 
+    val emptywriter = FileWriter( File(configLocation+confname))
+    emptywriter.write(emptyreplace)
+    emptywriter.close()
+  else
+    val writer = FileWriter( File(configLocation+confname))
+    writer.write(replace)
+    writer.close()
 
 def getHome() = System.getProperty("user.home")
 //outdated, will have to rewrite some tui functions first
