@@ -6,6 +6,7 @@ import java.io.FileWriter
 import scala.io.Source
 import scala.util.matching.Regex
 import iris.tui._
+import iris.theming._
 
 
 def listOfConfigs(): Array[String] = //I changed to array to remove the list conversion overhead
@@ -47,9 +48,63 @@ def readConfig(filename: String, line: String): String =
   val search = value.findFirstIn(config).mkString
   search
 
+def readConfigValue(filename: String, line: String): String =
+  val value = Regex (line + "[a-zA-Z0-9\\-\\_]+")
+  
+  val config = getConfig_string(filename)
+  val search = value.findFirstIn(config).mkString
+  val result = search.replaceAll(line, "")
+  result
+
+def loadConfig(filename: String) =
+  val checkDesktopEnv = readConfigValue(filename, "desktop_environment=")
+  val checkGtk = readConfigValue(filename, "gtktheme=")
+  val checkLibadwaita = readConfigValue(filename, "libadwaita=")
+  val checkIcon = readConfigValue(filename, "icontheme=")
+  val checkCursor = readConfigValue(filename, "cursortheme=")
+  val checkDesktopTheme = readConfigValue(filename, "desktoptheme=")
+  val checkKvantum = readConfigValue(filename, "kvantumtheme=")
+  val qtState = readConfigValue(filename, "qt5ct=")
+  val checkFlatpakGtk = readConfigValue(filename, "flatpakgtk=")
+  val checkFlatpakIcon = readConfigValue(filename, "flatpakicon=")
+
+
+  val themedesktop = checkDesktopEnv match
+    case "GNOME" =>
+      gnBgSetGtk(checkGtk)
+      libadwaitaSymlink(checkLibadwaita)
+      gnomeSetShell(checkDesktopTheme)
+      gnBgSetIcon(checkIcon)
+      gnBgSetCursor(checkCursor)
+
+    case "Budgie" =>
+      gnBgSetGtk(checkGtk)
+      libadwaitaSymlink(checkLibadwaita)
+      gnBgSetIcon(checkIcon)
+      gnBgSetCursor(checkCursor)
+    
+    case "Cinnamon" =>
+      cinnamonSetGtk(checkGtk)
+      libadwaitaSymlink(checkLibadwaita)
+      cinnamonSetIcon(checkIcon)
+      cinnamonSetCursor(checkCursor)
+    
+    case "Xfce" =>
+      xfceSetGtk(checkGtk)
+      xfceSetXfwm(checkGtk)
+      libadwaitaSymlink(checkLibadwaita)
+      xfceSetIcon(checkIcon)
+      xfceSetCursor(checkCursor)
+  if qtState == "qt5ct=true" then 
+    qt5writeConf("kvantum", checkIcon)
+    qt6writeConf("kvantum", checkIcon)
+  flatpakSetGtk(checkFlatpakGtk)
+  flatpakSetIcons(checkFlatpakIcon)
+  kvantumSetTheme(checkKvantum)
+
 def createConfig(confname: String) =
   val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
-  "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpakgtk=")
+  "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpakgtk=\nflatpakicon=")
   val configLocation = getHome()+"/.config/Iris/"
   
 

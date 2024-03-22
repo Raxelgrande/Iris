@@ -225,6 +225,6 @@ def qt6writeConf(style: String, icon_theme: String) = //requires to launch qt6ct
   writeconf.write(replace)
   writeconf.close()
 
-def flatpakSetGtk(gtktheme: String) = List("flatpak", "override", "--env=GTK_THEME="+gtktheme).!<
-def flatpakSetIcons(icontheme: String) = List("flatpak", "override", "--env=ICON_THEME="+icontheme).!<
+def flatpakSetGtk(gtktheme: String) = List("sudo", "flatpak", "override", "--env=GTK_THEME="+gtktheme).!<
+def flatpakSetIcons(icontheme: String) = List("sudo", "flatpak", "override", "--env=ICON_THEME="+icontheme).!<
 

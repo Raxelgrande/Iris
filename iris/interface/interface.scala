@@ -20,10 +20,15 @@ def mainMenu(): Unit =
   home match
     case "Create a Configuration" =>
       createConfig(create(listOfConfigs()))
+      mainMenu()
     case "Load a Configuration" =>
       val conflist = chooseOption_astring(listOfConfigs(), "Select one of your configuration files to load:")
+   
+   
     case "Modify Configurations" =>
       val confchange = chooseOption_astring(listOfConfigs(), "Select one of your configuration files to modify:")
+      if confchange == "" then
+        mainMenu()
       def confchangeColor = foreground("green")+confchange
 
       if getConfig_list(confchange).contains("desktop_environment=") then 
@@ -32,7 +37,7 @@ def mainMenu(): Unit =
 
       
       val themeList = chooseOption_string(List("Cursor Theme", "Desktop Environment", "Desktop Theme", "Flatpak GTK Theme", 
-      "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme"), "Select a value to modify:"+
+      "Flatpak Icon Theme", "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme"), "Select a value to modify:"+
       s"\nYour currently selected configuration is $confchangeColor")
       
       val themeLine = themeList match 
@@ -40,6 +45,7 @@ def mainMenu(): Unit =
         case "Desktop Environment" => "desktop_environment="
         case "Desktop Theme" => "desktoptheme="
         case "Flatpak GTK Theme" => "flatpakgtk="
+        case "Flatpak Icon Theme" => "flatpakicon="
         case "Full QT Theming" => "qt5ct="
         case "GTK Theme" => "gtktheme="
         case "Icon Theme" => "icontheme="
@@ -75,11 +81,20 @@ def mainMenu(): Unit =
             mainMenu()
 
         case "Flatpak GTK Theme" =>
-          val flatpakgtk = chooseOption_string(gtkList(), "Select a GTK theme to apply in Flatpaks:")
+          val flatpakgtk = chooseOption_string(gtkList(), "Select a GTK Theme to apply in Flatpaks:")
           if flatpakgtk == "" then
             mainMenu()
           else 
             replaceLine(confchange, themeLine, themeLine+flatpakgtk)
+            mainMenu()
+
+        case "Flatpak Icon Theme" =>
+          val flatpakicon = chooseOption_string(iconList(), "Select an Icon Theme to apply in Flatpaks." +
+            "\nWarning! We can't separate Icons from Cursors, make sure you pick the right option, check in your desktop's GUI first!")
+          if flatpakicon == "" then
+            mainMenu()
+          else 
+            replaceLine(confchange, themeLine, themeLine+flatpakicon)
             mainMenu()
 
         case "Full QT Theming" =>

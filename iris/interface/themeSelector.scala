@@ -24,5 +24,3 @@ def setDesktopTheme(filename: String, theme: String) =
       cinnamonSetShell(theme)
     case "desktop_environment=Xfce" =>
       xfceSetGtk(theme)
-
-  
