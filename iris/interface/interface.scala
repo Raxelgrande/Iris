@@ -4,7 +4,7 @@ import iris.config._
 import iris.theming._
 import iris.themeSelector._
 
-def mainMenu() =
+def mainMenu(): Unit =
   def create(existingConfs: Array[String]): String =
     val confname = spawnAndRead("Please, write a name for your new configuration.")
     if existingConfs.contains(confname) then
@@ -52,38 +52,80 @@ def mainMenu() =
         case "Cursor Theme" => 
           val cursorlist = chooseOption_string(iconList(), "Select a cursor theme to save in your config:" +
             "\nWarning! We can't separate Cursors from Icons, make sure you pick the right option, check in your Desktop's GUI first!")
-          replaceLine(confchange, themeLine, themeLine+cursorlist)
+          if cursorlist == "" then
+            mainMenu()
+          else 
+            replaceLine(confchange, themeLine, themeLine+cursorlist)
+            mainMenu()
+        
         case "Desktop Environment" =>
           val desktoplist = chooseOption_string(List("Budgie", "Cinnamon", "GNOME", "Xfce"), "Select a Desktop Environment to save in your config:")
-          replaceLine(confchange, themeLine, themeLine+desktoplist)
+          if desktoplist == "" then
+            mainMenu()
+          else
+            replaceLine(confchange, themeLine, themeLine+desktoplist)
+            mainMenu()
+        
         case "Desktop Theme" =>
           val desktoptheme = chooseOption_string(gtkList(), "Select a Desktop Theme to save in your config:")
-          replaceLine(confchange, themeLine, themeLine+desktoptheme)
+          if desktoptheme == "" then
+            mainMenu()
+          else  
+            replaceLine(confchange, themeLine, themeLine+desktoptheme)
+            mainMenu()
+
         case "Flatpak GTK Theme" =>
           val flatpakgtk = chooseOption_string(gtkList(), "Select a GTK theme to apply in Flatpaks:")
-          replaceLine(confchange, themeLine, themeLine+flatpakgtk)
+          if flatpakgtk == "" then
+            mainMenu()
+          else 
+            replaceLine(confchange, themeLine, themeLine+flatpakgtk)
+            mainMenu()
+
         case "Full QT Theming" =>
           val qtbool = askPrompt("Would you like to enable Full QT Theming?" +
             "\nThis means that your selected Icon Theme & Kvantum Theme will get applied to every QT program, including Flatpaks.")
             if qtbool == true then 
               replaceLine(confchange, themeLine, themeLine+"true")
+              mainMenu()
             else 
               replaceLine(confchange, themeLine, themeLine+"false")
+              mainMenu()
+
         case "GTK Theme" =>
           val gtktheme = chooseOption_string(gtkList(), "Select a GTK Theme to save in your config:")
-          replaceLine(confchange, themeLine, themeLine+gtktheme)
+          if gtktheme == "" then
+            mainMenu()
+          else
+            replaceLine(confchange, themeLine, themeLine+gtktheme)
+            mainMenu()
+
         case "Icon Theme" =>
           val icontheme = chooseOption_string(iconList(), "Select an Icon Theme to save in your config." +
             "\nWarning! We can't separate Icons from Cursors, make sure you pick the right option, check in your desktop's GUI first!")
-          replaceLine(confchange, themeLine, themeLine+icontheme)
+          if icontheme == "" then
+            mainMenu()
+          else
+            replaceLine(confchange, themeLine, themeLine+icontheme)
+            mainMenu()
+        
         case "Kvantum Theme" =>
           val kvantumtheme = chooseOption_string(kvantumList(), "Select a Kvantum Theme to save in your config. " +
             "\nWarning! For this to be effective outside Kvantum, please say yes in Full QT Theming.")
-          replaceLine(confchange, themeLine, themeLine+kvantumtheme)
+          if kvantumtheme == "" then 
+            mainMenu()
+          else
+            replaceLine(confchange, themeLine, themeLine+kvantumtheme)
+            mainMenu()
+        
         case "Libadwaita/GTK4 Theme" =>
           val libadwaitatheme = chooseOption_string(gtkList(), "Select a GTK Theme to apply in Libadwaita/GTK4 programs." +
             "\nWe recommend that you use the same Theme you selected in GTK Theme for optimal results.")
-          replaceLine(confchange, themeLine, themeLine+libadwaitatheme)
+          if libadwaitatheme == "" then
+            mainMenu()
+          else 
+            replaceLine(confchange, themeLine, themeLine+libadwaitatheme)
+            mainMenu()
       
 
       
