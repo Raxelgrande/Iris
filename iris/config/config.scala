@@ -65,6 +65,7 @@ def loadConfig(filename: String) =
   val checkDesktopTheme = readConfigValue(filename, "desktoptheme=")
   val checkKvantum = readConfigValue(filename, "kvantumtheme=")
   val qtState = readConfigValue(filename, "qt5ct=")
+  val flatpakState = readConfigValue(filename, "flatpak=")
   val checkFlatpakGtk = readConfigValue(filename, "flatpakgtk=")
   val checkFlatpakIcon = readConfigValue(filename, "flatpakicon=")
 
@@ -98,13 +99,15 @@ def loadConfig(filename: String) =
   if qtState == "qt5ct=true" then 
     qt5writeConf("kvantum", checkIcon)
     qt6writeConf("kvantum", checkIcon)
+    kvantumSetTheme(checkKvantum)
+  if flatpakState == "flatpak=true" then
   flatpakSetGtk(checkFlatpakGtk)
   flatpakSetIcons(checkFlatpakIcon)
-  kvantumSetTheme(checkKvantum)
+  
 
 def createConfig(confname: String) =
   val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
-  "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpakgtk=\nflatpakicon=")
+  "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpak=\nflatpakgtk=\nflatpakicon=")
   val configLocation = getHome()+"/.config/Iris/"
   
 

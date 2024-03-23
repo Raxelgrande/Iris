@@ -35,7 +35,7 @@ def mainMenu(): Unit =
         val selectedDesktop = askDesktop()
         replaceLine(confchange, "desktop_environment=", "desktop_environment="+selectedDesktop)
       
-      val themeList = chooseOption_string(List("Cursor Theme", "Desktop Environment", "Desktop Theme", "Flatpak GTK Theme", 
+      val themeList = chooseOption_string(List("Cursor Theme", "Desktop Environment", "Desktop Theme","Flatpak", "Flatpak GTK Theme", 
       "Flatpak Icon Theme", "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme"), "Select a value to modify:"+
       s"\nYour currently selected configuration is $confchangeColor")
       
@@ -43,6 +43,7 @@ def mainMenu(): Unit =
         case "Cursor Theme" => "cursortheme="
         case "Desktop Environment" => "desktop_environment="
         case "Desktop Theme" => "desktoptheme="
+        case "Flatpak" => "flatpak="
         case "Flatpak GTK Theme" => "flatpakgtk="
         case "Flatpak Icon Theme" => "flatpakicon="
         case "Full QT Theming" => "qt5ct="
@@ -85,6 +86,16 @@ def mainMenu(): Unit =
             replaceLine(confchange, themeLine, themeLine+desktoptheme)
             mainMenu()
 
+        case "Flatpak" =>
+          val flatpakbool = askPrompt("Would you like to enable Flatpak theming? " +
+            "\nIf you say yes you will later have to fill the other two Flatpak options.")
+          if flatpakbool == true then
+            replaceLine(confchange, themeLine, themeLine+"true")
+            mainMenu()
+          else 
+            replaceLine(confchange, themeLine, themeLine+"false")
+            mainMenu()
+        
         case "Flatpak GTK Theme" =>
           val flatpakgtk = chooseOption_string(gtkList(), "Select a GTK Theme to apply in Flatpaks:")
           if flatpakgtk == "" then
