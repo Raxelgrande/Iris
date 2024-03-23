@@ -1,4 +1,4 @@
-package setup.tui
+package bananatui
 
 import java.io.File
 import scala.sys.process.*
@@ -67,6 +67,11 @@ def chooseOption_array(l: Array[String], title: String = "Choose an entry", firs
 
 def chooseOption_string(l: Seq[String], title: String = "Choose an entry", first: String = "Exit"): String =
   val i = chooseOption(l, title, first)
+  if i == 0 then ""
+  else l(i-1)
+
+def chooseOption_astring(l: Array[String], title: String = "Choose an entry", first: String = "Exit"): String =
+  val i = chooseOption_array(l, title, first)
   if i == 0 then ""
   else l(i-1)
 

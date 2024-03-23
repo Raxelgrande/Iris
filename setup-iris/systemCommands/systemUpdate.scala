@@ -2,7 +2,7 @@ package setup.sysUpdate
 
 import setup.distroFinder.getPackageManager
 import setup.dependencyInstall._
-import setup.tui._
+import bananatui.*
 import scala.sys.process._
 import setup.distroFinder.aptWho
 

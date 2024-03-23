@@ -5,7 +5,7 @@ import java.io.OutputStreamWriter
 import java.io.FileWriter
 import scala.io.Source
 import scala.util.matching.Regex
-import iris.tui._
+import bananatui.*
 import iris.theming._
 
 

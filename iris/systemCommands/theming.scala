@@ -2,12 +2,14 @@ package iris.theming
 
 import scala.sys.process._, scala.io.Source
 import java.nio.file.{Files, Path}, java.io.File
-import iris.themeSelector._, iris.tui._, iris.config._
 import java.io.FileWriter
-import setup.distroFinder.getHome
+
+import iris.themeSelector._, iris.config._
+import bananatui.*
+import bananacmd.{getHome, command_root}
 
 // Returns every location of gtk folders as one
-def gtkList(): List[String] = 
+def gtkList(): List[String] =
   val homeThemeLoc = getHome()+"/.themes"
   
   val userList = File(homeThemeLoc).list()
@@ -28,11 +30,11 @@ def gtkList(): List[String] =
       .toList
       else List()
   //the tolist and filter also crash this fucker if the bitch array is null so i moved it here
-  ul ++ sl 
+  ul ++ sl
 
 def gtkUserList(): List[String] =
   val homeThemeLoc = getHome()+"/.themes"
-  
+
   val userList = File(homeThemeLoc).list()
 
   val ul =
@@ -255,6 +257,6 @@ def qt6writeConf(style: String, icon_theme: String) = //requires to launch qt6ct
   writeconf.write(replace)
   writeconf.close()
 
-def flatpakSetGtk(gtktheme: String) = List("pkexec", "flatpak", "override", "--env=GTK_THEME="+gtktheme).!<
-def flatpakSetIcons(icontheme: String) = List("pkexec", "flatpak", "override", "--env=ICON_THEME="+icontheme).!<
+def flatpakSetGtk(gtktheme: String) = command_root(List("flatpak", "override", "--env=GTK_THEME="+gtktheme))
+def flatpakSetIcons(icontheme: String) = command_root(List("flatpak", "override", "--env=ICON_THEME="+icontheme))
 

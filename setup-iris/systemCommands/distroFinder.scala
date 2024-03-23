@@ -3,7 +3,7 @@ package setup.distroFinder
 import scala.sys.process._
 import scala.io.Source
 import java.io.File
-import setup.tui._
+import bananatui.*
 import setup.sysUpdate._
 import setup.dependencyInstall._
 

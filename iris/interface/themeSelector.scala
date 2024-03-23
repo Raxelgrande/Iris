@@ -1,6 +1,6 @@
 package iris.themeSelector
 import iris.theming._
-import iris.tui._
+import bananatui.*
 import iris.config.readConfig
 
 def pickGtkTheme(): String = chooseOption_string(gtkList())

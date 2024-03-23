@@ -1,5 +1,5 @@
 package iris.interface
-import iris.tui._
+import bananatui.*
 import iris.config._
 import iris.theming._
 import iris.themeSelector._

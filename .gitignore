@@ -9,6 +9,7 @@ scala-cli.json
 .scala-build
 .dsp
 .vscode
+.idea
 .bsp 
 testing
 testing.scala
