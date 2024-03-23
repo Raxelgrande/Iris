@@ -206,25 +206,28 @@ def kvantumSudoList() =
 
 def kvantumThemeVariant(title: String, foundvariant: String) =
   val list = chooseOption_string(kvantumList(), title)
-  val userListInside = File(getHome()+"/.config/Kvantum/"+list).list()
-  val sudoListInside = File("/usr/share/Kvantum/"+list).list()
+  val home = getHome() //retrieve only once
+  val userListInside = File(s"$home/.config/Kvantum/$list").list()
+  val sudoListInside = File(s"/usr/share/Kvantum/$list").list()
 
   val ul =
     if userListInside != null then 
       userListInside
-      .filter(x => File(s"/usr/share/Kvantum/"+list).isFile())
+      .filter(x => File(s"$home/.config/Kvantum/$list/$x").isFile())
       .toList
-      else List()
+    else List()
   
   val sl =
     if sudoListInside != null then
       sudoListInside
-      .filter(x => File(getHome()+s"/.config/Kvantum/"+list).isFile())
+      .filter(x => File(s"/usr/share/Kvantum/$list/$x").isFile())
       .toList
-      else List()
+    else List()
   val completeList = ul ++ sl
   
   val selectVariant = chooseOption_string(completeList, foundvariant)
+  val endList = selectVariant.replaceAll(".kvconfig", "").replaceAll(".svg", "")
+  endList
 
 def kvantumSetTheme(theme: String) = List("kvantummanager", "--set", theme).!!
 

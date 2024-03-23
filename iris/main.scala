@@ -7,5 +7,5 @@ import bananatui.*
 
 
 @main def main() =
-  println(kvantumList())
+  mainMenu()
   //if you read this you are a certified scalamancer

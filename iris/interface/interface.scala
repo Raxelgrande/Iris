@@ -149,8 +149,10 @@ def mainMenu(): Unit =
             mainMenu()
         
         case "Kvantum Theme" =>
-          val kvantumtheme = chooseOption_string(kvantumList(), "Select a Kvantum Theme to save in your config. " +
-            "\nWarning! For this to be effective outside Kvantum, please say yes in Full QT Theming.")
+          val kvantumtheme = kvantumThemeVariant("Select a Kvantum Theme to save in your config. " +
+            "\nWarning! For this to be effective outside Kvantum, please say yes in Full QT Theming.", 
+            "We have found a variant for your selected theme, please select the one you want to use:" +
+            "\nIgnore the file extension, base your choice on the names of the theme files we detected.")
           if kvantumtheme == "" then 
             pressToContinue(foreground("red")+"Warning!!!" +
               "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
