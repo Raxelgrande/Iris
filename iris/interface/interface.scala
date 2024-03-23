@@ -34,7 +34,6 @@ def mainMenu(): Unit =
       if getConfig_list(confchange).contains("desktop_environment=") then 
         val selectedDesktop = askDesktop()
         replaceLine(confchange, "desktop_environment=", "desktop_environment="+selectedDesktop)
-
       
       val themeList = chooseOption_string(List("Cursor Theme", "Desktop Environment", "Desktop Theme", "Flatpak GTK Theme", 
       "Flatpak Icon Theme", "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme"), "Select a value to modify:"+
@@ -59,6 +58,8 @@ def mainMenu(): Unit =
           val cursorlist = chooseOption_string(iconList(), "Select a cursor theme to save in your config:" +
             "\nWarning! We can't separate Cursors from Icons, make sure you pick the right option, check in your Desktop's GUI first!")
           if cursorlist == "" then
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else 
             replaceLine(confchange, themeLine, themeLine+cursorlist)
@@ -67,6 +68,8 @@ def mainMenu(): Unit =
         case "Desktop Environment" =>
           val desktoplist = chooseOption_string(List("Budgie", "Cinnamon", "GNOME", "Xfce"), "Select a Desktop Environment to save in your config:")
           if desktoplist == "" then
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else
             replaceLine(confchange, themeLine, themeLine+desktoplist)
@@ -75,6 +78,8 @@ def mainMenu(): Unit =
         case "Desktop Theme" =>
           val desktoptheme = chooseOption_string(gtkList(), "Select a Desktop Theme to save in your config:")
           if desktoptheme == "" then
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else  
             replaceLine(confchange, themeLine, themeLine+desktoptheme)
@@ -83,6 +88,8 @@ def mainMenu(): Unit =
         case "Flatpak GTK Theme" =>
           val flatpakgtk = chooseOption_string(gtkList(), "Select a GTK Theme to apply in Flatpaks:")
           if flatpakgtk == "" then
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else 
             replaceLine(confchange, themeLine, themeLine+flatpakgtk)
@@ -92,6 +99,8 @@ def mainMenu(): Unit =
           val flatpakicon = chooseOption_string(iconList(), "Select an Icon Theme to apply in Flatpaks." +
             "\nWarning! We can't separate Icons from Cursors, make sure you pick the right option, check in your desktop's GUI first!")
           if flatpakicon == "" then
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else 
             replaceLine(confchange, themeLine, themeLine+flatpakicon)
@@ -110,6 +119,8 @@ def mainMenu(): Unit =
         case "GTK Theme" =>
           val gtktheme = chooseOption_string(gtkList(), "Select a GTK Theme to save in your config:")
           if gtktheme == "" then
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else
             replaceLine(confchange, themeLine, themeLine+gtktheme)
@@ -119,6 +130,8 @@ def mainMenu(): Unit =
           val icontheme = chooseOption_string(iconList(), "Select an Icon Theme to save in your config." +
             "\nWarning! We can't separate Icons from Cursors, make sure you pick the right option, check in your desktop's GUI first!")
           if icontheme == "" then
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else
             replaceLine(confchange, themeLine, themeLine+icontheme)
@@ -128,6 +141,8 @@ def mainMenu(): Unit =
           val kvantumtheme = chooseOption_string(kvantumList(), "Select a Kvantum Theme to save in your config. " +
             "\nWarning! For this to be effective outside Kvantum, please say yes in Full QT Theming.")
           if kvantumtheme == "" then 
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else
             replaceLine(confchange, themeLine, themeLine+kvantumtheme)
@@ -137,6 +152,8 @@ def mainMenu(): Unit =
           val libadwaitatheme = chooseOption_string(gtkList(), "Select a GTK Theme to apply in Libadwaita/GTK4 programs." +
             "\nWe recommend that you use the same Theme you selected in GTK Theme for optimal results.")
           if libadwaitatheme == "" then
+            pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
           else 
             replaceLine(confchange, themeLine, themeLine+libadwaitatheme)

@@ -7,6 +7,5 @@ import iris.tui.*
 
 
 @main def main() =
-  loadConfig("vimix-dark")
-  //mainMenu()
+  mainMenu()
   //if you read this you are a certified scalamancer
