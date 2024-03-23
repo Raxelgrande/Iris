@@ -4,6 +4,7 @@ import scala.sys.process._, scala.io.Source
 import java.nio.file.{Files, Path}, java.io.File
 import iris.themeSelector._, iris.tui._, iris.config._
 import java.io.FileWriter
+import setup.distroFinder.getHome
 
 // Returns every location of gtk folders as one
 def gtkList(): List[String] = 
@@ -176,23 +177,52 @@ def xfceSetCursor(theme: String) = List("xfconf-query", "-n", "-c", "xsettings",
 // Kvantum theme checking
 
 def kvantumList() = //needs to check inside the folders for some themes, they are splitten up inside.
+ kvantumUserList()++kvantumSudoList()
+
+def kvantumUserList() =
   val homeKvantumLoc = getHome()+"/.config/Kvantum"
   val userKvantum = File(homeKvantumLoc).list()
-  val sudoKvantum = File("/usr/share/Kvantum").list()
-
   val ul = 
     if userKvantum != null then
       userKvantum
       .filter(x => File(s"$homeKvantumLoc/$x").isDirectory())
       .toList
       else List()
+  ul
+
+def kvantumSudoList() =
+  val sudoKvantum = File("/usr/share/Kvantum").list()
+  
   val sl =
     if sudoKvantum != null then 
       sudoKvantum
       .filter(x => File(s"/usr/share/Kvantum").isDirectory())
       .toList
       else List()
-  ul ++ sl
+  sl
+
+
+def kvantumThemeVariant(title: String, foundvariant: String) =
+  val list = chooseOption_string(kvantumList(), title)
+  val userListInside = File(getHome()+"/.config/Kvantum/"+list).list()
+  val sudoListInside = File("/usr/share/Kvantum/"+list).list()
+
+  val ul =
+    if userListInside != null then 
+      userListInside
+      .filter(x => File(s"/usr/share/Kvantum/"+list).isFile())
+      .toList
+      else List()
+  
+  val sl =
+    if sudoListInside != null then
+      sudoListInside
+      .filter(x => File(getHome()+s"/.config/Kvantum/"+list).isFile())
+      .toList
+      else List()
+  val completeList = ul ++ sl
+  
+  val selectVariant = chooseOption_string(completeList, foundvariant)
 
 def kvantumSetTheme(theme: String) = List("kvantummanager", "--set", theme).!!
 

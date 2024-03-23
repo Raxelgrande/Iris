@@ -7,5 +7,5 @@ import iris.tui.*
 
 
 @main def main() =
-  mainMenu()
+  println(kvantumList())
   //if you read this you are a certified scalamancer
