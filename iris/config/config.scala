@@ -99,12 +99,12 @@ def loadConfig(filename: String) =
       xfceSetIcon(checkIcon)
       xfceSetCursor(checkCursor)
       
-  if qtState == "qt5ct=true" then 
+  if qtState == "true" then 
     qt5writeConf("kvantum", checkIcon)
     qt6writeConf("kvantum", checkIcon)
     kvantumSetTheme(checkKvantum)
 
-  if flatpakState == "flatpak=true" then
+  if flatpakState == "true" then
   flatpakSetGtk(checkFlatpakGtk)
   flatpakSetIcons(checkFlatpakIcon)
   
