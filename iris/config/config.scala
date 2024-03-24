@@ -83,12 +83,14 @@ def loadConfig(filename: String) =
       libadwaitaSymlink(checkLibadwaita)
       gnBgSetIcon(checkIcon)
       gnBgSetCursor(checkCursor)
+      
     
     case "Cinnamon" =>
       cinnamonSetGtk(checkGtk)
       libadwaitaSymlink(checkLibadwaita)
       cinnamonSetIcon(checkIcon)
       cinnamonSetCursor(checkCursor)
+      
     
     case "Xfce" =>
       xfceSetGtk(checkGtk)
@@ -96,10 +98,12 @@ def loadConfig(filename: String) =
       libadwaitaSymlink(checkLibadwaita)
       xfceSetIcon(checkIcon)
       xfceSetCursor(checkCursor)
+      
   if qtState == "qt5ct=true" then 
     qt5writeConf("kvantum", checkIcon)
     qt6writeConf("kvantum", checkIcon)
     kvantumSetTheme(checkKvantum)
+
   if flatpakState == "flatpak=true" then
   flatpakSetGtk(checkFlatpakGtk)
   flatpakSetIcons(checkFlatpakIcon)

@@ -231,15 +231,6 @@ def kvantumThemeVariant(title: String, foundvariant: String) =
 
 def kvantumSetTheme(theme: String) = 
   List("kvantummanager", "--set", theme).!!
-  val location = getHome()+"/.config/Kvantum"
-  val kvantumlines = Source.fromFile(getHome()+"/.config/Kvantum/kvantum.kvconfig").getLines()
-  val linesstring = kvantumlines.map(x => x + '\n').mkString
-
-  val replace = linesstring.replaceAll("[General]"+"\ntheme="+"[a-zA-Z0-9\\-\\_]+", "theme="+theme)
-
-  val writeconf = FileWriter(File(location+"kvantum.kvconfig"))
-  writeconf.write(replace)
-  writeconf.close()
 
 
 def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct once to generate a working config
