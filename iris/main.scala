@@ -7,8 +7,7 @@ import bananatui.*
 
 
 @main def main(theme: String*) =
-  val converted = theme.toString()
-  if converted == "List()" then
+  if theme.isEmpty then
     mainMenu()
   else 
     loadConfig(theme.head)
