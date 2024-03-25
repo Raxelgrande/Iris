@@ -110,20 +110,21 @@ def loadConfig(filename: String) =
   
 
 def createConfig(confname: String) =
-  val settings = String(s"themename=$confname\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
+  val confnameNoWhitespace = confname.filterNot(_.isWhitespace)
+  val settings = String(s"themename=$confnameNoWhitespace\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
   "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpak=\nflatpakgtk=\nflatpakicon=")
   val configLocation = getHome()+"/.config/Iris/"
   
 
   if File(configLocation).exists() == false then //creates config location
     File(configLocation).mkdirs()
-    val makeconf = FileWriter(File(configLocation+confname))
+    val makeconf = FileWriter(File(configLocation+confnameNoWhitespace))
     makeconf.write(settings)
     makeconf.close()
-  else if File(configLocation+confname).exists() == true then
+  else if File(configLocation+confnameNoWhitespace).exists() == true then
     println("TODO, TUI error message config already exists, reasks question")
   else 
-    val makeconf = FileWriter(File(configLocation+confname))
+    val makeconf = FileWriter(File(configLocation+confnameNoWhitespace))
     makeconf.write(settings)
     makeconf.close()
 

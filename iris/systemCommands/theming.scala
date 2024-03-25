@@ -4,7 +4,7 @@ import scala.sys.process._, scala.io.Source
 import java.nio.file.{Files, Path}, java.io.File
 import java.io.FileWriter
 
-import iris.themeSelector._, iris.config._
+import iris.themeSelector._, iris.config._, iris.interface._
 import bananatui.*
 import bananacmd.{getHome, command_root}
 
@@ -178,7 +178,7 @@ def xfceSetCursor(theme: String) = List("xfconf-query", "-n", "-c", "xsettings",
 
 // Kvantum theme checking
 
-def kvantumList() = //needs to check inside the folders for some themes, they are splitten up inside.
+def kvantumList() = 
  kvantumUserList()++kvantumSudoList()
 
 def kvantumUserList() =
@@ -225,6 +225,11 @@ def kvantumThemeVariant(title: String, foundvariant: String) =
     else List()
   val completeList = ul ++ sl
   
+  if completeList.contains("kvantum.kvconfig") then
+    pressToContinue(foreground("red")+"Warning!!!" +
+    "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
+    mainMenu()
+
   val selectVariant = chooseOption_string(completeList, foundvariant)
   val endList = selectVariant.replaceAll(".kvconfig", "").replaceAll(".svg", "")
   endList

@@ -44,6 +44,10 @@ def mainMenu(): Unit =
       val themeList = chooseOption_string(List("Cursor Theme", "Desktop Environment", "Desktop Theme","Flatpak", "Flatpak GTK Theme", 
       "Flatpak Icon Theme", "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme"), "Select a value to modify:"+
       s"\nYour currently selected configuration is $confchangeColor")
+
+      if themeList == "" then
+        mainMenu()
+      
       
       val themeLine = themeList match 
         case "Cursor Theme" => "cursortheme="
