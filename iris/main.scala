@@ -6,7 +6,10 @@ import bananatui.*
 
 
 
-@main def main() =
-  loadConfig("vimix-dark")
-  //mainMenu()
+@main def main(theme: String*) =
+  val converted = theme.toString()
+  if converted == "List()" then
+    mainMenu()
+  else 
+    loadConfig(theme.head)
   //if you read this you are a certified scalamancer

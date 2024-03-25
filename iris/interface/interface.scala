@@ -16,13 +16,19 @@ def mainMenu(): Unit =
       
 
   val home = chooseOption_string(Seq("Create a Configuration", "Load a Configuration", "Modify Configurations"), "Welcome to Iris!\nPlease select an option:")
-
+  if home == "" then
+    System.exit(0)
+  
   home match
     case "Create a Configuration" =>
       createConfig(create(listOfConfigs()))
       mainMenu()
     case "Load a Configuration" =>
       val conflist = chooseOption_astring(listOfConfigs(), "Select one of your configuration files to load:")
+      if conflist == "" then
+        mainMenu()
+      loadConfig(conflist)
+      mainMenu()
    
    
     case "Modify Configurations" =>
