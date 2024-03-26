@@ -65,7 +65,7 @@ def kvantumFlatpak(): Boolean =
     true
     //note for later: even if flatpak is installed, the command can fail
     //if that happens, this command execution will return an int that is not equal to 0
-    catch case e: Exception => false
+  catch case e: Exception => false
 
 def kvantumOverride() = List("flatpak", "override", "--filesystem=xdg-config/Kvantum:ro").!<
 
@@ -86,56 +86,3 @@ def zypperFlatpak() =
   kvantumFlatpak()
 
 def nixFlatpak() = nix_addPkg("flatpak")
-
-def nix_addPkg(pkg: String) = nix_addPkgs(Vector(pkg))
-
-def nix_addPkgs(pkgs: Seq[String]) =
-  def getPkgsString(str: String = "", i: Int = 0): String =
-    if i >= pkgs.length then
-      str
-    else if i == pkgs.length - 1 then
-      getPkgsString(str + s"${pkgs(i)} ", i+1)
-    else
-      getPkgsString(str + s"${pkgs(i)}", i+1)
-    
-  def addPkgHorizontally(line: String, newl: String = "", i: Int = 0): String =
-    if i >= line.length || line(i) == ']' then newl
-    else if line(i) == '[' then
-      addPkgHorizontally(line, newl + line(i) + s" ${getPkgsString()}", i+1)
-    else
-      addPkgHorizontally(line, newl + line(i), i+1)
-      
-  def addPkgs(conf: Seq[String], newconf: String = "", i: Int = 0): String =
-    if i >= conf.length then newconf
-    else if conf(i).contains("environment.systemPackages") then
-      if !conf(i).contains("]") then
-        addPkgs(conf, newconf + conf(i) + "\n" + s"  ${getPkgsString()}\n", i+1)
-      else
-        addPkgs(conf, addPkgHorizontally(conf(i)) + "\n", i+1)
-    else
-      addPkgs(conf, newconf + conf(i) + "\n", i+1)
-
-  val nixconf = nix_readConf()
-  val newconf = addPkgs(nixconf)
-  nix_writeConf(newconf)
-  List("nixos-rebuild", "switch").!<
-
-def nix_setupQtPlatform() =
-  def addEnv(conf: Seq[String], env: String, newconf: String = "", i: Int = 0): String =
-    if i >= conf.length then newconf
-    else if conf(i).contains("environment.systemPackages") then
-      addEnv(conf, env, newconf + s"$env\n" + conf(i) + "\n")
-    else
-      addEnv(conf, env, newconf + conf(i) + "\n")
-
-  val conf = nix_readConf()
-  val newconf = addEnv(conf, "environment.variables.QT_QPA_PLATFORMTHEME = \"qt5ct\";")
-
-private def nix_readConf(): Vector[String] =
-  Source.fromFile("/etc/nixos/configuration.nix")
-    .getLines()
-    .toVector
-
-private def nix_writeConf(newconf: String) =
-  File("/etc/nixos/configuration.nix").renameTo(File("/etc/nixos/configuration.nix.bak"))
-  FileOutputStream("/etc/nixos/configuration.nix").write(newconf.getBytes())

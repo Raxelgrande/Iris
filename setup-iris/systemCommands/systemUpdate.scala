@@ -7,17 +7,20 @@ import scala.sys.process._
 import setup.distroFinder.aptWho
 
 
-def sysUpdate() = 
-  getPackageManager() match
-    case "pacman" => pacUpdate()
-    case "apt" => aptUpdate()
-    case "dnf" => dnfUpdate()
-    case "zypper" => zypperUpdate()
-    case "nix" => nixUpdate()
-    case _ => unknownSystem()
+val package_manager = getPackageManager()
+
+def sysUpdate() =
+  if package_manager != "nix" then //nix doesnt need to update
+    package_manager match
+      case "pacman" => pacUpdate()
+      case "apt" => aptUpdate()
+      case "dnf" => dnfUpdate()
+      case "zypper" => zypperUpdate()
+      //case "nix" => nixUpdate()
+      case _ => unknownSystem()
 
 def sysDependencies() =
-  getPackageManager() match
+  package_manager match
     case "pacman" => pacDependency()
     case "apt" => aptWho()
     case "dnf" => dnfDependency()
@@ -28,13 +31,15 @@ def sysDependencies() =
 
 def installKvantumFlatpak() =
   if kvantumFlatpak() == false then //trying to run flatpak first, in case its already installed
-    getPackageManager() match
+    package_manager match
       case "pacman" => pacmanFlatpak()
       case "apt" => aptFlatpak()
       case "dnf" => dnfFlatpak()
       case "zypper" => zypperFlatpak()
       case "nix" => nixFlatpak()
       case _ => unknownSystem("Flatpak")
+
+def nixos_finalize() = if package_manager == "nix" then nix_build()
 
 def pacUpdate() = 
   clear()
@@ -53,9 +58,9 @@ def zypperUpdate() =
   clear()
   List("zypper", "dup", "-y").!<
 
-def nixUpdate() = 
-  clear()
-  List("nixos-rebuild", "switch", "--upgrade").!<
+// def nixUpdate() =
+//   clear()
+//   List("nixos-rebuild", "switch", "--upgrade").!<
 
 def unknownSystem(pkg_name: String = "") =
   val txt =
