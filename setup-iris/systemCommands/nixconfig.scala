@@ -16,9 +16,9 @@ def nix_addPkgs(pkgs: Seq[String]) =
     if i >= pkgs.length then
       str
     else if i == pkgs.length - 1 then
-      getPkgsString(str + s"${pkgs(i)} ", i+1)
-    else
       getPkgsString(str + s"${pkgs(i)}", i+1)
+    else
+      getPkgsString(str + s"${pkgs(i)} ", i+1)
 
   def mkConf(conf: Vector[String], confstr: String = "", i: Int = 0): String =
     if i >= conf.length then
