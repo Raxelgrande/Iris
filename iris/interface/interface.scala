@@ -88,11 +88,15 @@ def mainMenu(): Unit =
         
         case "Desktop Theme" =>
           if readConfigValue(confchange, "desktop_environment=").contains("GNOME") then
-            val gndesktoptheme = chooseOption_string(gtkGnomeList(), "Select a Desktop Theme to save in your config:")
+            val gndesktoptheme = 
+              chooseOption_string(gtkGnomeList(), "Select a Desktop Theme to save in your config:")
             if gndesktoptheme == "" then
-            pressToContinue(foreground("red")+"Warning!!!" +
+              pressToContinue(foreground("red")+"Warning!!!" +
               "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
-            mainMenu()
+              mainMenu()
+            else
+              replaceLine(confchange, themeLine, themeLine+gndesktoptheme)
+              mainMenu()
 
           val desktoptheme = chooseOption_string(gtkList(), "Select a Desktop Theme to save in your config:")
           if desktoptheme == "" then
