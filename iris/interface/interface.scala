@@ -87,7 +87,7 @@ def mainMenu(): Unit =
             mainMenu()
         
         case "Desktop Theme" =>
-          if readConfigValue(confchange, "desktop_environment=").contains(GNOME) then
+          if readConfigValue(confchange, "desktop_environment=").contains("GNOME") then
             val gndesktoptheme = chooseOption_string(gtkGnomeList(), "Select a Desktop Theme to save in your config:")
             if desktoptheme == "" then
             pressToContinue(foreground("red")+"Warning!!!" +
