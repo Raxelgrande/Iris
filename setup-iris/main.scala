@@ -15,7 +15,9 @@ import setup.dependencyInstall._
     sysDependencies()
     if askPrompt("Would you like to enable the setup to theme flatpaks?") == true then
       installKvantumFlatpak()
+      nixos_finalize()
       kvantumOverride()
       flatpakGtkOverride()
       flatpakIconOverride()
+    else nixos_finalize()
     writeQtPlatform()
