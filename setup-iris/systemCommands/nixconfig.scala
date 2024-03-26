@@ -66,7 +66,7 @@ def nix_setupQtPlatform() =
   val envline = nix_findQtEnv(conf)
   val newconf =
     if envline != -1 then replaceEnv(conf)
-    else addEnv(conf, getClosureLine(conf))
+    else addEnv(conf, getClosureLine(conf, conf.length-1))
   nix_writeConf(newconf)
 
 private def nix_readConf(): Vector[String] =
