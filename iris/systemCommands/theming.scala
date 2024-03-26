@@ -56,6 +56,9 @@ def gtkSudoList(): List[String] =
     else List()
   sl
 
+def gtkGnomeList(): List[String] =
+  gtkList().appended("Default")
+
 def libadwaitaSymlink(activeTheme: String) = //for applying a theme, not for enabling the configuration
   def createSymlink(link: String, target: String) = //link is the symlink it creates, not target
     val output = Path.of(s"$link/${File(target).getName()}")
