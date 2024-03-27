@@ -176,7 +176,7 @@ def cinnamonCheckShell() = List("gsettings", "get", "org.cinnamon.theme", "name"
 def cinnamonSetGtk(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "gtk-theme", theme).!! 
 def cinnamonSetIcon(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "icon-theme", theme).!!
 def cinnamonSetCursor(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "cursor-theme", theme).!!
-def cinnamonSetShell(theme: String) = List("gsettings", "set", "org.cinnamon.theme", "name", theme).!!
+def cinnamonSetShell(theme: String) = List("gsettings", "set", "org.cinnamon.theme", theme).!!
 
 // XFCE theme checking
 def xfceCheckGtk() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/ThemeName").!!
@@ -252,6 +252,23 @@ def kvantumThemeVariant(title: String, foundvariant: String) =
 def kvantumSetTheme(theme: String) = 
   List("kvantummanager", "--set", theme).!!
 
+def qt5createConf() =
+  val configLocation = getHome()+"/.config/qt5ct/"  
+
+  if File(configLocation).exists() == false then //creates config location
+    File(configLocation).mkdirs()
+    val makeconf = FileWriter(File(configLocation+"qt5ct.conf"))
+    makeconf.write("[Appearance]\ncustom_palette=false\nicon_theme=Adwaita\nstandard_dialogs=default\nstyle=kvantum")
+    makeconf.close()
+
+def qt6createConf() =
+  val configLocation = getHome()+"/.config/qt6ct/"  
+
+  if File(configLocation).exists() == false then //creates config location
+    File(configLocation).mkdirs()
+    val makeconf = FileWriter(File(configLocation+"qt6ct.conf"))
+    makeconf.write("[Appearance]\ncustom_palette=false\nicon_theme=Adwaita\nstandard_dialogs=default\nstyle=kvantum")
+    makeconf.close()
 
 def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct once to generate a working config
 // style syntax to use = "style=value"
