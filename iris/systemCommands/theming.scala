@@ -276,6 +276,8 @@ def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct
 // play with qtXct first before changing the args
   val location = getHome()+"/.config/qt5ct/"
   
+  qt5createConf()
+
   val conflines = Source.fromFile(getHome()+"/.config/qt5ct/qt5ct.conf").getLines()
   val confstring = conflines.map(x => x + '\n').mkString
   
@@ -289,6 +291,8 @@ def qt5writeConf(style: String, icon_theme: String) = //requires to launch qt5ct
 def qt6writeConf(style: String, icon_theme: String) = //requires to launch qt6ct once to generate a working config
   val location = getHome()+"/.config/qt6ct/"
   
+  qt6createConf()
+
   val conflines = Source.fromFile(getHome()+"/.config/qt6ct/qt6ct.conf").getLines()
   val confstring = conflines.map(x => x + '\n').mkString
   
