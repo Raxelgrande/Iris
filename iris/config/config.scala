@@ -74,21 +74,30 @@ def loadConfig(filename: String) =
   val themedesktop = checkDesktopEnv match
     case "GNOME" =>
       gnBgSetGtk(checkGtk)
-      libadwaitaSymlink(checkLibadwaita)
+      if checkLibadwaita == "ResetTheme" then 
+        libadwaitaReset()
+      else 
+        libadwaitaSymlink(checkLibadwaita)
       gnomeSetShell(checkDesktopTheme)
       gnBgSetIcon(checkIcon)
       gnBgSetCursor(checkCursor)
 
     case "Budgie" =>
       gnBgSetGtk(checkGtk)
-      libadwaitaSymlink(checkLibadwaita)
+      if checkLibadwaita == "ResetTheme" then 
+        libadwaitaReset()
+      else 
+        libadwaitaSymlink(checkLibadwaita)
       gnBgSetIcon(checkIcon)
       gnBgSetCursor(checkCursor)
       
     
     case "Cinnamon" =>
       cinnamonSetGtk(checkGtk)
-      libadwaitaSymlink(checkLibadwaita)
+      if checkLibadwaita == "ResetTheme" then 
+        libadwaitaReset()
+      else 
+        libadwaitaSymlink(checkLibadwaita)
       cinnamonSetIcon(checkIcon)
       cinnamonSetCursor(checkCursor)
       
@@ -96,7 +105,10 @@ def loadConfig(filename: String) =
     case "Xfce" =>
       xfceSetGtk(checkGtk)
       xfceSetXfwm(checkGtk)
-      libadwaitaSymlink(checkLibadwaita)
+      if checkLibadwaita == "ResetTheme" then 
+        libadwaitaReset()
+      else 
+        libadwaitaSymlink(checkLibadwaita)
       xfceSetIcon(checkIcon)
       xfceSetCursor(checkCursor)
       

@@ -23,6 +23,7 @@ def mainMenu(): Unit =
     case "Create a Configuration" =>
       createConfig(create(listOfConfigs()))
       mainMenu()
+    
     case "Load a Configuration" =>
       val conflist = chooseOption_astring(listOfConfigs(), "Select one of your configuration files to load:")
       if conflist == "" then
@@ -183,8 +184,10 @@ def mainMenu(): Unit =
             mainMenu()
         
         case "Libadwaita/GTK4 Theme" =>
-          val libadwaitatheme = chooseOption_string(gtkList(), "Select a GTK Theme to apply in Libadwaita/GTK4 programs." +
-            "\nWe recommend that you use the same Theme you selected in GTK Theme for optimal results.")
+          val libadwaitatheme = chooseOption_string(gtkLibadwaitaList(), "Select a GTK Theme to apply in Libadwaita/GTK4 programs." +
+            "\nWe recommend that you use the same Theme you selected in GTK Theme for optimal results." +
+            "\nIn case you don't want to theme GTK 4 or use the default theme, select: ResetTheme")
+          
           if libadwaitatheme == "" then
             pressToContinue(foreground("red")+"Warning!!!" +
               "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))

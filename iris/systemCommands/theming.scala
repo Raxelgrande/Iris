@@ -59,6 +59,9 @@ def gtkSudoList(): List[String] =
 def gtkGnomeList(): List[String] =
   gtkList().appended("Default")
 
+def gtkLibadwaitaList(): List[String] =
+  gtkList().appended("ResetTheme")
+
 def libadwaitaSymlink(activeTheme: String) = //for applying a theme, not for enabling the configuration
   def createSymlink(link: String, target: String) = //link is the symlink it creates, not target
     val output = Path.of(s"$link/${File(target).getName()}")
@@ -115,6 +118,15 @@ def libadwaitaSymlink(activeTheme: String) = //for applying a theme, not for ena
   else 
     println("Your selected theme is not installed in the system.")
     System.exit(0)
+
+def libadwaitaReset() =
+  val gtk4Folder = getHome()+"/.config/gtk-4.0/"
+  if File(gtk4Folder).exists() == false then 
+    File(gtk4Folder).mkdirs()
+  else 
+    List("rm", "-r", gtk4Folder).!<
+    File(gtk4Folder).mkdirs()
+    
 
 // List ./icons
 def iconList() =
