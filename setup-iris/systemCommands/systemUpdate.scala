@@ -10,13 +10,12 @@ import setup.distroFinder.aptWho
 val package_manager = getPackageManager()
 
 def sysUpdate() =
-  if package_manager != "nix" then //nix doesnt need to update
-    package_manager match
-      case "pacman" => pacUpdate()
-      case "apt" => aptUpdate()
-      case "dnf" => dnfUpdate()
-      case "zypper" => zypperUpdate()
-      case _ => unknownSystem()
+  package_manager match
+    case "pacman" => pacUpdate()
+    case "apt" => aptUpdate()
+    case "dnf" => dnfUpdate()
+    case "zypper" => zypperUpdate()
+    case _ => unknownSystem()
 
 def sysDependencies() =
   package_manager match

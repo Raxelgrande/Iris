@@ -41,33 +41,34 @@ def getAllConfigs(): Vector[String] = //1 whole string per config to avoid matri
   val files = listOfConfigs()
   groupConfigs(files)
   
-def readConfig(filename: String, line: String): String = 
+def readConfig(filename: String, line: String, conf: String = ""): String =
   val value = Regex (line + "[a-zA-Z0-9\\-\\_]+")
   
-  val config = getConfig_string(filename)
+  val config =
+    if conf != "" then conf
+    else getConfig_string(filename)
   val search = value.findFirstIn(config).mkString
   search
 
-def readConfigValue(filename: String, line: String): String =
-  val value = Regex (line + "[a-zA-Z0-9\\-\\_]+")
-  
-  val config = getConfig_string(filename)
-  val search = value.findFirstIn(config).mkString
+def readConfigValue(filename: String, line: String, conf: String = ""): String =
+  val search = readConfig(filename, line, conf)
   val result = search.replaceAll(line, "")
   result
 
 def loadConfig(filename: String) =
-  val checkDesktopEnv = readConfigValue(filename, "desktop_environment=")
-  val checkGtk = readConfigValue(filename, "gtktheme=")
-  val checkLibadwaita = readConfigValue(filename, "libadwaita=")
-  val checkIcon = readConfigValue(filename, "icontheme=")
-  val checkCursor = readConfigValue(filename, "cursortheme=")
-  val checkDesktopTheme = readConfigValue(filename, "desktoptheme=")
-  val checkKvantum = readConfigValue(filename, "kvantumtheme=")
-  val qtState = readConfigValue(filename, "qt5ct=")
-  val flatpakState = readConfigValue(filename, "flatpak=")
-  val checkFlatpakGtk = readConfigValue(filename, "flatpakgtk=")
-  val checkFlatpakIcon = readConfigValue(filename, "flatpakicon=")
+  val conf = getConfig_string(filename)
+
+  val checkDesktopEnv = readConfigValue(filename, "desktop_environment=", conf)
+  val checkGtk = readConfigValue(filename, "gtktheme=", conf)
+  val checkLibadwaita = readConfigValue(filename, "libadwaita=", conf)
+  val checkIcon = readConfigValue(filename, "icontheme=", conf)
+  val checkCursor = readConfigValue(filename, "cursortheme=", conf)
+  val checkDesktopTheme = readConfigValue(filename, "desktoptheme=", conf)
+  val checkKvantum = readConfigValue(filename, "kvantumtheme=", conf)
+  val qtState = readConfigValue(filename, "qt5ct=", conf)
+  val flatpakState = readConfigValue(filename, "flatpak=", conf)
+  val checkFlatpakGtk = readConfigValue(filename, "flatpakgtk=", conf)
+  val checkFlatpakIcon = readConfigValue(filename, "flatpakicon=", conf)
 
 
   val themedesktop = checkDesktopEnv match
