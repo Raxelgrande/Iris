@@ -13,11 +13,14 @@ def dnfDependency() = List("dnf", "install", "qt5ct", "qt6ct", "kvantum", "kvant
 
 def zypDependency() = List("zypper", "install", "qt5ct", "qt6ct", "kvantum-manager", "kvantum-qt5", "kvantum-qt6").!< 
 
-def kvantumUbuntu() =
-  List("add-apt-repository", "ppa:papirus/papirus", "-y").!<
-  List("apt", "install", "qt5ct", "qt6ct", "qt5-style-kvantum", "qt6-style-kvantum", "-y").!<
+def kvantumUbuntuOld() =
+  List("apt", "install", "qt5ct", "qt5-style-kvantum", "-y").!<
   aptUpdate()
 
+def kvantumUbuntu() =
+  List("add-apt-repository", "ppa:papirus/papirus", "-y").!<
+  List("apt", "install", "qt5ct", "qt6ct", "qt5-style-kvantum", "qt6-style-kvantum").!<
+  aptUpdate()
 
 def kvantumDebian() =
   writePapirusPPA()
