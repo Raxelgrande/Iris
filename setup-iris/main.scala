@@ -20,3 +20,7 @@ import setup.dependencyInstall._
       flatpakGtkOverride()
       flatpakIconOverride()
     writeQtPlatform()
+    pressToContinue("Due to how qt6ct and qt5ct works, we recommend that you launch them before creating a theme in Iris." +
+      "\nIf you manually launch them and save the settings, we can use the generated config from the program to bring you better results" +
+      "\nThis is especially important if you want a consistent font in QT programs." +
+      "\nDue to how fonts work in Linux we can't automatically use your font in our theme automation, otherwise we would.")

@@ -186,8 +186,11 @@ def mainMenu(): Unit =
         case "Libadwaita/GTK4 Theme" =>
           val libadwaitatheme = chooseOption_string(gtkLibadwaitaList(), "Select a GTK Theme to apply in Libadwaita/GTK4 programs." +
             "\nWe recommend that you use the same Theme you selected in GTK Theme for optimal results." +
+            "\nNot all GTK Themes support GTK 4, if you see a broken GUI please change it to something supported" +
             "\nIn case you don't want to theme GTK 4 or use the default theme, select: ResetTheme")
-          
+          if libadwaitatheme == "ResetTheme" then 
+            val variant = chooseOption_string(libadwaitaVariant(), "GTK 4 has two default themes, light and dark, select one to use.")
+            replaceLine(confchange, "libadwaitavariant=", "libadwaitavaraint="+variant)
           if libadwaitatheme == "" then
             pressToContinue(foreground("red")+"Warning!!!" +
               "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))

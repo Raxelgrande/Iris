@@ -61,6 +61,7 @@ def loadConfig(filename: String) =
   val checkDesktopEnv = readConfigValue(filename, "desktop_environment=", conf)
   val checkGtk = readConfigValue(filename, "gtktheme=", conf)
   val checkLibadwaita = readConfigValue(filename, "libadwaita=", conf)
+  val checkLibadwaitaVariant = readConfigValue(filename, "libadwaitavariant=", conf)
   val checkIcon = readConfigValue(filename, "icontheme=", conf)
   val checkCursor = readConfigValue(filename, "cursortheme=", conf)
   val checkDesktopTheme = readConfigValue(filename, "desktoptheme=", conf)
@@ -76,6 +77,7 @@ def loadConfig(filename: String) =
       gnBgSetGtk(checkGtk)
       if checkLibadwaita == "ResetTheme" then 
         libadwaitaReset()
+        libadwaitaWriteVariant(checkLibadwaitaVariant)
       else 
         libadwaitaSymlink(checkLibadwaita)
       gnomeSetShell(checkDesktopTheme)
@@ -86,6 +88,7 @@ def loadConfig(filename: String) =
       gnBgSetGtk(checkGtk)
       if checkLibadwaita == "ResetTheme" then 
         libadwaitaReset()
+        libadwaitaWriteVariant(checkLibadwaitaVariant)
       else 
         libadwaitaSymlink(checkLibadwaita)
       gnBgSetIcon(checkIcon)
@@ -96,6 +99,7 @@ def loadConfig(filename: String) =
       cinnamonSetGtk(checkGtk)
       if checkLibadwaita == "ResetTheme" then 
         libadwaitaReset()
+        libadwaitaWriteVariant(checkLibadwaitaVariant)
       else 
         libadwaitaSymlink(checkLibadwaita)
       cinnamonSetIcon(checkIcon)
@@ -107,6 +111,7 @@ def loadConfig(filename: String) =
       xfceSetXfwm(checkGtk)
       if checkLibadwaita == "ResetTheme" then 
         libadwaitaReset()
+        libadwaitaWriteVariant(checkLibadwaitaVariant)
       else 
         libadwaitaSymlink(checkLibadwaita)
       xfceSetIcon(checkIcon)
@@ -124,7 +129,7 @@ def loadConfig(filename: String) =
 
 def createConfig(confname: String) =
   val confnameNoWhitespace = confname.filterNot(_.isWhitespace)
-  val settings = String(s"themename=$confnameNoWhitespace\ndesktop_environment=\ngtktheme=\nlibadwaita=\nicontheme=\ncursortheme=\n" +
+  val settings = String(s"themename=$confnameNoWhitespace\ndesktop_environment=\ngtktheme=\nlibadwaita=\nlibadwaitavariant=\nicontheme=\ncursortheme=\n" +
   "desktoptheme=\nkvantumtheme=\nqt5ct=\nflatpak=\nflatpakgtk=\nflatpakicon=")
   val configLocation = getHome()+"/.config/Iris/"
   
