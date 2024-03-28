@@ -123,8 +123,9 @@ def libadwaitaReset() =
   val gtk4Folder = getHome()+"/.config/gtk-4.0/"
   if File(gtk4Folder).exists() == false then 
     File(gtk4Folder).mkdirs()
-  else 
-    List("rm", "-r", gtk4Folder).!<
+  else
+    //List("rm", "-r", gtk4Folder).!<
+    fileops.deleteDirectory(gtk4Folder)
     File(gtk4Folder).mkdirs()
     
 
