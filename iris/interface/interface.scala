@@ -140,6 +140,7 @@ def mainMenu(): Unit =
             mainMenu()
           else if flatpakgtk == "Empty" then
             replaceLine(confchange, themeLine, themeLine+"")
+            mainMenu()
             
           else
             replaceLine(confchange, themeLine, themeLine+flatpakgtk)
