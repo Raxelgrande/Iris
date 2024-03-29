@@ -26,8 +26,10 @@ def mainMenu(): Unit =
 
     case "Delete a Configuration" =>
       val conflist = chooseOption_astring(listOfConfigs(), "Select one of your configuration files to delete:")
+      if conflist == "" then
+        mainMenu()
       val warning = askPrompt(s"Are you sure you want to delete this configuration?" +
-        s"\n$conflist will be lost forever! (A long time!)")
+      s"\n$conflist will be lost forever! (A long time!)")
         if warning == true then 
           deleteConfig(conflist)
           mainMenu()

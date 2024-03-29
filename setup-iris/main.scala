@@ -15,10 +15,12 @@ import setup.dependencyInstall._
       sysUpdate()
     sysDependencies()
     if askPrompt("Would you like to enable the setup to theme flatpaks?" ) == true then
+      flathubInstall()
       installKvantumFlatpak()
       kvantumOverride()
       flatpakGtkOverride()
       flatpakIconOverride()
+    clear()  
     writeQtPlatform()
     pressToContinue("Due to how qt6ct and qt5ct works, we recommend that you launch them before creating a theme in Iris." +
       "\nIf you manually launch them and save the settings, we can use the generated config from the program to bring you better results" +

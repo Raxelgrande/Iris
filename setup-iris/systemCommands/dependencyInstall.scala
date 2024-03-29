@@ -48,6 +48,8 @@ def writeQtForceX11() = //for advanced settings, in cases were wayland QT has is
   etcEnvironment.write(qtX11)
   etcEnvironment.close()
 
+def flathubInstall() = List("flatpak", "remove-add", "--if-not-exists", "flathub", "https://dl.flathub.org/repo/flathub.flatpakrepo").!<
+
 def flatpakGtkOverride() = List("flatpak", "override", "--filesystem="+getHome()+"/.themes").!<
 def flatpakIconOverride() = List("flatpak", "override", "--filesystem="+getHome()+"/.icons").!<
 

@@ -182,7 +182,7 @@ def cinnamonCheckShell() = List("gsettings", "get", "org.cinnamon.theme", "name"
 def cinnamonSetGtk(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "gtk-theme", theme).!! 
 def cinnamonSetIcon(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "icon-theme", theme).!!
 def cinnamonSetCursor(theme: String) = List("gsettings", "set", "org.cinnamon.desktop.interface", "cursor-theme", theme).!!
-def cinnamonSetShell(theme: String) = List("gsettings", "set", "org.cinnamon.theme", theme).!!
+def cinnamonSetShell(theme: String) = List("gsettings", "set", "org.cinnamon.theme", "name", theme).!!
 
 // XFCE theme checking
 def xfceCheckGtk() = List("xfconf-query", "-v", "-c", "xsettings", "-p", "/Net/ThemeName").!!
