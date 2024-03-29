@@ -132,17 +132,21 @@ def mainMenu(): Unit =
             mainMenu()
         
         case "Flatpak GTK Theme" =>
-          val flatpakgtk = chooseOption_string(gtkList(), "Select a GTK Theme to apply in Flatpaks:")
+          val flatpakgtk = chooseOption_string(gtkFlatpakList(), "Select a GTK Theme to apply in Flatpaks:" +
+          "\nIf you are planning in using the default Libadwaita/GTK 4 theme, please select: Empty")
           if flatpakgtk == "" then
             pressToContinue(foreground("red")+"Warning!!!" +
               "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
             mainMenu()
-          else 
+          else if flatpakgtk == "Empty" then
+            replaceLine(confchange, themeLine, themeLine+"")
+            
+          else
             replaceLine(confchange, themeLine, themeLine+flatpakgtk)
             mainMenu()
 
         case "Flatpak Icon Theme" =>
-          val flatpakicon = chooseOption_string(iconList(), "Select an Icon Theme to apply in Flatpaks." +
+          val flatpakicon = chooseOption_string(iconUserList(), "Select an Icon Theme to apply in Flatpaks." +
             "\nWarning! We can't separate Icons from Cursors, make sure you pick the right option, check in your desktop's GUI first!")
           if flatpakicon == "" then
             pressToContinue(foreground("red")+"Warning!!!" +

@@ -59,6 +59,9 @@ def gtkSudoList(): List[String] =
 def gtkGnomeList(): List[String] =
   gtkList().appended("Default")
 
+def gtkFlatpakList(): List[String] =
+  gtkList().appended("Empty")
+
 def gtkLibadwaitaList(): List[String] =
   gtkList().appended("ResetTheme")
 
@@ -156,6 +159,29 @@ def iconList() =
       else List()
   ul ++ sl
 
+def iconUserList() =
+  val homeIconLoc = getHome()+"/.icons"
+  
+  val userList = File(homeIconLoc).list()
+  
+  val ul =
+    if userList != null then
+      userList
+      .filter(x => File(s"$homeIconLoc/$x").isDirectory())
+      .toList
+      else List()
+  ul
+
+def iconSudoList() =
+  val sudoList = File("/usr/share/icons/").list()
+
+  val sl =
+    if sudoList != null then 
+      sudoList
+      .filter(x => File(s"/usr/share/icons/$x").isDirectory())
+      .toList
+      else List()
+  sl
 
 // GNOME & Budgie theme checking
 def gnBgCheckGtk() = List("gsettings", "get", "org.gnome.desktop.interface", "gtk-theme").!!
@@ -257,6 +283,9 @@ def kvantumThemeVariant(title: String, foundvariant: String) =
 
 def kvantumSetTheme(theme: String) = 
   List("kvantummanager", "--set", theme).!!
+
+def kvantumOverride() = List("flatpak", "override", "--filesystem=xdg-config/Kvantum:ro").!<
+
 
 def qt5createConf() =
   val configLocation = getHome()+"/.config/qt5ct/"  
