@@ -15,7 +15,7 @@ def mainMenu(): Unit =
 
       
 
-  val home = chooseOption_string(Seq("Create a Configuration", "Load a Configuration", "Modify Configurations"), "Welcome to Iris!\nPlease select an option:")
+  val home = chooseOption_string(Seq("Create a Configuration", "Delete a Configuration", "Load a Configuration", "Modify Configurations"), "Welcome to Iris!\nPlease select an option:")
   if home == "" then
     System.exit(0)
   
@@ -23,6 +23,16 @@ def mainMenu(): Unit =
     case "Create a Configuration" =>
       createConfig(create(listOfConfigs()))
       mainMenu()
+
+    case "Delete a Configuration" =>
+      val conflist = chooseOption_astring(listOfConfigs(), "Select one of your configuration files to delete:")
+      val warning = askPrompt(s"Are you sure you want to delete this configuration?" +
+        s"\n$conflist will be lost forever! (A long time!)")
+        if warning == true then 
+          deleteConfig(conflist)
+          mainMenu()
+        else 
+          mainMenu()
     
     case "Load a Configuration" =>
       val conflist = chooseOption_astring(listOfConfigs(), "Select one of your configuration files to load:")
@@ -43,7 +53,7 @@ def mainMenu(): Unit =
         replaceLine(confchange, "desktop_environment=", "desktop_environment="+selectedDesktop)
       
       val themeList = chooseOption_string(List("Cursor Theme", "Desktop Environment", "Desktop Theme","Flatpak", "Flatpak GTK Theme", 
-      "Flatpak Icon Theme", "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme"), "Select a value to modify:"+
+      "Flatpak Icon Theme", "Full QT Theming", "GTK Theme", "Icon Theme", "Kvantum Theme", "Libadwaita/GTK4 Theme", "Libadwaita Colorscheme"), "Select a value to modify:"+
       s"\nYour currently selected configuration is $confchangeColor")
 
       if themeList == "" then
@@ -62,6 +72,7 @@ def mainMenu(): Unit =
         case "Icon Theme" => "icontheme="
         case "Kvantum Theme" => "kvantumtheme="
         case "Libadwaita/GTK4 Theme" => "libadwaita="
+        case "Libadwaita Colorscheme" => "libadwaitavariant="
   
 
 
@@ -187,10 +198,8 @@ def mainMenu(): Unit =
           val libadwaitatheme = chooseOption_string(gtkLibadwaitaList(), "Select a GTK Theme to apply in Libadwaita/GTK4 programs." +
             "\nWe recommend that you use the same Theme you selected in GTK Theme for optimal results." +
             "\nNot all GTK Themes support GTK 4, if you see a broken GUI please change it to something supported" +
-            "\nIn case you don't want to theme GTK 4 or use the default theme, select: ResetTheme")
-          if libadwaitatheme == "ResetTheme" then 
-            val variant = chooseOption_string(libadwaitaVariant(), "GTK 4 has two default themes, light and dark, select one to use.")
-            replaceLine(confchange, "libadwaitavariant=", "libadwaitavaraint="+variant)
+            "\nIn case you don't want to theme GTK 4 or use the default theme, select: ResetTheme" +
+            "\nIt's important that if you select ResetTheme, that you later specify what color variant you want to use in: Libadwaita Colorscheme")
           if libadwaitatheme == "" then
             pressToContinue(foreground("red")+"Warning!!!" +
               "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
@@ -198,6 +207,19 @@ def mainMenu(): Unit =
           else 
             replaceLine(confchange, themeLine, themeLine+libadwaitatheme)
             mainMenu()
+
+        case "Libadwaita Colorscheme" =>
+            val variant = chooseOption_string(libadwaitaVariant(), "Libadwaita/GTK 4 has two default theme variants, light and dark, select one to use." +
+              "\nEven if you don't plan in using the default variants as themes, it's important that you select one so that certain programs like" +
+              "\nDiscord or Vscode's automatic theme following works properly, this setting tells the system what kind of theme to expect." +
+              "\nEither a light variant or a dark one.")
+            if variant == "" then 
+              pressToContinue(foreground("red")+"Warning!!!" +
+              "\nBefore loading this configuration, please select one of the available themes, Iris will malfunction without a value."+foreground("default"))
+              mainMenu()
+            else
+              replaceLine(confchange, themeLine, themeLine+variant)
+              mainMenu()
       
 
       

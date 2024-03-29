@@ -80,6 +80,7 @@ def loadConfig(filename: String) =
         libadwaitaWriteVariant(checkLibadwaitaVariant)
       else 
         libadwaitaSymlink(checkLibadwaita)
+        libadwaitaWriteVariant(checkLibadwaitaVariant)
       gnomeSetShell(checkDesktopTheme)
       gnBgSetIcon(checkIcon)
       gnBgSetCursor(checkCursor)
@@ -91,6 +92,7 @@ def loadConfig(filename: String) =
         libadwaitaWriteVariant(checkLibadwaitaVariant)
       else 
         libadwaitaSymlink(checkLibadwaita)
+        libadwaitaWriteVariant(checkLibadwaitaVariant)
       gnBgSetIcon(checkIcon)
       gnBgSetCursor(checkCursor)
       
@@ -102,6 +104,7 @@ def loadConfig(filename: String) =
         libadwaitaWriteVariant(checkLibadwaitaVariant)
       else 
         libadwaitaSymlink(checkLibadwaita)
+        libadwaitaWriteVariant(checkLibadwaitaVariant)
       cinnamonSetIcon(checkIcon)
       cinnamonSetCursor(checkCursor)
       
@@ -114,6 +117,7 @@ def loadConfig(filename: String) =
         libadwaitaWriteVariant(checkLibadwaitaVariant)
       else 
         libadwaitaSymlink(checkLibadwaita)
+        libadwaitaWriteVariant(checkLibadwaitaVariant)
       xfceSetIcon(checkIcon)
       xfceSetCursor(checkCursor)
       
@@ -163,6 +167,13 @@ def replaceLine(confname: String, line: String, newvalue: String) = //newvalue i
     val writer = FileWriter( File(configLocation+confname))
     writer.write(replace)
     writer.close()
+
+def deleteConfig(confname: String) =
+  val configLocation = getHome()+"/.config/Iris/"+confname 
+  if File(configLocation).exists() then 
+    File(configLocation).delete()
+  else 
+    pressToContinue(s"The configuration $confname doesn't exist.")
 
 def getHome() = System.getProperty("user.home")
 //outdated, will have to rewrite some tui functions first
