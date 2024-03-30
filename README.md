@@ -17,6 +17,13 @@ For frequently updated themes that support all of the theming features in Iris, 
 - No hassle QT theming using Kvantum, combined with the power of qtXct to allow things like changing QT's icon theme
 - Flatpak support for the features mentioned above (GTK3/4, Libadwaita and Kvantum)
 
+Video showcasing Iris applying a configuration with the Vimix Jade Theme by VinceLiuice
+
+
+https://github.com/Raxelgrande/Iris/assets/93939943/57324eb5-f219-481e-a724-6b3debc60a48
+
+
+
 # Requirements & how to use
 Iris requires the following to work:
 - Scala 3 or Java 11 (GraalVM to compile a native binary)
