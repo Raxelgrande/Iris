@@ -35,18 +35,22 @@ def writePapirusPPA() =
   repolist.write(repo)
   repolist.close()
 
-def etcEnvironment = FileOutputStream("/etc/environment", true)
+def FOSetcEnvironment = FileOutputStream("/etc/environment", true)
+def linesEtcEnvironment = Source.fromFile("/etc/environment").getLines()
 
 def writeQtPlatform() =
   val qtPlatform = "QT_QPA_PLATFORMTHEME=qt5ct".getBytes()
-  etcEnvironment.write(qtPlatform)
-  etcEnvironment.close()
+  if linesEtcEnvironment.contains("QT_QPA_PLATFORMTHEME=qt5ct") then 
+    pressToContinue("The Qt override we use, (QT_QPA_PLATFORMTHEME=qt5ct), is already configured")
+  else
+    FOSetcEnvironment.write(qtPlatform)
+    FOSetcEnvironment.close()
   
 
 def writeQtForceX11() = //for advanced settings, in cases were wayland QT has issues
   val qtX11 = "QT_QPA_PLATFORM=xcb".getBytes()
-  etcEnvironment.write(qtX11)
-  etcEnvironment.close()
+  FOSetcEnvironment.write(qtX11)
+  FOSetcEnvironment.close()
 
 def flathubInstall() = List("flatpak", "remote-add", "--if-not-exists", "flathub", "https://dl.flathub.org/repo/flathub.flatpakrepo").!<
 
