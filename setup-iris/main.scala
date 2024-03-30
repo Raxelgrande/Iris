@@ -27,3 +27,7 @@ import setup.dependencyInstall._
       "\nIf you manually launch them and save the settings, we can use the generated config from the program to bring you better results" +
       "\nThis is especially important if you want a consistent font in QT programs." +
       "\nDue to how fonts work in Linux we can't automatically use your font in our theme automation, otherwise we would.")
+    clear()
+    pressToContinue("One thing, you will notice another program alongside Iris' main executable." +
+      "\nThe program Misc contains some flatpak overrides we couldn't implement here due to how the Sudo/Root account works" +
+      "\nPlease launch it after this if you are planning on using Flatpaks.")

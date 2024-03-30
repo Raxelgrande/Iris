@@ -8,4 +8,4 @@ import scala.sys.process._
   def flatpakIconOverride() = List("sudo", "flatpak", "override", "--filesystem="+getHome()+"/.icons").!<
 
   flatpakIconOverride()
-  flatpakIconOverride()
+  flatpakGtkOverride()
