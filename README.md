@@ -47,6 +47,9 @@ java -jar iris-java.jar CONFIG-NAME
 # Download
 You can find the newest Iris release [here](https://github.com/Raxelgrande/Iris/releases)
 
+# Documentation
+Documentation is being written, please wait warmly.
+
 # Compile from source
 You need Scala 3 to build Iris from source. You can use the scalac compiler or scala-cli.
 Please check out the build scripts (.sh) in the directory tree, these have the arguments needed to compile Iris and produce: Scala 3 jar, Java jar, Native binary. 
