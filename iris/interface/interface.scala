@@ -13,8 +13,6 @@ def mainMenu(): Unit =
     else
       confname
 
-      
-
   val home = chooseOption_string(Seq("Create a Configuration", "Delete a Configuration", "Load a Configuration", "Modify Configurations"), "Welcome to Iris!\nPlease select an option:")
   if home == "" then
     System.exit(0)
