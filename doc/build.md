@@ -56,22 +56,3 @@ If you want to include all dependencies in your bootstrap and only rely on Java,
 scala-cli --power package iris lib --assembly -o iris.jar
 scala-cli --power package setup-iris lib --assembly -o setup-iris.jar
 ```
-
-# Building a native binary
-
-You can build a native binary executable for your operating system and architecture. You can use GraalVM or Scala-native.
-
-For GraalVM:
-
-```
-scala-cli --power package iris lib --native-image -o iris.jar
-scala-cli --power package setup-iris lib --native-image -o setup-iris.jar
-```
-GraalVM only works on Windows, MacOS and Linux systems as of now.
-
-You can also use scala-native to build a binary executable, but you need to manually install the build dependencies it requires.
-
-```
-scala-cli --power package iris lib --native -o iris.jar
-scala-cli --power package setup-iris lib --native -o setup-iris.jar
-```
