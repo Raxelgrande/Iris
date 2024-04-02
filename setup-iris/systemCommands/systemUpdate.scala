@@ -23,7 +23,8 @@ def sysDependencies() =
     case "apt" => aptWho()
     case "dnf" => dnfDependency()
     case "zypper" => zypDependency()
-    case _ => unknownSystem("Dependencies. Check documentation at TODO DOC SITE")
+    case _ => unknownSystem("Please install the dependencies required for Iris to work, check them at:" +
+      "\nhttps://github.com/Raxelgrande/Iris")
   
 
 def installKvantumFlatpak() =
