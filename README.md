@@ -9,7 +9,7 @@ For frequently updated themes that support all of the theming features in Iris, 
 - First run interactive configurator that intelligently installs dependencies and sets up your system for theming
 - Easy to use, make and edit configuration files to save your theming settings
 - BananaTUI library for a simple but intuitive interface
-- Apply all theming settings at once (allowing for a one-click, change how all GUIs look at once)
+- Apply all theming settings at once (allowing for a one-button, change how all GUIs look at once)
 - Quicklaunch of your theming configuration file (also allowing basic automation by using third party tools like cron)
 - No hassle Libadwaita/GTK4 theming (so easy, it's easy to break by using themes that lack Libadwaita support, also enables fast testing for theme developers)
 - Set Desktop Environment theme (currently supports Budgie, Cinnamon, GNOME, Xfce)
