@@ -4,6 +4,7 @@
 *.class
 *.jar
 .metals
+*.tar.gz
 metals.*
 scala-cli.json
 .scala-build
