@@ -58,6 +58,6 @@ You can find the newest Iris release [here](https://github.com/Raxelgrande/Iris/
 Documentation is being written, please wait warmly.
 
 # Compile from source
-You need Scala 3 to build Iris from source, and you can either use Scala-CLI or the scala compiler directly.
+You need Scala 3 to build Iris from source, and you can either use Scala-CLI or the Scala compiler directly.
 
 [Building documentation](/doc/build.md)
