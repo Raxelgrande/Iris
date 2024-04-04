@@ -26,7 +26,7 @@ https://github.com/Raxelgrande/Iris/assets/93939943/57324eb5-f219-481e-a724-6b3d
 
 # Requirements & how to use
 Iris requires the following to work:
-- Scala 3 or Java 11 (GraalVM to compile a native binary)
+- Scala 3 or Java 11
 - Linux-based system
 - Filesystem Hierarchy Standard support (only mayor distribution affected is NixOS)
 - Systemd (optional, for distro detection)
