@@ -61,3 +61,7 @@ Documentation is being written, please wait warmly.
 You need Scala 3 to build Iris from source, and you can either use Scala-CLI or the Scala compiler directly.
 
 [Building documentation](/doc/build.md)
+
+# Thank you & Contributors
+- [Space Banana](https://github.com/spacebanana420)
+For helping me understand Scala's quirks, coding the harder parts of Iris, adding his libraries and more.
