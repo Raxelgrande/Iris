@@ -22,13 +22,13 @@ def gtkList(): List[String] =
       userList
       .filter(x => File(s"$homeThemeLoc/$x").isDirectory())
       .toList //todo: make a readLoop_list alternative for arrays so you avoid this slow conversion
-      else List()
+    else List()
   val sl =
     if sudoList != null then
       sudoList
       .filter(x => File(s"/usr/share/themes/$x").isDirectory())
       .toList
-      else List()
+    else List()
   //the tolist and filter also crash this fucker if the bitch array is null so i moved it here
   ul ++ sl
 
