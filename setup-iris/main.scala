@@ -1,3 +1,4 @@
+package setup.setup
 import bananatui.*
 import bananacmd.isProgramRoot
 import setup.distroFinder._
