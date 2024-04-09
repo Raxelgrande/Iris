@@ -99,6 +99,7 @@ def loadConfig(filename: String) =
     
     case "Cinnamon" =>
       cinnamonSetGtk(checkGtk)
+      cinnamonSetShell(checkDesktopTheme)
       if checkLibadwaita == "ResetTheme" then 
         libadwaitaReset()
         libadwaitaWriteVariant(checkLibadwaitaVariant)
