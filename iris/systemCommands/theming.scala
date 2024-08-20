@@ -68,6 +68,9 @@ def gtkLibadwaitaList(): List[String] =
 def libadwaitaWriteVariant(variant: String) = //variants can be prefer-dark, prefer-light
   List("gsettings", "set", "org.gnome.desktop.interface", "color-scheme", variant).!<
 
+def libadwaitaCinnamonWriteVariant(variant: String) =
+  List("gsettings", "set", "org.x.apps.portal", "color-scheme", variant).!<
+
 def libadwaitaVariant(): List[String] = List("prefer-dark", "prefer-light")
 
 def libadwaitaSymlink(activeTheme: String) = //for applying a theme, not for enabling the configuration

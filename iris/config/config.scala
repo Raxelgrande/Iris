@@ -106,6 +106,7 @@ def loadConfig(filename: String) =
       else 
         libadwaitaSymlink(checkLibadwaita)
         libadwaitaWriteVariant(checkLibadwaitaVariant)
+        libadwaitaCinnamonWriteVariant(checkLibadwaitaVariant)
       cinnamonSetIcon(checkIcon)
       cinnamonSetCursor(checkCursor)
       
